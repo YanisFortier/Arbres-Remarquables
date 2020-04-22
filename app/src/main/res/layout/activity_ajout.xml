@@ -226,7 +226,7 @@
                 android:id="@+id/cbPic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Un pic vert,noir,..." />
+                android:text="Un pic vert, noir, ..." />
 
             <CheckBox
                 android:id="@+id/cbAutreBiodiversite"
