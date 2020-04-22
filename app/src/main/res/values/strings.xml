@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">Arbres Remarquables</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="title_activity_questionnaire">Questionnaire</string>
-
+    <string name="title_activity_maps">Arbres Remarquables</string>
 </resources>
