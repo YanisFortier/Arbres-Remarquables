@@ -156,7 +156,7 @@
                 android:id="@+id/cbAnciennete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Son ancienneté(plus de 50 ans)" />
+                android:text="Son ancienneté (plus de 50 ans)" />
 
             <CheckBox
                 android:id="@+id/cbRarete"
