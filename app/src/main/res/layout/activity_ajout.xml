@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enregistrement d'un arbre"
-        />
+        android:textSize="20sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -89,12 +87,6 @@
                 android:inputType="textPersonName"
                 />
 
-            <TextView
-                android:id="@+id/tvAdresseArbre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Adresse de l'arbre (obligatoire)" />
-
             <EditText
                 android:id="@+id/etAdresseArbre"
                 android:layout_width="match_parent"
@@ -113,6 +105,12 @@
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvAdresseArbre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Adresse de l'arbre (obligatoire)" />
 
                 <RadioButton
                     android:id="@+id/rbEspacePublic"
@@ -326,7 +324,17 @@
                 android:layout_below="@+id/lvcontainer"
                 android:layout_weight="7"></ListView>
 
+
+            <ru.dimorinny.floatingtextbutton.FloatingTextButton
+                android:id="@+id/action_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:floating_background_color="#4287f5"
+                app:floating_left_icon="@drawable/ic_launcher_foreground"
+                app:floating_title="Salut"
+                app:floating_title_color="@android:color/white" />
         </LinearLayout>
+
     </ScrollView>
 
 

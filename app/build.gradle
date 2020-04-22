@@ -33,4 +33,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.github.dimorinny:floating-text-button:0.0.4'
 }

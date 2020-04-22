@@ -10,4 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ru.dimorinny.floatingtextbutton.FloatingTextButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:floating_background_color="#4287f5"
+            app:floating_title="  Ajouter un arbre seul  "
+            app:floating_title_color="@android:color/white" />
+
+        <ru.dimorinny.floatingtextbutton.FloatingTextButton
+            android:id="@+id/floatingTxtBtnAlignement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:floating_background_color="#4287f5"
+            app:floating_title=" Ajouter un alignement "
+            app:floating_title_color="@android:color/white" />
+
+        <ru.dimorinny.floatingtextbutton.FloatingTextButton
+            android:id="@+id/floatingTxtBtnEspaceBoise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:floating_background_color="#4287f5"
+            app:floating_title="Ajouter un espace boisé"
+            app:floating_title_color="@android:color/white" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
