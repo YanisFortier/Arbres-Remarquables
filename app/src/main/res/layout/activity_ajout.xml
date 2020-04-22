@@ -49,9 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="e-mail"
-                />
+                android:hint="E-mail"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/tvNomArbre"
@@ -119,7 +118,7 @@
                     android:id="@+id/rbEspacePublic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="un espace public" />
+                    android:text="Un espace public" />
 
                 <RadioButton
                     android:id="@+id/rbEspacePrive"
@@ -140,41 +139,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Remarquable" />
+
             <CheckBox
                 android:id="@+id/cbHauteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="sa hauteur" />
+                android:text="Sa hauteur" />
 
             <CheckBox
                 android:id="@+id/cbImposant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="il est imposant" />
+                android:text="Il est imposant" />
 
             <CheckBox
                 android:id="@+id/cbAnciennete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="son ancienneté(plus de 50 ans)" />
+                android:text="Son ancienneté(plus de 50 ans)" />
 
             <CheckBox
                 android:id="@+id/cbRarete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="sa rareté a Angers" />
+                android:text="Sa rareté a Angers" />
 
             <CheckBox
                 android:id="@+id/cbMarquant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="marquant dans le paysage" />
+                android:text="Marquant dans le paysage" />
 
             <CheckBox
                 android:id="@+id/cbValeurMutuelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="la mise en valeur mutuelle bati-végétal" />
+                android:text="La mise en valeur mutuelle bati-végétal" />
 
             <CheckBox
                 android:id="@+id/cbAutreRemarquable"
@@ -202,31 +202,31 @@
                 android:id="@+id/cbEcureuil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="un écureuil roux" />
+                android:text="Un écureuil roux" />
 
             <CheckBox
                 android:id="@+id/cbChauveSouris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="une chauve-souris" />
+                android:text="Une chauve-souris" />
 
             <CheckBox
                 android:id="@+id/cbCapricorne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="un capricorne" />
+                android:text="Un capricorne" />
 
             <CheckBox
                 android:id="@+id/cbChouette"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="une chouette hulotte" />
+                android:text="Une chouette hulotte" />
 
             <CheckBox
                 android:id="@+id/cbPic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="un pic vert,noir,..." />
+                android:text="Un pic vert,noir,..." />
 
             <CheckBox
                 android:id="@+id/cbAutreBiodiversite"
@@ -302,13 +302,13 @@
                     android:id="@+id/rbInfosOui"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="oui" />
+                    android:text="Oui" />
 
                 <RadioButton
                     android:id="@+id/rbInfosNon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="non" />
+                    android:text="Non" />
             </RadioGroup>
 
             <Button
