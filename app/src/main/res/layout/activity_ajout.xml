@@ -162,7 +162,7 @@
                 android:id="@+id/cbRarete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sa rareté a Angers" />
+                android:text="Sa rareté à Angers" />
 
             <CheckBox
                 android:id="@+id/cbMarquant"
