@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class FirstFragment extends Fragment {
+public class MapViewFragment extends Fragment {
     private MapView mapView;
 
     @Override
