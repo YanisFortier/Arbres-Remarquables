@@ -18,7 +18,12 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +36,10 @@ public class AjoutPhoto extends AppCompatActivity {
     String currentPath;
     ImageView ivPhoto;
     Button btTakePhoto, btKeepPhoto;
+    RadioButton rbYes, rbNo;
+    LinearLayout radioGroup;
+    TextView ask;
+    float longitude,latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,10 @@ public class AjoutPhoto extends AppCompatActivity {
         ivPhoto = findViewById(R.id.ivPhotoImage);
         btTakePhoto = findViewById(R.id.btPhotoTake);
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
+        radioGroup = findViewById(R.id.radioButtons);
+        ask = findViewById(R.id.textAsk);
+        rbYes = findViewById(R.id.rdButOui);
+        rbNo = findViewById(R.id.rdButNon);
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -128,27 +141,45 @@ public class AjoutPhoto extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
         btKeepPhoto.setVisibility(View.VISIBLE);
+        radioGroup.setVisibility(View.VISIBLE);
+        ask.setVisibility(View.VISIBLE);
     }
 
     public void goToAjout(View view){
+        Intent i = getIntent();
+        longitude = i.getFloatExtra("longitude",longitude);
+        latitude = i.getFloatExtra("latitude",latitude);
         switch (getIntent().getStringExtra("type")){
             case "arbre":
                 Intent ajout = new Intent(getApplicationContext(),AjoutArbre.class);
                 ajout.putExtra("photo",currentPath);
+                if(rbYes.isChecked()){
+                    ajout.putExtra("longitude",longitude);
+                    ajout.putExtra("latitude",latitude);
+                }
                 startActivity(ajout);
                 break;
             case "alignement":
                 Intent ajout2 = new Intent(getApplicationContext(),AjoutAlignement.class);
                 ajout2.putExtra("photo",currentPath);
+                if(rbYes.isChecked()){
+                    ajout2.putExtra("longitude",longitude);
+                    ajout2.putExtra("latitude",latitude);
+                }
                 startActivity(ajout2);
                 break;
             case "espace":
                 Intent ajout3 = new Intent(getApplicationContext(),AjoutEspaceBoise.class);
                 ajout3.putExtra("photo",currentPath);
+                if(rbYes.isChecked()){
+                    ajout3.putExtra("longitude",longitude);
+                    ajout3.putExtra("latitude",latitude);
+                }
                 startActivity(ajout3);
                 break;
         }
     }
+
 
 
 }

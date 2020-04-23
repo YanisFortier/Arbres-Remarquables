@@ -32,5 +32,45 @@
             android:text="@string/bt_keep_photo"
             android:visibility="invisible"
             android:onClick="goToAjout"/>
+
+        <TextView
+            android:id="@+id/textAsk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ask_geolocalisation"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+        <LinearLayout
+            android:id="@+id/radioButtons"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:visibility="invisible"> <!-- to show what the parent is -->
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rdButOui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Oui"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rdButNon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Non" />
+            </RadioGroup>
+
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
