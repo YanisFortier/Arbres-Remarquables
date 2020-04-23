@@ -49,8 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Boutons
         FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
-        FloatingTextButton btnAlignement = findViewById(R.id.floatingTxtBtnAlignement);
-        FloatingTextButton btnEspaceBoise = findViewById(R.id.floatingTxtBtnEspaceBoise);
+        FloatingTextButton btnYanis = findViewById(R.id.floatingTxtBtnYanis);
 
         // Permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -77,24 +76,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        btnAlignement.setOnClickListener(new View.OnClickListener() {
+        btnYanis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
-                intent.putExtra("type","alignement");
-                intent.putExtra("longitude",mCurrentLocation.getLongitude());
-                intent.putExtra("latitude",mCurrentLocation.getLatitude());
-                startActivity(intent);
-            }
-        });
-
-        btnEspaceBoise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
-                intent.putExtra("type","espace");
-                intent.putExtra("longitude",mCurrentLocation.getLongitude());
-                intent.putExtra("latitude",mCurrentLocation.getLatitude());
+                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
                 startActivity(intent);
             }
         });
