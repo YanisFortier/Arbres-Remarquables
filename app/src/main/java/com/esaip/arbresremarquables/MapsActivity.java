@@ -22,12 +22,11 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    //Variables static
+
     private static LatLngBounds FranceMetroBounds = new LatLngBounds(
             new LatLng(42.6965954131, -4.32784220122),
             new LatLng(50.4644483399, 7.38468690323)
     );
-
 
     //Location
     private GoogleMap mMap;
@@ -38,8 +37,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-
 
         //Boutons
         FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
