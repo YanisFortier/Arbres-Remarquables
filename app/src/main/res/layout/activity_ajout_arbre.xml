@@ -88,11 +88,28 @@
                     android:layout_gravity="center"
                     android:text="@string/nom_arbre" />
 
-                <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:textAlignment="center"
-                    android:entries="@array/arbres" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerNomArbre"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:entries="@array/arbres"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/editTextNomArbre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="Veuillez indiquer le nom"
+                        android:inputType="text"
+                        android:visibility="gone" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -159,7 +176,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/latInfo"
+                    android:id="@+id/editTextLatitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -172,7 +189,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/longInfo"
+                    android:id="@+id/editTextLongitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -222,8 +239,8 @@
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:textAlignment="center"
-                    android:entries="@array/espace" />
+                    android:entries="@array/espace"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -460,10 +477,10 @@
             </LinearLayout>
 
             <Button
-                android:layout_margin="15dp"
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:text="Valider" />
