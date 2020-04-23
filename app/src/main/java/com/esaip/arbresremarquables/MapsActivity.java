@@ -99,7 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(pos1).title("New Point").icon(BitmapDescriptorFactory.fromResource(R.drawable.arbre)));
     }
 
-    private void getLocation(){
+    public void getLocation(){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED

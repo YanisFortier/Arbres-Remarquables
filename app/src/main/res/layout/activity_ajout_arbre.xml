@@ -159,6 +159,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/latInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -171,6 +172,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/longInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

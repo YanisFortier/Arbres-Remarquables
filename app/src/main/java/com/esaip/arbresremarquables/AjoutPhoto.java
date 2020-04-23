@@ -148,14 +148,11 @@ public class AjoutPhoto extends AppCompatActivity {
 
     public void goToAjout(View view){
         Intent i = getIntent();
-        longitude = i.getFloatExtra("longitude",longitude);
-        latitude = i.getFloatExtra("latitude",latitude);
         if(rbType1.isChecked()) {
             Intent ajout = new Intent(getApplicationContext(), AjoutArbre.class);
             ajout.putExtra("photo", currentPath);
             if (rbYes.isChecked()) {
-                ajout.putExtra("longitude", longitude);
-                ajout.putExtra("latitude", latitude);
+                ajout.putExtra("geolocalisation",true);
             }
             startActivity(ajout);
         }
@@ -163,8 +160,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Intent ajout2 = new Intent(getApplicationContext(), AjoutAlignement.class);
             ajout2.putExtra("photo", currentPath);
             if (rbYes.isChecked()) {
-                ajout2.putExtra("longitude", longitude);
-                ajout2.putExtra("latitude", latitude);
+                ajout2.putExtra("geolocalisation",true);
             }
             startActivity(ajout2);
         }
@@ -172,8 +168,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Intent ajout3 = new Intent(getApplicationContext(),AjoutEspaceBoise.class);
             ajout3.putExtra("photo",currentPath);
             if(rbYes.isChecked()){
-                ajout3.putExtra("longitude",longitude);
-                ajout3.putExtra("latitude",latitude);
+                ajout3.putExtra("geolocalisation",true);
             }
             startActivity(ajout3);
         }
