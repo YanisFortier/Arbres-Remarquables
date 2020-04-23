@@ -27,7 +27,7 @@
             android:id="@+id/floatingTxtBtnArbre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:floating_background_color="#4287f5"
+            app:floating_background_color="@color/colorPrimaryDark"
             app:floating_title="  Ajouter un arbre seul  "
             app:floating_title_color="@android:color/white"/>
 
@@ -35,7 +35,7 @@
             android:id="@+id/floatingTxtBtnAlignement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:floating_background_color="#4287f5"
+            app:floating_background_color="@color/colorPrimaryDark"
             app:floating_title=" Ajouter un alignement "
             app:floating_title_color="@android:color/white"/>
 
@@ -43,7 +43,7 @@
             android:id="@+id/floatingTxtBtnEspaceBoise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:floating_background_color="#4287f5"
+            app:floating_background_color="@color/colorPrimaryDark"
             app:floating_title="Ajouter un espace boisé"
             app:floating_title_color="@android:color/white"/>
 

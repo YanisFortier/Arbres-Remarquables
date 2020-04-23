@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
                 intent.putExtra("type","arbre");
                 intent.putExtra("longitude",mCurrentLocation.getLongitude());
                 intent.putExtra("latitude",mCurrentLocation.getLatitude());
@@ -104,7 +104,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
-        //mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {

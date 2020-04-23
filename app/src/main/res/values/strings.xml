@@ -6,5 +6,33 @@
     <string name="bt_keep_photo">Garder cette photo et continuer</string>
     <string name="no_camera">Pas de camera disponible</string>
     <string name="no_camera_permission">Permissions insuffisantes</string>
-    <string name="ask_geolocalisation">Êtes-vous à côté de l\'arbre ?</string>
+
+    <string-array name="arbres">
+        <item>Cèdre</item>
+        <item>Châtaignier</item>
+        <item>Chêne</item>
+        <item>Érable</item>
+        <item>Frêne</item>
+        <item>Hêtre</item>
+        <item>Magnolia</item>
+        <item>Marronnier</item>
+        <item>Peuplier</item>
+        <item>Pin</item>
+        <item>Platane</item>
+        <item>Séquoia</item>
+        <item>Tilleul</item>
+        <item>Autre</item>
+    </string-array>
+
+    <string-array name="espace">
+        <item>Un espace public</item>
+        <item>Un espace privé</item>
+        <item>Je ne sais pas</item>
+    </string-array>
+
+    <string-array name="remarquabilite">
+        <item>Notoire, un repère à l\'échelle de votre quartier</item>
+        <item>Remarquable ou majestueux </item>
+        <item>Très remarquable ou exceptionnel </item>
+    </string-array>
 </resources>
