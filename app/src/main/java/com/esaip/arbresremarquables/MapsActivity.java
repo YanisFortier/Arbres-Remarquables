@@ -50,7 +50,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void ajouterArbre(View view) {
-
+        Intent intent = new Intent(this, AjoutArbre.class);
+        startActivity(intent);
     }
 
     public void ajouterAlignement(View view) {
