@@ -68,8 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
-                intent.putExtra("type","arbre");
+                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
                 intent.putExtra("longitude",mCurrentLocation.getLongitude());
                 intent.putExtra("latitude",mCurrentLocation.getLatitude());
                 startActivity(intent);

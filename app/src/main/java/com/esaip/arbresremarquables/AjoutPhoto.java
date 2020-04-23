@@ -8,6 +8,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -33,12 +34,12 @@ import java.util.Date;
 public class AjoutPhoto extends AppCompatActivity {
 
     static final int REQUEST_TAKE_PHOTO = 71;
+    private static final int GALLERY_REQUEST_CODE = 2;
     String currentPath;
     ImageView ivPhoto;
     Button btTakePhoto, btKeepPhoto;
-    RadioButton rbYes, rbNo;
-    LinearLayout radioGroup;
-    TextView ask;
+    RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
+    LinearLayout infos;
     float longitude,latitude;
 
     @Override
@@ -48,10 +49,12 @@ public class AjoutPhoto extends AppCompatActivity {
         ivPhoto = findViewById(R.id.ivPhotoImage);
         btTakePhoto = findViewById(R.id.btPhotoTake);
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
-        radioGroup = findViewById(R.id.radioButtons);
-        ask = findViewById(R.id.textAsk);
+        infos = findViewById(R.id.infos);
         rbYes = findViewById(R.id.rdButOui);
         rbNo = findViewById(R.id.rdButNon);
+        rbType1 = findViewById(R.id.arbres);
+        rbType2 = findViewById(R.id.alignement);
+        rbType3 = findViewById(R.id.espaceBoise);
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -140,46 +143,39 @@ public class AjoutPhoto extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
-        btKeepPhoto.setVisibility(View.VISIBLE);
-        radioGroup.setVisibility(View.VISIBLE);
-        ask.setVisibility(View.VISIBLE);
+        infos.setVisibility(View.VISIBLE);
     }
 
     public void goToAjout(View view){
         Intent i = getIntent();
         longitude = i.getFloatExtra("longitude",longitude);
         latitude = i.getFloatExtra("latitude",latitude);
-        switch (getIntent().getStringExtra("type")){
-            case "arbre":
-                Intent ajout = new Intent(getApplicationContext(),AjoutArbre.class);
-                ajout.putExtra("photo",currentPath);
-                if(rbYes.isChecked()){
-                    ajout.putExtra("longitude",longitude);
-                    ajout.putExtra("latitude",latitude);
-                }
-                startActivity(ajout);
-                break;
-            case "alignement":
-                Intent ajout2 = new Intent(getApplicationContext(),AjoutAlignement.class);
-                ajout2.putExtra("photo",currentPath);
-                if(rbYes.isChecked()){
-                    ajout2.putExtra("longitude",longitude);
-                    ajout2.putExtra("latitude",latitude);
-                }
-                startActivity(ajout2);
-                break;
-            case "espace":
-                Intent ajout3 = new Intent(getApplicationContext(),AjoutEspaceBoise.class);
-                ajout3.putExtra("photo",currentPath);
-                if(rbYes.isChecked()){
-                    ajout3.putExtra("longitude",longitude);
-                    ajout3.putExtra("latitude",latitude);
-                }
-                startActivity(ajout3);
-                break;
+        if(rbType1.isChecked()) {
+            Intent ajout = new Intent(getApplicationContext(), AjoutArbre.class);
+            ajout.putExtra("photo", currentPath);
+            if (rbYes.isChecked()) {
+                ajout.putExtra("longitude", longitude);
+                ajout.putExtra("latitude", latitude);
+            }
+            startActivity(ajout);
+        }
+        if (rbType2.isChecked()) {
+            Intent ajout2 = new Intent(getApplicationContext(), AjoutAlignement.class);
+            ajout2.putExtra("photo", currentPath);
+            if (rbYes.isChecked()) {
+                ajout2.putExtra("longitude", longitude);
+                ajout2.putExtra("latitude", latitude);
+            }
+            startActivity(ajout2);
+        }
+        if(rbType3.isChecked()){
+            Intent ajout3 = new Intent(getApplicationContext(),AjoutEspaceBoise.class);
+            ajout3.putExtra("photo",currentPath);
+            if(rbYes.isChecked()){
+                ajout3.putExtra("longitude",longitude);
+                ajout3.putExtra("latitude",latitude);
+            }
+            startActivity(ajout3);
         }
     }
-
-
-
 }
