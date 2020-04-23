@@ -13,20 +13,20 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/IV_photo_image"
+            android:id="@+id/ivPhotoImage"
             android:layout_width="match_parent"
             android:layout_height="194dp"
             app:srcCompat="@drawable/pine_tree"/>
 
         <Button
-            android:id="@+id/BT_photo_take"
+            android:id="@+id/btPhotoTake"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bt_take_photo"
             android:onClick="changePhoto"/>
 
         <Button
-            android:id="@+id/BT_photo_keep"
+            android:id="@+id/btPhotoKeep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bt_keep_photo"

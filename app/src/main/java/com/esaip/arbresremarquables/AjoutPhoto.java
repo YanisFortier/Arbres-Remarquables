@@ -29,16 +29,16 @@ public class AjoutPhoto extends AppCompatActivity {
 
     static final int REQUEST_TAKE_PHOTO = 71;
     String currentPath;
-    ImageView iv_photo;
-    Button bt_take_photo, bt_keep_photo;
+    ImageView ivPhoto;
+    Button btTakePhoto, btKeepPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_photo);
-        iv_photo = findViewById(R.id.IV_photo_image);
-        bt_take_photo = findViewById(R.id.BT_photo_take);
-        bt_keep_photo = findViewById(R.id.BT_photo_keep);
+        ivPhoto = findViewById(R.id.ivPhotoImage);
+        btTakePhoto = findViewById(R.id.btPhotoTake);
+        btKeepPhoto = findViewById(R.id.btPhotoKeep);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AjoutPhoto extends AppCompatActivity {
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
             bitmap = RotateBitmap(bitmap,90);
-            iv_photo.setImageBitmap(bitmap);
+            ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,7 +95,7 @@ public class AjoutPhoto extends AppCompatActivity {
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
+                ".jpg",   /* suffix */
                 storageDir      /* directory */
         );
 
@@ -117,7 +117,7 @@ public class AjoutPhoto extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
-        bt_keep_photo.setVisibility(View.VISIBLE);
+        btKeepPhoto.setVisibility(View.VISIBLE);
     }
 
     public void goToAjout(View view){
