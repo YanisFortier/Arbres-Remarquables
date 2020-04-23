@@ -16,8 +16,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -96,5 +98,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(FranceMetroBounds, 150), 2000, null);
             }
         });
+
+        LatLng pos1 = new LatLng(47.470750,-0.544733);
+        mMap.addMarker(new MarkerOptions().position(pos1).title("New Point").icon(BitmapDescriptorFactory.fromResource(R.drawable.arbre)));
     }
 }

@@ -39,6 +39,16 @@ public class AjoutPhoto extends AppCompatActivity {
         ivPhoto = findViewById(R.id.ivPhotoImage);
         btTakePhoto = findViewById(R.id.btPhotoTake);
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
+
+        if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+            }
+        } else {
+            Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
+        }
     }
 
     @Override
@@ -54,11 +64,11 @@ public class AjoutPhoto extends AppCompatActivity {
 
     public void changePhoto(View view) {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent();
             } else {
                 Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG);
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
             }
         } else {
             Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
