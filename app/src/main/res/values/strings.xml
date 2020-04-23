@@ -6,6 +6,7 @@
     <string name="bt_keep_photo">Garder cette photo et continuer</string>
     <string name="no_camera">Pas de camera disponible</string>
     <string name="no_camera_permission">Permissions insuffisantes</string>
+    <string name="ask_geolocalisation">Êtes-vous à côté de l\'arbre ?</string>
 
     <string-array name="arbres">
         <item>Cèdre</item>
