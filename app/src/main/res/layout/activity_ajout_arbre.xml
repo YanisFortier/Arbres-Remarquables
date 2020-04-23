@@ -34,12 +34,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nom et prénom : *" />
+                    android:text="@string/nom_prenom" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="Ne sera pas affiché"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -50,12 +51,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pseudonyme : *" />
+                    android:text="@string/pseudo" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="Pour être anonyme, ou pas !"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -66,12 +68,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Votre email : " />
+                    android:text="@string/email" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="Pas de spam, promis"
                     android:inputType="textEmailAddress" />
             </LinearLayout>
 
@@ -82,11 +85,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nom de l'arbre : " />
+                    android:layout_gravity="center"
+                    android:text="@string/nom_arbre" />
 
                 <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="40dp"
+                    android:textAlignment="center"
                     android:entries="@array/arbres" />
 
             </LinearLayout>
@@ -98,12 +103,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nom botanique : " />
+                    android:text="@string/nom_botanique" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="Ex : Quercus petraea"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -191,7 +197,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adresse de l'arbre : *" />
+                    android:text="@string/adresse_arbre" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -208,12 +214,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cet arbre est sur : " />
+                    android:layout_gravity="center"
+                    android:text="@string/espace_arbre" />
 
                 <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="40dp"
+                    android:textAlignment="center"
                     android:entries="@array/espace" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/remarquabilite" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:entries="@array/remarquabilite"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -284,15 +310,17 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
 
                         <CheckBox
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="42dp"
+                            android:layout_height="45dp"
                             android:text=" Son ancienneté \n (plus de 50 ans)"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
@@ -304,38 +332,37 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
 
                         <CheckBox
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="42dp"
+                            android:layout_height="45dp"
                             android:text=" Marquant dans \n le paysage"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
 
                         <CheckBox
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="42dp"
+                            android:layout_height="45dp"
                             android:text=" La mise en valeur \n mutuelle bati-végétal"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Il est imposant" />
                 </LinearLayout>
 
 
@@ -366,11 +393,13 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
 
                         <CheckBox
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -396,39 +425,21 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
-            <LinearLayout
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Observations : " />
+
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remarquabilité : *" />
-
-                <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="25dp"
-                    android:entries="@array/remarquabilite" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Observations : " />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -442,11 +453,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Informations vérifiées par un botaniste *"
+                    android:text="Informations vérifiées par un botaniste"
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
             <Button
+                android:layout_margin="15dp"
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

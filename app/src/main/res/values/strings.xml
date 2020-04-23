@@ -13,6 +13,16 @@
     <string name="type2">Alignement</string>
     <string name="type3">Espace Boisé</string>
 
+    <!--Ajout Arbre -->
+    <string name="nom_prenom">"Nom et prénom  : *"</string>
+    <string name="pseudo">"Pseudonyme       : *"</string>
+    <string name="email">"Adresse email     :  "</string>
+    <string name="nom_arbre">"Nom de l'arbre    :  "</string>
+    <string name="nom_botanique">"Nom botanique   :  "</string>
+    <string name="adresse_arbre">"Adresse de l'arbre : *"</string>
+    <string name="espace_arbre">"Cet arbre est sur   :  "</string>
+    <string name="remarquabilite">"Remarquabilité     : *"</string>
+
     <string-array name="arbres">
         <item>Cèdre</item>
         <item>Châtaignier</item>
