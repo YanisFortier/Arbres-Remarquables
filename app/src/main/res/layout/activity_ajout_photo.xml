@@ -15,8 +15,8 @@
         <ImageView
             android:id="@+id/ivPhotoImage"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
-            app:srcCompat="@drawable/pine_tree"/>
+            android:layout_height="239dp"
+            app:srcCompat="@drawable/pine_tree" />
 
         <Button
             android:id="@+id/btPhotoTake"
@@ -25,21 +25,15 @@
             android:text="@string/bt_take_photo"
             android:onClick="changePhoto"/>
 
-        <Button
-            android:id="@+id/btPhotoKeep"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bt_keep_photo"
-            android:visibility="invisible"
-            android:onClick="goToAjout"/>
-
         <TextView
             android:id="@+id/textAsk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ask_geolocalisation"
+            android:layout_marginTop="5dp"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:visibility="invisible" />
         <LinearLayout
             android:id="@+id/radioButtons"
@@ -71,6 +65,14 @@
             </RadioGroup>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btPhotoKeep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="goToAjout"
+            android:text="@string/bt_keep_photo"
+            android:visibility="invisible" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
