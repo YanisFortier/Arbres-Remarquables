@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Arbres Remarquables</string>
     <string name="title_activity_maps">Arbres Remarquables</string>
+
+    <string name="bt_take_photo">Prendre une photo</string>
+    <string name="bt_keep_photo">Garder cette photo et continuer</string>
+    <string name="no_camera">Pas de camera disponible</string>
+    <string name="no_camera_permission">Permissions insuffisantes</string>
 </resources>

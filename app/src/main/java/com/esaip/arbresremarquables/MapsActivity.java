@@ -60,7 +60,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                intent.putExtra("type","arbre");
                 startActivity(intent);
             }
         });
@@ -68,7 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAlignement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutAlignement.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                intent.putExtra("type","alignement");
                 startActivity(intent);
             }
         });
@@ -76,7 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEspaceBoise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutEspaceBoise.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                intent.putExtra("type","espace");
                 startActivity(intent);
             }
         });
