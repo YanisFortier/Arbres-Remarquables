@@ -77,9 +77,8 @@ public class MapsActivity extends FragmentActivity {
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);
         this.mLocationOverlay.enableMyLocation();
         map.getOverlays().add(this.mLocationOverlay);
-        map.isClickable();
         IMapController mapController = map.getController();
-        mapController.setZoom(13);
+
         GeoPoint startPoint = new GeoPoint(47.47372, -0.53829);
         mapController.setCenter(startPoint);
 
@@ -91,17 +90,21 @@ public class MapsActivity extends FragmentActivity {
         m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
         m.setPosition(new GeoPoint(47.5, -0.50));
         m.setIcon(getResources().getDrawable(R.drawable.arbre));
+        m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
+        m.setSnippet("Je suis le snippet  \n d'un arbre");
         m.setTitle("Je suis un arbre");
         map.getOverlays().add(m);
 
         Marker m2 = new Marker(map);
-        m2.setPosition(new GeoPoint(47.6, -0.50));
+        m2.setPosition(new GeoPoint(47.45, -0.50));
+        m2.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
         m2.setTitle("Je suis un alignement");
         m2.setIcon(getResources().getDrawable(R.drawable.alignement));
         map.getOverlays().add(m2);
 
         Marker m3 = new Marker(map);
-        m3.setPosition(new GeoPoint(47.7, -0.50));
+        m3.setPosition(new GeoPoint(47.4, -0.50));
+        m3.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
         m3.setTitle("Je suis un espace boisé");
         m3.setIcon(getResources().getDrawable(R.drawable.espace));
         map.getOverlays().add(m3);
@@ -110,6 +113,7 @@ public class MapsActivity extends FragmentActivity {
         m4.setPosition(new GeoPoint(47.455, -0.55));
         m4.setTitle("Je suis un marker");
         map.getOverlays().add(m4);
+        mapController.setZoom(13.00);
     }
 
     @Override
