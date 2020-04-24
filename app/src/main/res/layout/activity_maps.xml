@@ -19,6 +19,7 @@
         android:id="@+id/linearLayoutCompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:floating_background_color="@color/colorPrimaryDark"
-            app:floating_title="(Yanis)Enregistrer un arbre"
-            app:floating_title_color="@android:color/white"/>
+            app:floating_title="Debug"
+            app:floating_title_color="@android:color/white" />
 
         <ru.dimorinny.floatingtextbutton.FloatingTextButton
             android:id="@+id/floatingTxtBtnArbre"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             app:floating_background_color="@color/colorPrimaryDark"
             app:floating_title="Enregistrer un arbre"
-            app:floating_title_color="@android:color/white"/>
+            app:floating_title_color="@android:color/white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
