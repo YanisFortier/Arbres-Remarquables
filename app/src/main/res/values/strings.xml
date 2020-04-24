@@ -14,14 +14,31 @@
     <string name="type3">Espace Boisé</string>
 
     <!--Ajout Arbre -->
-    <string name="nom_prenom">"Nom et prénom  : *"</string>
-    <string name="pseudo">"Pseudonyme       : *"</string>
-    <string name="email">"Adresse email     :  "</string>
-    <string name="nom_arbre">"Nom de l'arbre    :  "</string>
-    <string name="nom_botanique">"Nom botanique   :  "</string>
+    <string name="nom_prenom">"Nom et prénom : *"</string>
+    <string name="pseudo">"Pseudonyme : *"</string>
+    <string name="email">"Adresse email :  "</string>
+    <string name="nom_arbre">"Nom de l'arbre :  "</string>
+    <string name="nom_botanique">"Nom botanique :  "</string>
     <string name="adresse_arbre">"Adresse de l'arbre : *"</string>
-    <string name="espace_arbre">"Cet arbre est sur   :  "</string>
-    <string name="remarquabilite">"Remarquabilité     : *"</string>
+    <string name="espace_arbre">"Cet arbre est sur :  "</string>
+    <string name="remarquabilite">"Remarquabilité : *"</string>
+    <string name="desc_nom_prenom">"Ils ne seront pas affichés publiquement et ne seront transmis à aucun organisme tiers."</string>
+    <string name="desc_pseudo">"Au choix, il sera publiquement affiché."</string>
+    <string name="desc_email">"Pour vous contacter si nécessaire (exclusivement). Ne sera transmis à aucun organisme tiers"</string>
+    <string name="desc_adresse">"N°, rue ou lieu-dit, ville."</string>
+
+    <!--Ajout Alignement -->
+    <string name="adresse_alignement">"Adresse de l'alignement : *"</string>
+    <string name="espace_alignement">"Cet alignement est sur   :  "</string>
+    <string name="nombre_alignement">"Nombres d'arbres : "</string>
+    <string name="especes_alignement">"Nombres d'espèces : "</string>
+    <string name="especes">"Espèces"</string>
+    <string name="desc_esp_alignement">"Ces arbres sont-ils présents ? (cocher)"</string>
+    <string name="desc_nb_alignement">"Nombre d'arbres composant cet alignement"</string>
+    <string name="autre_espece">"Autre espèce"</string>
+    <string name="desc_autre">"Vous avez coché Autre. Précisez."</string>
+    <string name="desc_botanique">"Si vous le connaissez, notez-le."</string>
+
 
     <string-array name="arbres">
         <item>Cèdre</item>
@@ -50,5 +67,18 @@
         <item>Notoire, un repère à l\'échelle de votre quartier</item>
         <item>Remarquable ou majestueux </item>
         <item>Très remarquable ou exceptionnel </item>
+    </string-array>
+
+    <string-array name="nombres_arbres">
+        <item>Moins de 10</item>
+        <item>Entre 10 et 30</item>
+        <item>Plus de 30</item>
+    </string-array>
+
+    <string-array name="nombres_especes">
+        <item>Une</item>
+        <item>Deux</item>
+        <item>Trois</item>
+        <item>Plus de trois</item>
     </string-array>
 </resources>

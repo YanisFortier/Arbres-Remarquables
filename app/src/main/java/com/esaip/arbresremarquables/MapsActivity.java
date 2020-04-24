@@ -88,6 +88,7 @@ public class MapsActivity extends FragmentActivity {
         });
 
         Marker m = new Marker(map);
+        m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
         m.setPosition(new GeoPoint(47.5, -0.50));
         m.setIcon(getResources().getDrawable(R.drawable.arbre));
         m.setTitle("Je suis un arbre");

@@ -22,9 +22,7 @@ import static android.widget.AdapterView.OnItemSelectedListener;
 public class AjoutArbre extends AppCompatActivity {
     //Variables
     private Spinner spinnerNomArbre;
-    private EditText editTextNomArbre;
-    private EditText editTextLatitude;
-    private EditText editTextLongitude;
+    private EditText editTextNomArbre, editTextLatitude, editTextLongitude;
 
     //Location
     private LatLng mLatLng;
