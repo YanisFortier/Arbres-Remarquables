@@ -30,16 +30,27 @@
     <!--Ajout Alignement -->
     <string name="adresse_alignement">"Adresse de l'alignement : *"</string>
     <string name="espace_alignement">"Cet alignement est sur   :  "</string>
-    <string name="nombre_alignement">"Nombres d'arbres : "</string>
-    <string name="especes_alignement">"Nombres d'espèces : "</string>
-    <string name="especes">"Espèces"</string>
+    <string name="nombre_abr">"Nombres d'arbres : "</string>
+    <string name="especes_abr">"Nombres d'espèces : "</string>
+    <string name="especes">"Espèces : "</string>
     <string name="desc_esp_alignement">"Ces arbres sont-ils présents ? (cocher)"</string>
     <string name="desc_nb_alignement">"Nombre d'arbres composant cet alignement"</string>
-    <string name="autre_espece">"Autre espèce"</string>
+    <string name="autre_espece">"Autre espèce : "</string>
     <string name="desc_autre">"Vous avez coché Autre. Précisez."</string>
     <string name="desc_botanique">"Si vous le connaissez, notez-le."</string>
+    <string name="lien">"Lien : "</string>
+    <string name="desc_lien">"Cet alignement fait-il le lien avec d’autres espaces végétalisés (parcs, espaces boisés, zones humides, autre alignement…) ? Si oui, précisez</string>
+    <string name="autre_lien">"Autre lien : "</string>
+    <string name="desc_autre_lien">"Précisez quel autre lien"</string>
+    <string name="protection">"Protection : "</string>
+    <string name="desc_protection">"Cet alignement est selon vous à protéger car : "</string>
+    <string name="observation">"Observations : "</string>
+    <string name="info_botaniste">"Informations vérifiées sur site par un botaniste *"</string>
+    <string name="desc_info_botaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
 
 
+
+    <!--Types Arbres -->
     <string-array name="arbres">
         <item>Cèdre</item>
         <item>Châtaignier</item>
@@ -57,28 +68,49 @@
         <item>Autre</item>
     </string-array>
 
+    <!--Type d'espaces -->
     <string-array name="espace">
         <item>Un espace public</item>
         <item>Un espace privé</item>
         <item>Je ne sais pas</item>
     </string-array>
 
+    <!--Remarquabilité -->
     <string-array name="remarquabilite">
         <item>Notoire, un repère à l\'échelle de votre quartier</item>
         <item>Remarquable ou majestueux </item>
         <item>Très remarquable ou exceptionnel </item>
     </string-array>
 
+    <!--Nombres d'arbres -->
     <string-array name="nombres_arbres">
         <item>Moins de 10</item>
         <item>Entre 10 et 30</item>
         <item>Plus de 30</item>
     </string-array>
 
+    <!--Nombres d'espèces -->
     <string-array name="nombres_especes">
         <item>Une</item>
         <item>Deux</item>
         <item>Trois</item>
         <item>Plus de trois</item>
     </string-array>
+
+    <!--Lien -->
+    <string-array name="lien_table">
+        <item>Un espace boisé</item>
+        <item>Un ou des parcs</item>
+        <item>D\'autres alignements</item>
+        <item>Autre</item>
+    </string-array>
+
+    <!--Raison de protection-->
+    <string-array name="protection">
+        <item>Il relie d\’autres espaces végétalisés entre eux (continuité écologique)</item>
+        <item>Il est impactant au niveau paysager</item>
+        <item>Il est très utile en cas de forte chaleur (ombre sur façade…)</item>
+        <item>Il est composé d’arbres remarquables</item>
+    </string-array>
+
 </resources>

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -20,9 +22,10 @@ import com.google.android.gms.tasks.Task;
 public class AjoutAlignement extends AppCompatActivity {
 
     //Variable
-    private LinearLayout Autre;
+    private LinearLayout Autre,AutreLien;
     private EditText editTextLatitude, editTextLongitude;
-    private CheckBox checkAutre;
+    private CheckBox AutreCheckBox;
+    private Spinner lienSpinner;
 
     //Location
     private Location mCurrentLocation;
@@ -33,13 +36,15 @@ public class AjoutAlignement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_alignement);
         Autre = findViewById(R.id.editAutre);
-        checkAutre = findViewById(R.id.checkAutre);
+        AutreCheckBox = findViewById(R.id.checkAutre);
+        AutreLien = findViewById(R.id.editAutreLien);
+        lienSpinner = findViewById(R.id.spinnerLien);
 
         //Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
 
-        checkAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        AutreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
@@ -48,6 +53,24 @@ public class AjoutAlignement extends AppCompatActivity {
                 else{
                     Autre.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        lienSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String lienSelect = lienSpinner.getSelectedItem().toString();
+                if (lienSelect.equals("Autre")){
+                    AutreLien.setVisibility(View.VISIBLE);
+                }
+                else{
+                    AutreLien.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
