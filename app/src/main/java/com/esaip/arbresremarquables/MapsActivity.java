@@ -87,7 +87,6 @@ public class MapsActivity extends FragmentActivity {
         });
 
         Marker m = new Marker(map);
-        m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
         m.setPosition(new GeoPoint(47.5, -0.50));
         m.setIcon(getResources().getDrawable(R.drawable.arbre));
         m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
@@ -112,7 +111,10 @@ public class MapsActivity extends FragmentActivity {
         Marker m4 = new Marker(map);
         m4.setPosition(new GeoPoint(47.455, -0.55));
         m4.setTitle("Je suis un marker");
+        m4.setSnippet("Je suis le snippet  \n d'un marker");
         map.getOverlays().add(m4);
+
+
         mapController.setZoom(13.00);
     }
 
