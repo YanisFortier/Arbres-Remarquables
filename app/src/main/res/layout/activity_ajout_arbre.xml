@@ -362,6 +362,7 @@
                 android:gravity="center"
                 android:onClick="saveData"
                 android:text="Valider" />
+
         </LinearLayout>
 
     </ScrollView>
