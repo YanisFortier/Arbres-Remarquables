@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,7 +23,8 @@ import static android.widget.AdapterView.OnItemSelectedListener;
 public class AjoutArbre extends AppCompatActivity {
     //Variables
     private Spinner spinnerNomArbre;
-    private EditText editTextNomArbre, editTextLatitude, editTextLongitude;
+    private EditText editTextLatitude, editTextLongitude;
+    private LinearLayout editTextNomArbre;
 
     //Location
     private LatLng mLatLng;

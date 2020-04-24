@@ -134,7 +134,6 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Longitude *" />
-
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

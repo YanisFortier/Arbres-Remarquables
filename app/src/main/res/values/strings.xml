@@ -18,6 +18,7 @@
     <string name="pseudo">"Pseudonyme : *"</string>
     <string name="email">"Adresse email :  "</string>
     <string name="nom_arbre">"Nom de l'arbre :  "</string>
+    <string name="autre_arbre">"Autre nom de l'arbre : "</string>
     <string name="nom_botanique">"Nom botanique :  "</string>
     <string name="adresse_arbre">"Adresse de l'arbre : *"</string>
     <string name="espace_arbre">"Cet arbre est sur :  "</string>
@@ -26,6 +27,7 @@
     <string name="desc_pseudo">"Au choix, il sera publiquement affiché."</string>
     <string name="desc_email">"Pour vous contacter si nécessaire (exclusivement). Ne sera transmis à aucun organisme tiers"</string>
     <string name="desc_adresse">"N°, rue ou lieu-dit, ville."</string>
+    <string name="desc_nom_arbre">"Connaissez-vous le nom de cet arbre ? Si oui complétez"</string>
 
     <!--Ajout Alignement -->
     <string name="adresse_alignement">"Adresse de l'alignement : *"</string>
@@ -37,7 +39,7 @@
     <string name="desc_nb_alignement">"Nombre d'arbres composant cet alignement"</string>
     <string name="autre_espece">"Autre espèce : "</string>
     <string name="desc_autre">"Vous avez coché Autre. Précisez."</string>
-    <string name="desc_botanique">"Si vous le connaissez, notez-le."</string>
+    <string name="desc_botanique">"Nom botanique (exemple : Quercus petraea) si vous le connaissez."</string>
     <string name="lien">"Lien : "</string>
     <string name="desc_lien">"Cet alignement fait-il le lien avec d’autres espaces végétalisés (parcs, espaces boisés, zones humides, autre alignement…) ? Si oui, précisez</string>
     <string name="autre_lien">"Autre lien : "</string>
