@@ -22,13 +22,17 @@ import com.google.android.gms.tasks.Task;
 
 public class AjoutAlignement extends AppCompatActivity {
 
+    //Variables pour la sauvegarde utilisateur
     public static final String SHARED_PREFS = "SHARED_PREFS";
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo;
+
+
     //Variable
     private LinearLayout Autre, AutreLien;
-    private EditText editTextLatitude, editTextLongitude, editTextNomPrenom, editTextAdresseMail, editTextPseudo;
+    private EditText editTextLatitude, editTextLongitude;
     private CheckBox AutreCheckBox;
     private Spinner lienSpinner;
 
@@ -40,6 +44,8 @@ public class AjoutAlignement extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_alignement);
+
+        //Setup - FindViewById
         Autre = findViewById(R.id.editAutre);
         AutreCheckBox = findViewById(R.id.checkAutre);
         AutreLien = findViewById(R.id.editAutreLien);
@@ -48,10 +54,11 @@ public class AjoutAlignement extends AppCompatActivity {
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
 
-
         //Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
+
+
         AutreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -112,10 +119,9 @@ public class AjoutAlignement extends AppCompatActivity {
         editor.putString(TEXT_NOM_PRENOM, editTextNomPrenom.getText().toString());
         editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMail.getText().toString());
         editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
-
         editor.apply();
 
-        Intent i = new Intent(this, MapsActivity.class);
+        new Intent(this, MapsActivity.class);
         Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
         finish();
     }
