@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -22,8 +21,6 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-
-import java.util.ArrayList;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -53,7 +50,9 @@ public class MapsActivity extends FragmentActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
         }
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+        }
 
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +81,6 @@ public class MapsActivity extends FragmentActivity {
         GeoPoint startPoint = new GeoPoint(47.47372, -0.53829);
         mapController.setCenter(startPoint);
 
-        requestPermissionsIfNecessary(new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        });
 
         Marker m = new Marker(map);
         m.setPosition(new GeoPoint(47.5, -0.50));
@@ -128,36 +124,5 @@ public class MapsActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-    }
-
-    private void requestPermissionsIfNecessary(String[] permissions) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Permission is not granted
-                permissionsToRequest.add(permission);
-            }
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
     }
 }
