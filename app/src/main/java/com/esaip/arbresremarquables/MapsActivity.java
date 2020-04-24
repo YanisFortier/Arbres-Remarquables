@@ -1,7 +1,6 @@
 package com.esaip.arbresremarquables;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -20,6 +19,9 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
@@ -35,12 +37,12 @@ public class MapsActivity extends FragmentActivity {
     //Location
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
+    private MyLocationNewOverlay mLocationOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context ctx = getApplicationContext(); //A ajouter avant le setContentView
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx)); //Cache pour la map
+        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this)); //Cache pour la map
         setContentView(R.layout.activity_maps);
 
         //Boutons
@@ -72,7 +74,10 @@ public class MapsActivity extends FragmentActivity {
         map = findViewById(R.id.mapview);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
-
+        this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);
+        this.mLocationOverlay.enableMyLocation();
+        map.getOverlays().add(this.mLocationOverlay);
+        map.isClickable();
         IMapController mapController = map.getController();
         mapController.setZoom(13);
         GeoPoint startPoint = new GeoPoint(47.47372, -0.53829);
@@ -81,6 +86,29 @@ public class MapsActivity extends FragmentActivity {
         requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
+
+        Marker m = new Marker(map);
+        m.setPosition(new GeoPoint(47.5, -0.50));
+        m.setIcon(getResources().getDrawable(R.drawable.arbre));
+        m.setTitle("Je suis un arbre");
+        map.getOverlays().add(m);
+
+        Marker m2 = new Marker(map);
+        m2.setPosition(new GeoPoint(47.6, -0.50));
+        m2.setTitle("Je suis un alignement");
+        m2.setIcon(getResources().getDrawable(R.drawable.alignement));
+        map.getOverlays().add(m2);
+
+        Marker m3 = new Marker(map);
+        m3.setPosition(new GeoPoint(47.7, -0.50));
+        m3.setTitle("Je suis un espace boisé");
+        m3.setIcon(getResources().getDrawable(R.drawable.espace));
+        map.getOverlays().add(m3);
+
+        Marker m4 = new Marker(map);
+        m4.setPosition(new GeoPoint(47.455, -0.55));
+        m4.setTitle("Je suis un marker");
+        map.getOverlays().add(m4);
     }
 
     @Override
