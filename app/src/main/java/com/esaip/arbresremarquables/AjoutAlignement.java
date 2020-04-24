@@ -1,8 +1,7 @@
 package com.esaip.arbresremarquables;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,9 +22,13 @@ import com.google.android.gms.tasks.Task;
 
 public class AjoutAlignement extends AppCompatActivity {
 
+    public static final String SHARED_PREFS = "SHARED_PREFS";
+    public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
+    public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
+    public static final String TEXT_PSEUDO = "PSEUDO";
     //Variable
-    private LinearLayout Autre,AutreLien;
-    private EditText editTextLatitude, editTextLongitude;
+    private LinearLayout Autre, AutreLien;
+    private EditText editTextLatitude, editTextLongitude, editTextNomPrenom, editTextAdresseMail, editTextPseudo;
     private CheckBox AutreCheckBox;
     private Spinner lienSpinner;
 
@@ -39,18 +44,20 @@ public class AjoutAlignement extends AppCompatActivity {
         AutreCheckBox = findViewById(R.id.checkAutre);
         AutreLien = findViewById(R.id.editAutreLien);
         lienSpinner = findViewById(R.id.spinnerLien);
+        editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
+        editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
+        editTextPseudo = findViewById(R.id.editTextPseudo);
+
 
         //Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
-
         AutreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     Autre.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     Autre.setVisibility(View.GONE);
                 }
             }
@@ -60,10 +67,9 @@ public class AjoutAlignement extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lienSelect = lienSpinner.getSelectedItem().toString();
-                if (lienSelect.equals("Autre")){
+                if (lienSelect.equals("Autre")) {
                     AutreLien.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     AutreLien.setVisibility(View.GONE);
                 }
             }
@@ -73,6 +79,8 @@ public class AjoutAlignement extends AppCompatActivity {
 
             }
         });
+
+        loadData();
     }
 
     private void fetchLastLocation() {
@@ -95,5 +103,32 @@ public class AjoutAlignement extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void saveData(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(TEXT_NOM_PRENOM, editTextNomPrenom.getText().toString());
+        editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMail.getText().toString());
+        editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
+
+        editor.apply();
+
+        Intent i = new Intent(this, MapsActivity.class);
+        Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    public void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        String textNomPrenom = sharedPreferences.getString(TEXT_NOM_PRENOM, "");
+        String textAdresseMail = sharedPreferences.getString(TEXT_ADRESSE_MAIL, "");
+        String textPseudo = sharedPreferences.getString(TEXT_PSEUDO, "");
+
+        editTextNomPrenom.setText(textNomPrenom);
+        editTextAdresseMail.setText(textAdresseMail);
+        editTextPseudo.setText(textPseudo);
     }
 }
