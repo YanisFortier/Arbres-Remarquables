@@ -22,7 +22,8 @@
     <string name="nom_botanique">"Nom botanique :  "</string>
     <string name="adresse_arbre">"Adresse de l'arbre : *"</string>
     <string name="espace_arbre">"Cet arbre est sur :  "</string>
-    <string name="remarquabilite">"Remarquabilité : *"</string>
+    <string name="remarquabilite">"Cet arbre est remarquable par : *"</string>
+    <string name="desc_remarquabilite">"Globalement, cet arbre est pour vous"</string>
     <string name="desc_nom_prenom">"Ils ne seront pas affichés publiquement et ne seront transmis à aucun organisme tiers."</string>
     <string name="desc_pseudo">"Au choix, il sera publiquement affiché."</string>
     <string name="desc_email">"Pour vous contacter si nécessaire (exclusivement). Ne sera transmis à aucun organisme tiers"</string>
@@ -49,8 +50,6 @@
     <string name="observation">"Observations : "</string>
     <string name="info_botaniste">"Informations vérifiées sur site par un botaniste *"</string>
     <string name="desc_info_botaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
-
-
 
     <!--Types Arbres -->
     <string-array name="arbres">
@@ -109,10 +108,10 @@
 
     <!--Raison de protection-->
     <string-array name="protection">
-        <item>Il relie d\’autres espaces végétalisés entre eux (continuité écologique)</item>
-        <item>Il est impactant au niveau paysager</item>
-        <item>Il est très utile en cas de forte chaleur (ombre sur façade…)</item>
-        <item>Il est composé d’arbres remarquables</item>
+        <item>"Il relie d\’autres espaces végétalisés entre eux (continuité écologique)"</item>
+        <item>"Il est impactant au niveau paysager"</item>
+        <item>"Il est très utile en cas de forte chaleur (ombre sur façade…)"</item>
+        <item>"Il est composé d’arbres remarquables"</item>
     </string-array>
 
 </resources>

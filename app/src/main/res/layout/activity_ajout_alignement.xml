@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/espace_arbre" />
+                    android:text="@string/espace_alignement" />
 
                 <Spinner
                     android:layout_width="fill_parent"
