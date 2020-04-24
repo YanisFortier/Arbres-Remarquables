@@ -47,6 +47,7 @@
                     android:text="@string/desc_nom_prenom"
                     />
                 <EditText
+                    android:id="@+id/editTextNomPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -71,6 +72,7 @@
                     android:text="@string/desc_pseudo"
                     />
                 <EditText
+                    android:id="@+id/editTextPseudo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -95,6 +97,7 @@
                     android:text="@string/desc_email"
                     />
                 <EditText
+                    android:id="@+id/editTextAdresseMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -524,6 +527,7 @@
                 android:layout_margin="15dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
+                android:onClick="saveData"
                 android:text="Valider" />
         </LinearLayout>
 

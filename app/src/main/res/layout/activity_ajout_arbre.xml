@@ -47,6 +47,7 @@
                     android:text="@string/desc_nom_prenom"
                     />
                 <EditText
+                    android:id="@+id/editTextNomPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"

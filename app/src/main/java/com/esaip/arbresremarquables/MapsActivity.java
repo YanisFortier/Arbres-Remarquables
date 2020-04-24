@@ -104,13 +104,6 @@ public class MapsActivity extends FragmentActivity {
         m3.setIcon(getResources().getDrawable(R.drawable.espace));
         map.getOverlays().add(m3);
 
-        Marker m4 = new Marker(map);
-        m4.setPosition(new GeoPoint(47.455, -0.55));
-        m4.setTitle("Je suis un marker");
-        m4.setSnippet("Je suis le snippet  \n d'un marker");
-        map.getOverlays().add(m4);
-
-
         mapController.setZoom(13.00);
     }
 
