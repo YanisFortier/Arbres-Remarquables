@@ -71,12 +71,11 @@ public class MapsActivity extends FragmentActivity {
 
         map = findViewById(R.id.mapview);
         map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
 
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
-        GeoPoint startPoint = new GeoPoint(48.8583, 2.2944);
+        mapController.setZoom(13);
+        GeoPoint startPoint = new GeoPoint(47.47372, -0.53829);
         mapController.setCenter(startPoint);
 
         requestPermissionsIfNecessary(new String[]{
