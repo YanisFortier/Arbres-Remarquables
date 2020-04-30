@@ -108,6 +108,8 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     public void saveData(View view) {
+        openDialog();
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -116,9 +118,16 @@ public class AjoutAlignement extends AppCompatActivity {
         editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
         editor.apply();
 
+        /*
         new Intent(this, MapsActivity.class);
         Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
         finish();
+         */
+    }
+
+    private void openDialog() {
+        Dialog dialog = new Dialog(editTextNomPrenom.getText().toString());
+        dialog.show(getSupportFragmentManager(), "example dialog");
     }
 
     public void loadData() {
