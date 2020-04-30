@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enregistrer un alignement"
+        android:text="@string/titleAlignement"
         android:textStyle="bold"
         android:textSize="20sp" />
 
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Les éléments marqués par un astérisque (*) sont des champs obligatoires et doivent être remplis." />
+        android:text="@string/descForm" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,14 +37,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_prenom"
+                    android:text="@string/textNomPrenom"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_nom_prenom"
+                    android:text="@string/descNomPrenom"
                     />
                 <EditText
                     android:id="@+id/editTextNomPrenom"
@@ -62,14 +62,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pseudo"
+                    android:text="@string/textPseudo"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_pseudo"
+                    android:text="@string/descPseudo"
                     />
                 <EditText
                     android:id="@+id/editTextPseudo"
@@ -87,14 +87,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
+                    android:text="@string/textEmail"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_email"
+                    android:text="@string/descEmail"
                     />
                 <EditText
                     android:id="@+id/editTextAdresseMail"
@@ -186,14 +186,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/adresse_alignement"
+                    android:text="@string/textAdresseAlignement"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_adresse"
+                    android:text="@string/descAdresse"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -213,12 +213,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/espace_alignement" />
+                    android:text="@string/textEspaceAlignement" />
 
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/espace"/>
+                    android:entries="@array/spinnerEspace"/>
             </LinearLayout>
 
             <LinearLayout
@@ -232,17 +232,17 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/nombre_abr" />
+                    android:text="@string/textNombreArbres" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_nb_alignement"
+                    android:text="@string/descNbAlignement"
                     />
 
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/nombres_arbres" />
+                    android:entries="@array/spinnerNombresArbres" />
             </LinearLayout>
 
             <LinearLayout
@@ -256,12 +256,18 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/especes_abr" />
+                    android:text="@string/textEspecesArbres" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descNbEspece"
+                    />
 
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/nombres_especes"/>
+                    android:entries="@array/spinnerNombresEspeces"/>
             </LinearLayout>
 
             <TextView
@@ -269,12 +275,12 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:text="@string/especes" />
+                android:text="@string/textEspeces" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/desc_esp_alignement"
+                android:text="@string/descEspAlignement"
                 />
 
             <LinearLayout
@@ -294,31 +300,31 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Chêne" />
+                        android:text="@string/Chêne" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Frêne" />
+                        android:text="@string/Frêne" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Peuplier" />
+                        android:text="@string/Peuplier" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Pin" />
+                        android:text="@string/Pin" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Cèdre" />
+                        android:text="@string/Cèdre" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Érable" />
+                        android:text="@string/Érable" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Séquoia" />
+                        android:text="@string/Séquoia" />
                 </LinearLayout>
 
 
@@ -335,32 +341,32 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Platane" />
+                        android:text="@string/Platane" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Marronnier" />
+                        android:text="@string/Marronnier" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Châtaignier" />
+                        android:text="@string/Châtaignier" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Hêtre" />
+                        android:text="@string/Hêtre" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Magnolia" />
+                        android:text="@string/Magnolia" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Tilleul" />
+                        android:text="@string/Tilleul" />
                     <CheckBox
                         android:id="@+id/checkAutre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Autre" />
+                        android:text="@string/Autre" />
 
                 </LinearLayout>
 
@@ -379,14 +385,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/autre_espece"
+                    android:text="@string/textAutreEspece"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_autre"
+                    android:text="@string/descAutre"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -395,14 +401,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_botanique"
+                    android:text="@string/textNomBotanique"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_botanique"
+                    android:text="@string/descBotanique"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -410,29 +416,70 @@
                     android:inputType="text" />
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="@string/textLien" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:text="@string/descLien"
+                />
 
-                <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="@string/lien" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/desc_lien"
-                    />
+                    android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/spinnerLien"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:entries="@array/lien_table" />
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eb" />
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parcs" />
+                </LinearLayout>
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/aligne" />
+                    <CheckBox
+                        android:id="@+id/liencheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Autre" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -444,14 +491,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/autre_lien"
+                    android:text="@string/textAutreLien"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_autre_lien"
+                    android:text="@string/descAutreLien"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -470,17 +517,17 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/protection" />
+                    android:text="@string/textProtection" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_protection"
+                    android:text="@string/descProtection"
                     />
 
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/protection" />
+                    android:entries="@array/spinnerProtection" />
             </LinearLayout>
 
             <View
@@ -516,7 +563,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_botaniste"
+                    android:text="@string/textInfoBotaniste"
                     android:textColor="@android:color/black" />
             </LinearLayout>
 

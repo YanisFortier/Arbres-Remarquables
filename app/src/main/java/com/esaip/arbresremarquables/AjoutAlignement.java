@@ -31,10 +31,9 @@ public class AjoutAlignement extends AppCompatActivity {
 
 
     //Variable
-    private LinearLayout Autre, AutreLien;
+    private LinearLayout autre, autreLien;
     private EditText editTextLatitude, editTextLongitude;
-    private CheckBox AutreCheckBox;
-    private Spinner lienSpinner;
+    private CheckBox liencheckBox, autreCheckBox;
 
     //Location
     private Location mCurrentLocation;
@@ -46,10 +45,10 @@ public class AjoutAlignement extends AppCompatActivity {
         setContentView(R.layout.activity_ajout_alignement);
 
         //Setup - FindViewById
-        Autre = findViewById(R.id.editAutre);
-        AutreCheckBox = findViewById(R.id.checkAutre);
-        AutreLien = findViewById(R.id.editAutreLien);
-        lienSpinner = findViewById(R.id.spinnerLien);
+        autre = findViewById(R.id.editAutre);
+        autreCheckBox = findViewById(R.id.checkAutre);
+        autreLien = findViewById(R.id.editAutreLien);
+        liencheckBox = findViewById(R.id.liencheckbox);
         editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
@@ -59,33 +58,29 @@ public class AjoutAlignement extends AppCompatActivity {
         fetchLastLocation();
 
 
-        AutreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Autre.setVisibility(View.VISIBLE);
+                    autre.setVisibility(View.VISIBLE);
                 } else {
-                    Autre.setVisibility(View.GONE);
+                    autre.setVisibility(View.GONE);
                 }
             }
         });
 
-        lienSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        liencheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String lienSelect = lienSpinner.getSelectedItem().toString();
-                if (lienSelect.equals("Autre")) {
-                    AutreLien.setVisibility(View.VISIBLE);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    autreLien.setVisibility(View.VISIBLE);
                 } else {
-                    AutreLien.setVisibility(View.GONE);
+                    autreLien.setVisibility(View.GONE);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
+
+
 
         loadData();
     }

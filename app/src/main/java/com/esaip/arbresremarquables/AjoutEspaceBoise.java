@@ -2,12 +2,21 @@ package com.esaip.arbresremarquables;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 public class AjoutEspaceBoise extends AppCompatActivity {
     //Variables pour la sauvegarde utilisateur
@@ -15,7 +24,13 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
-    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo;
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo,editTextLatitude, editTextLongitude;
+    private LinearLayout autre;
+    private CheckBox autreCheckBox;
+
+    //Location
+    private Location mCurrentLocation;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +41,47 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
+        autre = findViewById(R.id.editAutre);
+        autreCheckBox = findViewById(R.id.checkautrebox);
+
+        //Location
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
+
+        autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    autre.setVisibility(View.VISIBLE);
+                } else {
+                    autre.setVisibility(View.GONE);
+                }
+            }
+        });
 
         loadData();
+    }
+
+    private void fetchLastLocation() {
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Intent intent = new Intent();
+                    mCurrentLocation = location;
+
+                    if (intent.getBooleanExtra("geolocalisation", true)) {
+                        editTextLatitude = findViewById(R.id.editTextLatitude);
+                        editTextLongitude = findViewById(R.id.editTextLongitude);
+                        editTextLatitude.setText(String.valueOf(mCurrentLocation.getLatitude()));
+                        editTextLongitude.setText(String.valueOf(mCurrentLocation.getLongitude()));
+                    } else {
+                        Toast.makeText(AjoutEspaceBoise.this, "Là c'est pas encore codé", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
     }
 
     public void saveData(View view) {
@@ -40,7 +94,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editor.apply();
 
         new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Espace boisé enregistré !", Toast.LENGTH_LONG).show();
         finish();
     }
 

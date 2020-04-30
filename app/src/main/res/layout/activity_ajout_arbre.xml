@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enregistrer un arbre"
+        android:text="@string/titleArbre"
         android:textStyle="bold"
         android:textSize="20sp" />
 
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Les éléments marqués par un astérisque (*) sont des champs obligatoires et doivent être remplis." />
+        android:text="@string/descForm" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,14 +37,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_prenom"
+                    android:text="@string/textNomPrenom"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_nom_prenom"
+                    android:text="@string/descNomPrenom"
                     />
                 <EditText
                     android:id="@+id/editTextNomPrenom"
@@ -62,14 +62,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pseudo"
+                    android:text="@string/textPseudo"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_pseudo"
+                    android:text="@string/descPseudo"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -86,14 +86,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
+                    android:text="@string/textEmail"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_email"
+                    android:text="@string/descEmail"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -111,14 +111,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_arbre"
+                    android:text="@string/textNomArbre"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_nom_arbre"
+                    android:text="@string/descNomArbre"
                     />
                 <Spinner
                     android:id="@+id/spinnerNomArbre"
@@ -136,14 +136,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/autre_arbre"
+                    android:text="@string/textAutreArbre"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_autre"
+                    android:text="@string/descAutre"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -152,14 +152,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_botanique"
+                    android:text="@string/textNomBotanique"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_botanique"
+                    android:text="@string/descBotanique"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -250,14 +250,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/adresse_arbre"
+                    android:text="@string/textAdresseArbre"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_adresse"
+                    android:text="@string/descAdresse"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -276,12 +276,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/espace_arbre" />
+                    android:text="@string/textEspaceArbre" />
 
                 <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/espace"/>
+                    android:entries="@array/spinnerEspace"/>
             </LinearLayout>
 
             <LinearLayout
@@ -293,14 +293,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/remarquabilite"
+                    android:text="@string/textRemarquabilite"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/desc_remarquabilite"
+                    android:text="@string/descRemarquabilite"
                     />
                 <CheckBox
                     android:layout_width="wrap_content"
@@ -349,7 +349,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_botaniste"
+                    android:text="@string/textInfoBotaniste"
                     android:textColor="@android:color/black" />
             </LinearLayout>
 

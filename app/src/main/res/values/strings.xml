@@ -13,105 +13,178 @@
     <string name="type2">Alignement</string>
     <string name="type3">Espace Boisé</string>
 
+    <string name="descForm">"Les éléments marqués par un astérisque (*) sont des champs obligatoires et doivent être remplis."</string>
+
     <!--Ajout Arbre -->
-    <string name="nom_prenom">"Nom et prénom : *"</string>
-    <string name="pseudo">"Pseudonyme : *"</string>
-    <string name="email">"Adresse email :  "</string>
-    <string name="nom_arbre">"Nom de l'arbre :  "</string>
-    <string name="autre_arbre">"Autre nom de l'arbre : "</string>
-    <string name="nom_botanique">"Nom botanique :  "</string>
-    <string name="adresse_arbre">"Adresse de l'arbre : *"</string>
-    <string name="espace_arbre">"Cet arbre est sur :  "</string>
-    <string name="remarquabilite">"Cet arbre est remarquable par : *"</string>
-    <string name="desc_remarquabilite">"Globalement, cet arbre est pour vous"</string>
-    <string name="desc_nom_prenom">"Ils ne seront pas affichés publiquement et ne seront transmis à aucun organisme tiers."</string>
-    <string name="desc_pseudo">"Au choix, il sera publiquement affiché."</string>
-    <string name="desc_email">"Pour vous contacter si nécessaire (exclusivement). Ne sera transmis à aucun organisme tiers"</string>
-    <string name="desc_adresse">"N°, rue ou lieu-dit, ville."</string>
-    <string name="desc_nom_arbre">"Connaissez-vous le nom de cet arbre ? Si oui complétez"</string>
+    <string name="titleArbre">"Enregistrer un arbre"</string>
+    <string name="textNomPrenom">"Nom et prénom : *"</string>
+    <string name="textPseudo">"Pseudonyme : *"</string>
+    <string name="textEmail">"Adresse email :  "</string>
+    <string name="textNomArbre">"Nom de l'arbre :  "</string>
+    <string name="textAutreArbre">"Autre nom de l'arbre : "</string>
+    <string name="textNomBotanique">"Nom botanique :  "</string>
+    <string name="textAdresseArbre">"Adresse de l'arbre : *"</string>
+    <string name="textEspaceArbre">"Cet arbre est sur :  "</string>
+    <string name="textRemarquabilite">"Cet arbre est remarquable par : *"</string>
+    <string name="descRemarquabilite">"Globalement, cet arbre est pour vous"</string>
+    <string name="descNomPrenom">"Ils ne seront pas affichés publiquement et ne seront transmis à aucun organisme tiers."</string>
+    <string name="descPseudo">"Au choix, il sera publiquement affiché."</string>
+    <string name="descEmail">"Pour vous contacter si nécessaire (exclusivement). Ne sera transmis à aucun organisme tiers"</string>
+    <string name="descAdresse">"N°, rue ou lieu-dit, ville."</string>
+    <string name="descNomArbre">"Connaissez-vous le nom de cet arbre ? Si oui complétez"</string>
 
     <!--Ajout Alignement -->
-    <string name="adresse_alignement">"Adresse de l'alignement : *"</string>
-    <string name="espace_alignement">"Cet alignement est sur   :  "</string>
-    <string name="nombre_abr">"Nombres d'arbres : "</string>
-    <string name="especes_abr">"Nombres d'espèces : "</string>
-    <string name="especes">"Espèces : "</string>
-    <string name="desc_esp_alignement">"Ces arbres sont-ils présents ? (cocher)"</string>
-    <string name="desc_nb_alignement">"Nombre d'arbres composant cet alignement"</string>
-    <string name="autre_espece">"Autre espèce : "</string>
-    <string name="desc_autre">"Vous avez coché Autre. Précisez."</string>
-    <string name="desc_botanique">"Nom botanique (exemple : Quercus petraea) si vous le connaissez."</string>
-    <string name="lien">"Lien : "</string>
-    <string name="desc_lien">"Cet alignement fait-il le lien avec d’autres espaces végétalisés (parcs, espaces boisés, zones humides, autre alignement…) ? Si oui, précisez</string>
-    <string name="autre_lien">"Autre lien : "</string>
-    <string name="desc_autre_lien">"Précisez quel autre lien"</string>
-    <string name="protection">"Protection : "</string>
-    <string name="desc_protection">"Cet alignement est selon vous à protéger car : "</string>
-    <string name="observation">"Observations : "</string>
-    <string name="info_botaniste">"Informations vérifiées sur site par un botaniste *"</string>
-    <string name="desc_info_botaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
+    <string name="titleAlignement">"Enregistrer un alignement"</string>
+    <string name="textAdresseAlignement">"Adresse de l'alignement : *"</string>
+    <string name="textEspaceAlignement">"Cet alignement est sur   :  "</string>
+    <string name="textNombreArbres">"Nombres d'arbres : "</string>
+    <string name="textEspecesArbres">"Nombres d'espèces : "</string>
+    <string name="textEspeces">"Espèces : "</string>
+    <string name="descEspAlignement">"Ces arbres sont-ils présents ? (cocher)"</string>
+    <string name="descNbAlignement">"Nombre d'arbres composant cet alignement"</string>
+    <string name="descNbEspece">"Combien d’espèces différentes d’arbres composent cet alignement ?"</string>
+    <string name="textAutreEspece">"Autre espèce : "</string>
+    <string name="descAutre">"Vous avez coché Autre. Précisez."</string>
+    <string name="descBotanique">"Nom botanique (exemple : Quercus petraea) si vous le connaissez."</string>
+    <string name="textLien">"Lien : "</string>
+    <string name="descLien">"Cet alignement fait-il le lien avec d’autres espaces végétalisés (parcs, espaces boisés, zones humides, autre alignement…) ? Si oui, précisez</string>
+    <string name="textAutreLien">"Autre lien : "</string>
+    <string name="descAutreLien">"Précisez quel autre lien"</string>
+    <string name="textProtection">"Protection : "</string>
+    <string name="descProtection">"Cet alignement est selon vous à protéger car : "</string>
+    <string name="textObservation">"Observations : "</string>
+    <string name="textInfoBotaniste">"Informations vérifiées sur site par un botaniste *"</string>
+    <string name="descInfoBotaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
+
+    <!--Ajout Espace Boisé-->
+    <string name="titleEspaceboise">"Enregistrer un espace boisé"</string>
+    <string name="textAdresseEspacebois">"Adresse de l'espace boisé : *"</string>
+    <string name="textEspaceEspacebois">"Cet espace boisé est sur   :  "</string>
+    <string name="descNbEspacebois">"Nombre d'arbres composant cet espace boisé"</string>
+    <string name="descNbEspeces">"Y'a t'il au moins quatres espèces d'arbres ?"</string>
+    <string name="textNiveauVegetation">"Niveaux"</string>
+    <string name="descVegetation">"Y a t-il plusieurs niveaux de végétation ?"</string>
+    <string name="textPtEau">"Point d'eau"</string>
+    <string name="descPtEau">"Y a t-il un point d'eau ? (mare, étang, cours d'eau, etc.)"</string>
+    <string name="textAbris">"Abris d'animaux"</string>
+    <string name="descAbris">"Y a t-il des abris pour les animaux sauvages (murs en pierre, cavités dans les arbres,…) ?"</string>
+    <string name="textEclairage">"Éclairage"</string>
+    <string name="descEclairage">"Le site est-il éclairé la nuit ?"</string>
+    <string name="textBiodiversite">"Biodiversité"</string>
+    <string name="descBiodiversite">"Y avez-vous vu un ou plusieurs spécimens d'espèce protégée ?"</string>
+    <string name="textOmbre">"Ombre"</string>
+    <string name="descOmbre">"Si l’espace est en zone urbaine, des habitants viennent-ils s’y mettre à l’ombre en été ?"</string>
+    <string name="textEntretien">"Entretien"</string>
+    <string name="descEntretien">" Cet espace est pour vous plutôt :"</string>
+    <string name="textGlobal">"Globalement"</string>
+    <string name="descGlobal">"Globalement, ce site est pour vous :"</string>
 
     <!--Types Arbres -->
     <string-array name="arbres">
-        <item>Cèdre</item>
-        <item>Châtaignier</item>
-        <item>Chêne</item>
-        <item>Érable</item>
-        <item>Frêne</item>
-        <item>Hêtre</item>
-        <item>Magnolia</item>
-        <item>Marronnier</item>
-        <item>Peuplier</item>
-        <item>Pin</item>
-        <item>Platane</item>
-        <item>Séquoia</item>
-        <item>Tilleul</item>
-        <item>Autre</item>
+        <item>@string/Cèdre</item>
+        <item>@string/Châtaignier</item>
+        <item>@string/Chêne</item>
+        <item>@string/Érable</item>
+        <item>@string/Frêne</item>
+        <item>@string/Hêtre</item>
+        <item>@string/Magnolia</item>
+        <item>@string/Marronnier</item>
+        <item>@string/Peuplier</item>
+        <item>@string/Pin</item>
+        <item>@string/Platane</item>
+        <item>@string/Séquoia</item>
+        <item>@string/Tilleul</item>
+        <item>@string/Autre</item>
     </string-array>
+    <string name="Chêne">"Chêne"</string>
+    <string name="Frêne">"Frêne"</string>
+    <string name="Peuplier">"Peuplier"</string>
+    <string name="Pin">"Pin"</string>
+    <string name="Cèdre">"Cèdre"</string>
+    <string name="Érable">"Érable"</string>
+    <string name="Séquoia">"Séquoia"</string>
+    <string name="Platane">"Platane"</string>
+    <string name="Marronnier">"Marronnier"</string>
+    <string name="Châtaignier">"Châtaignier"</string>
+    <string name="Hêtre">"Hêtre"</string>
+    <string name="Magnolia">"Magnolia"</string>
+    <string name="Tilleul">"Tilleul"</string>
+    <string name="Autre">"Autre"</string>
 
     <!--Type d'espaces -->
-    <string-array name="espace">
-        <item>Un espace public</item>
-        <item>Un espace privé</item>
-        <item>Je ne sais pas</item>
+    <string-array name="spinnerEspace">
+        <item>@string/publicc</item>
+        <item>@string/prive</item>
+        <item>@string/inconnu</item>
     </string-array>
+    <string name="inconnu">"Je ne sais pas"</string>
+    <string name="publicc">"Un espace public"</string>
+    <string name="prive">"Un espace privé"</string>
 
     <!--Remarquabilité -->
-    <string-array name="remarquabilite">
+    <string-array name="spinnerRemarquabilite">
         <item>Notoire, un repère à l\'échelle de votre quartier</item>
         <item>Remarquable ou majestueux </item>
         <item>Très remarquable ou exceptionnel </item>
     </string-array>
 
-    <!--Nombres d'arbres -->
-    <string-array name="nombres_arbres">
+    <!--Nombres d'arbres alignement-->
+    <string-array name="spinnerNombresArbres">
         <item>Moins de 10</item>
         <item>Entre 10 et 30</item>
         <item>Plus de 30</item>
     </string-array>
 
+    <!--Question oui/non/je ne sais pas-->
+    <string-array name="spinnerYesNoIdk">
+        <item>Oui</item>
+        <item>Non</item>
+        <item>@string/inconnu</item>
+    </string-array>
+
     <!--Nombres d'espèces -->
-    <string-array name="nombres_especes">
+    <string-array name="spinnerNombresEspeces">
         <item>Une</item>
         <item>Deux</item>
         <item>Trois</item>
         <item>Plus de trois</item>
     </string-array>
 
-    <!--Lien -->
-    <string-array name="lien_table">
-        <item>Un espace boisé</item>
-        <item>Un ou des parcs</item>
-        <item>D\'autres alignements</item>
-        <item>Autre</item>
-    </string-array>
-
     <!--Raison de protection-->
-    <string-array name="protection">
+    <string-array name="spinnerProtection">
         <item>"Il relie d\’autres espaces végétalisés entre eux (continuité écologique)"</item>
         <item>"Il est impactant au niveau paysager"</item>
         <item>"Il est très utile en cas de forte chaleur (ombre sur façade…)"</item>
         <item>"Il est composé d’arbres remarquables"</item>
     </string-array>
+
+    <!--Entretien-->
+    <string-array name="spinnerEntretien">
+        <item>"Très entretenu (tontes fréquentes, massifs entretenus…)"</item>
+        <item>"Entretenu mais de manière plus douce (zones non fauchées…)"</item>
+        <item>"Très peu ou pas du tout entretenu (pas d’entretien mécanisé, herbes hautes…)"</item>
+    </string-array>
+
+    <!--Lien -->
+    <string name="eb">"Un espace boisé"</string>
+    <string name="parcs">"Un ou des parcs"</string>
+    <string name="aligne">"D\'autres alignements"</string>
+
+    <!--Globalement-->
+    <string name="biodiv">"Un refuge important de biodiversité"</string>
+    <string name="fraicheur">"Un îlot de fraîcheur"</string>
+    <string name="paysager">"Un espace paysager à protéger"</string>
+
+    <!--Niveaux de végétations-->
+    <string name="herbes">"Strate herbacée (herbes)"</string>
+    <string name="arbustes">"Strate arbustive (arbustes)"</string>
+    <string name="arbres">"Strate arborée (arbres)"</string>
+
+    <!--Exemple Biodiversité-->
+    <string name="ecureuil">"Un écureuil roux"</string>
+    <string name="chauvesouris">"Une chauve-souris"</string>
+    <string name="capricorne">"Un capricorne"</string>
+    <string name="chouette">"Une chouette hulotte"</string>
+    <string name="pic">"Un pic vert, noir, …"</string>
 
 </resources>

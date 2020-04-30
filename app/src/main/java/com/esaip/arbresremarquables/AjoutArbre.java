@@ -110,7 +110,7 @@ public class AjoutArbre extends AppCompatActivity {
         editor.apply();
 
         Intent i = new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Arbre enregistré !", Toast.LENGTH_LONG).show();
         finish();
     }
 
