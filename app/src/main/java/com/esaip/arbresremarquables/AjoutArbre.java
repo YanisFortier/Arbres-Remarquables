@@ -51,11 +51,6 @@ public class AjoutArbre extends AppCompatActivity {
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
 
-        //Location
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
-
-
         //Détection si le nom de l'arbre est autre
         spinnerNomArbre.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -75,28 +70,6 @@ public class AjoutArbre extends AppCompatActivity {
         });
 
 
-    }
-
-    private void fetchLastLocation() {
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    Intent intent = new Intent();
-                    mCurrentLocation = location;
-
-                    if (intent.getBooleanExtra("geolocalisation", true)) {
-                        editTextLatitude = findViewById(R.id.editTextLatitude);
-                        editTextLongitude = findViewById(R.id.editTextLongitude);
-                        editTextLatitude.setText(String.valueOf(mCurrentLocation.getLatitude()));
-                        editTextLongitude.setText(String.valueOf(mCurrentLocation.getLongitude()));
-                    } else {
-                        Toast.makeText(AjoutArbre.this, "Là c'est pas encore codé", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
     }
 
     public void saveData(View view) {
