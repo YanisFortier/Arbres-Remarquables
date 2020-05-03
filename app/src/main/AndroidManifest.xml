@@ -21,14 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AjoutPhoto"></activity>
+        <activity android:name=".AjoutPhoto"/>
         <activity android:name=".AjoutEspaceBoise" />
         <activity android:name=".AjoutAlignement" />
         <activity android:name=".AjoutArbre" />
 
+
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:name="BING_KEY"
+            android:value="AtaIsF5ZaVYIAgGPfX-ONyZVwNJCf3SzJ-KCQMKLc83aSAiGddDvqT6Ggnh6jLMs" />
 
         <activity
             android:name=".MapsActivity"

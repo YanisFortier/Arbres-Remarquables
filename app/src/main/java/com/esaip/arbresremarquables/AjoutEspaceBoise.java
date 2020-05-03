@@ -28,10 +28,6 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     private LinearLayout autre;
     private CheckBox autreCheckBox;
 
-    //Location
-    private Location mCurrentLocation;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +41,21 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         autreCheckBox = findViewById(R.id.checkautrebox);
 
         //Location
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
+        double lat=0;
+        double lon=0;
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            lat = bundle.getDouble("latitude");
+            lon = bundle.getDouble("longitude");
+
+            editTextLatitude = findViewById(R.id.editTextLatitude);
+            editTextLongitude = findViewById(R.id.editTextLongitude);
+            editTextLatitude.setText(String.valueOf(lat));
+            editTextLongitude.setText(String.valueOf(lon));
+
+        }
 
         autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -60,28 +69,6 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         });
 
         loadData();
-    }
-
-    private void fetchLastLocation() {
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    Intent intent = new Intent();
-                    mCurrentLocation = location;
-
-                    if (intent.getBooleanExtra("geolocalisation", true)) {
-                        editTextLatitude = findViewById(R.id.editTextLatitude);
-                        editTextLongitude = findViewById(R.id.editTextLongitude);
-                        editTextLatitude.setText(String.valueOf(mCurrentLocation.getLatitude()));
-                        editTextLongitude.setText(String.valueOf(mCurrentLocation.getLongitude()));
-                    } else {
-                        Toast.makeText(AjoutEspaceBoise.this, "Là c'est pas encore codé", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
     }
 
     public void saveData(View view) {
