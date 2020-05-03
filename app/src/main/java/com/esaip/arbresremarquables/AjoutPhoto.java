@@ -21,10 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,14 +30,13 @@ import java.util.Date;
 
 public class AjoutPhoto extends AppCompatActivity {
 
-    static final int REQUEST_TAKE_PHOTO = 71;
-    private static final int GALLERY_REQUEST_CODE = 2;
-    String currentPath;
-    ImageView ivPhoto;
-    Button btTakePhoto, btKeepPhoto;
-    RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
-    LinearLayout infos;
-    float longitude,latitude;
+    private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2;
+    private String currentPath;
+    private ImageView ivPhoto;
+    private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
+    private RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
+    private LinearLayout infos;
+    private Uri contentUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +45,7 @@ public class AjoutPhoto extends AppCompatActivity {
         ivPhoto = findViewById(R.id.ivPhotoImage);
         btTakePhoto = findViewById(R.id.btPhotoTake);
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
+        btChoosePhoto = findViewById(R.id.btGalleryTake);
         infos = findViewById(R.id.infos);
         rbYes = findViewById(R.id.rdButOui);
         rbNo = findViewById(R.id.rdButNon);
@@ -65,6 +62,27 @@ public class AjoutPhoto extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
         }
+
+        btTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePhoto(v);
+            }
+        });
+
+        btKeepPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAjout(v);
+            }
+        });
+
+        btChoosePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePhotoFromGallery();
+            }
+        });
     }
 
     @Override
@@ -74,6 +92,11 @@ public class AjoutPhoto extends AppCompatActivity {
             bitmap = RotateBitmap(bitmap,90);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
+        }
+        else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
+            contentUri =  data.getData();
+            ivPhoto.setImageURI(contentUri);
+            infos.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -172,5 +195,10 @@ public class AjoutPhoto extends AppCompatActivity {
             }
             startActivity(ajout3);
         }
+    }
+
+    public void choosePhotoFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY);
     }
 }

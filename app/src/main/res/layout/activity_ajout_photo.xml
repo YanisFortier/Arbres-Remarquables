@@ -25,12 +25,18 @@
 
             <Button
                 android:id="@+id/btPhotoTake"
-                android:layout_width="wrap_content"
+                android:layout_width="312dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bt_take_photo" />
+
+            <Button
+                android:id="@+id/btGalleryTake"
+                android:layout_width="312dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/bt_take_photo"
                 android:onClick="changePhoto"
-                />
+                android:text="@string/bt_choose_gallery" />
 
         </LinearLayout>
 
@@ -128,7 +134,6 @@
                 android:id="@+id/btPhotoKeep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="goToAjout"
                 android:text="@string/bt_keep_photo" />
 
         </LinearLayout>
