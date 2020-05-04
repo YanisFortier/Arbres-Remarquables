@@ -116,7 +116,6 @@ public class AjoutPhoto extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
@@ -137,8 +136,8 @@ public class AjoutPhoto extends AppCompatActivity {
         }
     }
 
+    //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
-        // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -148,11 +147,12 @@ public class AjoutPhoto extends AppCompatActivity {
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
+        //Sauvegarder l'image
         currentPath = image.getAbsolutePath();
         return image;
     }
 
+    //Rotation de l'image
     public static Bitmap RotateBitmap(Bitmap source, float angle)
     {
         Matrix matrix = new Matrix();
@@ -160,6 +160,7 @@ public class AjoutPhoto extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
+    //Ajouter la photo prise depuis la caméra dans la galerie du téléphone
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPath);
@@ -169,6 +170,7 @@ public class AjoutPhoto extends AppCompatActivity {
         infos.setVisibility(View.VISIBLE);
     }
 
+    //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
     public void goToAjout(View view){
         Intent i = getIntent();
         if(rbType1.isChecked()) {
@@ -197,6 +199,8 @@ public class AjoutPhoto extends AppCompatActivity {
         }
     }
 
+
+    //Récupérer un photo depuis la gallerie
     public void choosePhotoFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY);

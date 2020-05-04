@@ -137,6 +137,5 @@
                 android:text="@string/bt_keep_photo" />
 
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
