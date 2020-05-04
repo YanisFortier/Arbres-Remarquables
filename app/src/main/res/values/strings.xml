@@ -13,7 +13,7 @@
     <string name="type1">Arbre</string>
     <string name="type2">Alignement</string>
     <string name="type3">Espace Boisé</string>
-
+    <string name="verifDialog">Veillez vérifier les informations</string>
     <string name="descForm">"Les éléments marqués par un astérisque (*) sont des champs obligatoires et doivent être remplis."</string>
 
     <!--Ajout Arbre -->

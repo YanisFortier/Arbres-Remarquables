@@ -18,19 +18,12 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.tileprovider.tilesource.bing.BingMapTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -55,6 +48,7 @@ public class MapsActivity extends FragmentActivity {
         //Boutons
         FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
         FloatingTextButton btnYanis = findViewById(R.id.floatingTxtBtnYanis);
+        FloatingTextButton btnMaxime = findViewById(R.id.floatingTxtBtnMaxime);
 
         // Permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -68,6 +62,14 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                startActivity(intent);
+            }
+        });
+
+        btnMaxime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
                 startActivity(intent);
             }
         });
