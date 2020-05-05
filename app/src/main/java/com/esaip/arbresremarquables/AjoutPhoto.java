@@ -24,14 +24,18 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2;
-    private String currentPath;
+    private String currentPath, inf;
+    private File sourceFile, destFile;
     private ImageView ivPhoto;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
     private RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
@@ -95,6 +99,8 @@ public class AjoutPhoto extends AppCompatActivity {
         }
         else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
             contentUri =  data.getData();
+            inf = getRealPathFromURI(contentUri);
+            Toast.makeText(AjoutPhoto.this,inf,Toast.LENGTH_LONG).show();
             ivPhoto.setImageURI(contentUri);
             infos.setVisibility(View.VISIBLE);
         }
@@ -121,9 +127,9 @@ public class AjoutPhoto extends AppCompatActivity {
             File photoFile = null;
             try {
                 photoFile = createImageFile();
+                currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -139,16 +145,14 @@ public class AjoutPhoto extends AppCompatActivity {
     //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = "JPEG_NoCompress_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",   /* suffix */
                 storageDir      /* directory */
         );
-
         //Sauvegarder l'image
-        currentPath = image.getAbsolutePath();
         return image;
     }
 
@@ -204,5 +208,38 @@ public class AjoutPhoto extends AppCompatActivity {
     public void choosePhotoFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
     }
 }
