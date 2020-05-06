@@ -43,7 +43,7 @@
         <LinearLayout
             android:id="@+id/infos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="202dp"
             android:orientation="vertical"
             android:visibility="invisible">
 
@@ -54,7 +54,7 @@
                 android:text="@string/askType"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -137,5 +137,15 @@
                 android:text="@string/bt_keep_photo" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tst1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="test"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

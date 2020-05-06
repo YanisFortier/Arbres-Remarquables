@@ -21,12 +21,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,13 +38,13 @@ import java.util.Date;
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2;
-    private String currentPath, inf;
-    private File sourceFile, destFile;
+    private String currentPath, mainFile, pathFile;
     private ImageView ivPhoto;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
     private RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
     private LinearLayout infos;
     private Uri contentUri;
+    private TextView tst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,9 @@ public class AjoutPhoto extends AppCompatActivity {
         rbType1 = findViewById(R.id.arbres);
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
+        tst = findViewById(R.id.tst1);
+
+        mainFile = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -93,14 +100,21 @@ public class AjoutPhoto extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
+            Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
+            tst.setText(currentPath);
             bitmap = RotateBitmap(bitmap,90);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
         }
         else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
             contentUri =  data.getData();
-            inf = getRealPathFromURI(contentUri);
-            Toast.makeText(AjoutPhoto.this,inf,Toast.LENGTH_LONG).show();
+            try {
+                File fil = File.createTempFile("test",".jpg",getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+                currentPath = fil.getAbsolutePath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //tst.setText(getRealPathFromURI(contentUri));
             ivPhoto.setImageURI(contentUri);
             infos.setVisibility(View.VISIBLE);
         }
@@ -112,11 +126,11 @@ public class AjoutPhoto extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent();
             } else {
-                Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG);
+                Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG).show();
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
             }
         } else {
-            Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -145,7 +159,7 @@ public class AjoutPhoto extends AppCompatActivity {
     //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_NoCompress_" + timeStamp + "_";
+        String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -203,7 +217,6 @@ public class AjoutPhoto extends AppCompatActivity {
         }
     }
 
-
     //Récupérer un photo depuis la gallerie
     public void choosePhotoFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -224,22 +237,23 @@ public class AjoutPhoto extends AppCompatActivity {
         return result;
     }
 
-    private void copyFile(File sourceFile, File destFile) throws IOException {
-        if (!sourceFile.exists()) {
-            return;
-        }
-        FileChannel source = null;
-        FileChannel destination = null;
-        source = new FileInputStream(sourceFile).getChannel();
-        destination = new FileOutputStream(destFile).getChannel();
-        if (destination != null && source != null) {
-            destination.transferFrom(source, 0, source.size());
-        }
-        if (source != null) {
-            source.close();
-        }
-        if (destination != null) {
-            destination.close();
+    private void saveImage(Bitmap bitmap, String filename) throws IOException {
+        OutputStream outStream = null;
+
+        File file = new File(mainFile,filename);
+        tst.setText(file.toString());
+        file.createNewFile();
+        try {
+            // make a new bitmap from your file
+            bitmap = BitmapFactory.decodeFile(file.getName());
+            Toast.makeText(AjoutPhoto.this,"yes",Toast.LENGTH_LONG).show();
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+            System.out.println("closed");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
