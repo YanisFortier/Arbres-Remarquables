@@ -124,9 +124,9 @@
 
     <!--Remarquabilité -->
     <string-array name="spinnerRemarquabilite">
-        <item>Notoire, un repère à l\'échelle de votre quartier</item>
-        <item>Remarquable ou majestueux </item>
-        <item>Très remarquable ou exceptionnel </item>
+        <item>"Notoire, un repère à l\'échelle de votre quartier"</item>
+        <item>"Remarquable ou majestueux"</item>
+        <item>"Très remarquable ou exceptionnel"</item>
     </string-array>
 
     <!--Nombres d'arbres alignement-->

@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables;
+package com.esaip.arbresremarquables.Model;
 
 public class Arbre {
     private String nomPrenom;
@@ -6,21 +6,19 @@ public class Arbre {
     private String mail;
     private String nomArbre;
     private String nomBotanique;
-    private double latitude;
-    private double longitude;
+    private String latitude;
+    private String longitude;
     private String adresseArbre;
     private String photo;
     private String espace;
     private String remarquable;
-    private String biodiversite;
-    private String remarquabilite;
     private String observations;
-    private Boolean verification;
+    private String verification;
 
     public Arbre() {
     }
 
-    public Arbre(String nomPrenom, String pseudo, String mail, String nomArbre, String nomBotanique, double latitude, double longitude, String adresseArbre, String photo, String espace, String remarquable, String biodiversite, String remarquabilite, String observations, Boolean verification) {
+    public Arbre(String nomPrenom, String pseudo, String mail, String nomArbre, String nomBotanique, String latitude, String longitude, String adresseArbre, String photo, String espace, String remarquable, String observations, String verification) {
         this.nomPrenom = nomPrenom;
         this.pseudo = pseudo;
         this.mail = mail;
@@ -32,8 +30,6 @@ public class Arbre {
         this.photo = photo;
         this.espace = espace;
         this.remarquable = remarquable;
-        this.biodiversite = biodiversite;
-        this.remarquabilite = remarquabilite;
         this.observations = observations;
         this.verification = verification;
     }
@@ -78,19 +74,19 @@ public class Arbre {
         this.nomBotanique = nomBotanique;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
@@ -126,22 +122,6 @@ public class Arbre {
         this.remarquable = remarquable;
     }
 
-    public String getBiodiversite() {
-        return biodiversite;
-    }
-
-    public void setBiodiversite(String biodiversite) {
-        this.biodiversite = biodiversite;
-    }
-
-    public String getRemarquabilite() {
-        return remarquabilite;
-    }
-
-    public void setRemarquabilite(String remarquabilite) {
-        this.remarquabilite = remarquabilite;
-    }
-
     public String getObservations() {
         return observations;
     }
@@ -150,11 +130,11 @@ public class Arbre {
         this.observations = observations;
     }
 
-    public Boolean getVerification() {
+    public String getVerification() {
         return verification;
     }
 
-    public void setVerification(Boolean verification) {
+    public void setVerification(String verification) {
         this.verification = verification;
     }
 }
