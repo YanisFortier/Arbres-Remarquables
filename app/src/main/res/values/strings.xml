@@ -20,13 +20,17 @@
     <string name="titleArbre">"Enregistrer un arbre"</string>
     <string name="textNomPrenom">"Nom et prénom : *"</string>
     <string name="textPseudo">"Pseudonyme : *"</string>
+    <string name="textNomPrenomClean">"Nom et prénom : "</string>
+    <string name="textPseudoClean">"Pseudonyme : "</string>
     <string name="textEmail">"Adresse email :  "</string>
     <string name="textNomArbre">"Nom de l'arbre :  "</string>
     <string name="textAutreArbre">"Autre nom de l'arbre : "</string>
     <string name="textNomBotanique">"Nom botanique :  "</string>
     <string name="textAdresseArbre">"Adresse de l'arbre : *"</string>
+    <string name="textAdresseArbreClean">"Adresse de l'arbre : "</string>
     <string name="textEspaceArbre">"Cet arbre est sur :  "</string>
     <string name="textRemarquabilite">"Cet arbre est remarquable par : *"</string>
+    <string name="textRemarquabiliteClean">"Cet arbre est remarquable par : "</string>
     <string name="descRemarquabilite">"Globalement, cet arbre est pour vous"</string>
     <string name="descNomPrenom">"Ils ne seront pas affichés publiquement et ne seront transmis à aucun organisme tiers."</string>
     <string name="descPseudo">"Au choix, il sera publiquement affiché."</string>
@@ -37,6 +41,7 @@
     <!--Ajout Alignement -->
     <string name="titleAlignement">"Enregistrer un alignement"</string>
     <string name="textAdresseAlignement">"Adresse de l'alignement : *"</string>
+    <string name="textAdresseAlignementClean">"Adresse de l'alignement : "</string>
     <string name="textEspaceAlignement">"Cet alignement est sur   :  "</string>
     <string name="textNombreArbres">"Nombres d'arbres : "</string>
     <string name="textEspecesArbres">"Nombres d'espèces : "</string>
@@ -55,13 +60,15 @@
     <string name="descProtection">"Cet alignement est selon vous à protéger car : "</string>
     <string name="textObservation">"Observations : "</string>
     <string name="textInfoBotaniste">"Informations vérifiées sur site par un botaniste *"</string>
+    <string name="textInfoBotanisteClean">"Informations vérifiées sur site par un botaniste "</string>
     <string name="descInfoBotaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
 
     <!--Ajout Espace Boisé-->
     <string name="titleEspaceboise">"Enregistrer un espace boisé"</string>
-    <string name="textAdresseEspacebois">"Adresse de l'espace boisé : *"</string>
-    <string name="textEspaceEspacebois">"Cet espace boisé est sur   :  "</string>
-    <string name="descNbEspacebois">"Nombre d'arbres composant cet espace boisé"</string>
+    <string name="textAdresseEspaceboise">"Adresse de l'espace boisé : *"</string>
+    <string name="textAdresseEspaceboisClean">"Adresse de l'espace boisé : "</string>
+    <string name="textEspaceEspaceboise">"Cet espace boisé est sur   :  "</string>
+    <string name="descNbEspaceboise">"Nombre d'arbres composant cet espace boisé"</string>
     <string name="descNbEspeces">"Y'a t'il au moins quatres espèces d'arbres ?"</string>
     <string name="textNiveauVegetation">"Niveaux"</string>
     <string name="descVegetation">"Y a t-il plusieurs niveaux de végétation ?"</string>
@@ -124,9 +131,9 @@
 
     <!--Remarquabilité -->
     <string-array name="spinnerRemarquabilite">
-        <item>Notoire, un repère à l\'échelle de votre quartier</item>
-        <item>Remarquable ou majestueux </item>
-        <item>Très remarquable ou exceptionnel </item>
+        <item>"Notoire, un repère à l\'échelle de votre quartier"</item>
+        <item>"Remarquable ou majestueux"</item>
+        <item>"Très remarquable ou exceptionnel"</item>
     </string-array>
 
     <!--Nombres d'arbres alignement-->

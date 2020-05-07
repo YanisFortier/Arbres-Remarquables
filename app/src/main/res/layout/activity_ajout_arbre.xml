@@ -47,7 +47,7 @@
                     android:text="@string/descNomPrenom"
                     />
                 <EditText
-                    android:id="@+id/editTextNomPrenom"
+                    android:id="@+id/editTextNomPrenomArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -72,6 +72,7 @@
                     android:text="@string/descPseudo"
                     />
                 <EditText
+                    android:id="@+id/editTextPseudoArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -96,6 +97,7 @@
                     android:text="@string/descEmail"
                     />
                 <EditText
+                    android:id="@+id/editTextAdresseMailArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -121,14 +123,14 @@
                     android:text="@string/descNomArbre"
                     />
                 <Spinner
-                    android:id="@+id/spinnerNomArbre"
+                    android:id="@+id/spinnerNomArbreArb"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:entries="@array/arbres" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/editTextNomArbre"
+                android:id="@+id/layoutNomArbreArb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -146,6 +148,7 @@
                     android:text="@string/descAutre"
                     />
                 <EditText
+                    android:id="@+id/editTextAutreArbreArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"/>
@@ -162,6 +165,7 @@
                     android:text="@string/descBotanique"
                     />
                 <EditText
+                    android:id="@+id/editTextNomBotaniqueArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -216,7 +220,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/editTextLatitude"
+                    android:id="@+id/editTextLatitudeArb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -229,7 +233,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/editTextLongitude"
+                    android:id="@+id/editTextLongitudeArb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -260,6 +264,7 @@
                     android:text="@string/descAdresse"
                     />
                 <EditText
+                    android:id="@+id/editTextAdresseArbreArb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -279,6 +284,7 @@
                     android:text="@string/textEspaceArbre" />
 
                 <Spinner
+                    android:id="@+id/spinnerEspaceArb"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:entries="@array/spinnerEspace"/>
@@ -303,15 +309,17 @@
                     android:text="@string/descRemarquabilite"
                     />
                 <CheckBox
+                    android:id="@+id/checkBoxRemArb1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:text=" Très remarquable ou exceptionnel" />
                 <CheckBox
+                    android:id="@+id/checkBoxRemArb2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Remarquable ou majestueux" />
                 <CheckBox
+                    android:id="@+id/checkBoxRemArb3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Notoire, un repère à l'échelle de votre quartier" />
@@ -320,7 +328,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -331,6 +338,7 @@
                 android:text="Observations : " />
 
             <EditText
+                android:id="@+id/editTextObservationArb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -343,6 +351,7 @@
                 android:layout_height="wrap_content">
 
                 <CheckBox
+                    android:id="@+id/checkBoxVerifArb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -354,7 +363,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonValiderArb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
