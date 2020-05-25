@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,15 +30,15 @@ import com.esaip.arbresremarquables.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2;
-    private String currentPath, mainFile, pathFile;
+    private String currentPath, fname;
     private ImageView ivPhoto;
+    private Bitmap result;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
     private RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
     private LinearLayout infos;
@@ -59,8 +60,6 @@ public class AjoutPhoto extends AppCompatActivity {
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
         tst = findViewById(R.id.tst1);
-
-        mainFile = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -105,15 +104,10 @@ public class AjoutPhoto extends AppCompatActivity {
             galleryAddPic();
         }
         else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
-            contentUri =  data.getData();
-            try {
-                File fil = File.createTempFile("test",".jpg",getExternalFilesDir(Environment.DIRECTORY_PICTURES));
-                currentPath = fil.getAbsolutePath();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //tst.setText(getRealPathFromURI(contentUri));
-            ivPhoto.setImageURI(contentUri);
+            contentUri = data.getData();
+            result = saveImage(contentUri);
+            Toast.makeText(this,String.valueOf(result.getByteCount()),Toast.LENGTH_LONG).show();
+            //ivPhoto.setImageBitmap(result);
             infos.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -221,37 +215,30 @@ public class AjoutPhoto extends AppCompatActivity {
         startActivityForResult(galleryIntent, GALLERY);
     }
 
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
+    private Bitmap saveImage(Uri contentUri) {
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor c = getContentResolver().query(contentUri,filePath, null, null, null);
+        c.moveToFirst();
+        int columnIndex = c.getColumnIndex(filePath[0]);
+        String picturePath = c.getString(columnIndex);
+        c.close();
+        Bitmap finalBitmap = (BitmapFactory.decodeFile(picturePath));
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        storageDir.mkdirs();
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        fname = "JPEG_"+ timeStamp +".jpg";
 
-    private void saveImage(Bitmap bitmap, String filename) throws IOException {
-        OutputStream outStream = null;
-
-        File file = new File(mainFile,filename);
-        tst.setText(file.toString());
-        file.createNewFile();
+        File file = new File(storageDir, fname);
+        if (file.exists()) file.delete();
         try {
-            // make a new bitmap from your file
-            bitmap = BitmapFactory.decodeFile(file.getName());
-            Toast.makeText(AjoutPhoto.this,"yes",Toast.LENGTH_LONG).show();
-            outStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-            System.out.println("closed");
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return finalBitmap;
     }
+
 }
