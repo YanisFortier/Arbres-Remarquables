@@ -170,20 +170,15 @@ public class AjoutArbre extends AppCompatActivity {
             radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
             remarquable = radioButton.getText().toString();
         }
-        String nomPrenom = editTextNomPrenom.getText().toString();
-        String pseudo = editTextPseudo.getText().toString();
-        String email = editTextAdresseMail.getText().toString();
         String nomArbre = spinnerNomArbre.getSelectedItem().toString();
-        String adresseArbre = editTextAdresseArbre.getText().toString();
         String espace = spinnerEspace.getSelectedItem().toString();
-        String observations = editTextObservations.getText().toString();
 
         boolean verification = false;
         if (checkboxVerification.isChecked())
             verification = true;
 
 
-        DialogArbre dialog = new DialogArbre(nomPrenom, pseudo, email, nomArbre, adresseArbre, espace, remarquable, observations, verification);
+        DialogArbre dialog = new DialogArbre(stringTextNomPrenom, stringTextPseudo, stringTextMail, nomArbre, stringTextAdresse, espace, remarquable, stringTextObservations, verification);
         dialog.show(getSupportFragmentManager(), "Dialog AjoutArbre");
     }
 
