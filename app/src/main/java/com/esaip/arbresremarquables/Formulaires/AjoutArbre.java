@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables;
+package com.esaip.arbresremarquables.Formulaires;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.Models.Arbre;
+import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -58,23 +60,10 @@ public class AjoutArbre extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ajout_arbre);
 
         //Setup - FindViewById
         setContentView(R.layout.activity_ajout_arbre);
-        spinnerNomArbreArb = findViewById(R.id.spinnerNomArbreArb);
-        spinnerEspaceArb = findViewById(R.id.spinnerEspaceArb);
-        layoutNomArbreArb = findViewById(R.id.layoutNomArbreArb);
-        editTextNomPrenomArb = findViewById(R.id.editTextNomPrenomArb);
-        editTextAdresseMailArb = findViewById(R.id.editTextAdresseMailArb);
-        editTextPseudoArb = findViewById(R.id.editTextPseudoArb);
-        editTextLongitudeArb = findViewById(R.id.editTextLongitudeArb);
-        editTextLatitudeArb = findViewById(R.id.editTextLatitudeArb);
-        editTextAdresseArbreArb = findViewById(R.id.editTextAdresseArbreArb);
-        editTextObservationsArb = findViewById(R.id.editTextObservationArb);
-        checkBoxRemArb1 = findViewById(R.id.checkBoxRemArb1);
-        checkBoxRemArb2 = findViewById(R.id.checkBoxRemArb2);
-        checkBoxRemArb3 = findViewById(R.id.checkBoxRemArb3);
-        checkBoxVerifArb = findViewById(R.id.checkBoxVerifArb);
         buttonValid = findViewById(R.id.buttonValiderArb);
         spinnerNomArbre = findViewById(R.id.spinnerNomArbreArb);
         spinnerEspace = findViewById(R.id.spinnerEspaceArb);
@@ -115,61 +104,55 @@ public class AjoutArbre extends AppCompatActivity {
                 stringTextObservations = editTextObservationsArb.getText().toString().trim();
                 int count = 0;
 
-                if(!checkPatternMail(stringTextMail)){
+                if (!checkPatternMail(stringTextMail)) {
                     editTextAdresseMailArb.setError("Adresse mail non valide");
-                }else {
-                    count+=1;
+                } else {
+                    count += 1;
                 }
 
-                if (stringTextNomPrenom.isEmpty()){
+                if (stringTextNomPrenom.isEmpty()) {
                     editTextNomPrenomArb.setError("Ce champ est obligatoire");
-                }else if(!checkPatternGeneral(stringTextNomPrenom)){
+                } else if (!checkPatternGeneral(stringTextNomPrenom)) {
                     editTextNomPrenomArb.setError("Nom et prénom non valide");
-                }else {
-                    count+=1;
+                } else {
+                    count += 1;
                 }
 
-                if (stringTextPseudo.isEmpty()){
+                if (stringTextPseudo.isEmpty()) {
                     editTextPseudoArb.setError("Ce champ est obligatoire");
-                }else if(!checkPatternPseudo(stringTextPseudo)){
+                } else if (!checkPatternPseudo(stringTextPseudo)) {
                     editTextPseudoArb.setError("Pseudonyme non valide");
-                }else {
-                    count+=1;
+                } else {
+                    count += 1;
                 }
 
-                if (stringTextAdresse.isEmpty()){
+                if (stringTextAdresse.isEmpty()) {
                     editTextAdresseArbreArb.setError("Ce champ est obligatoire");
-                }else if(!checkPatternAdresse(stringTextAdresse)){
+                } else if (!checkPatternAdresse(stringTextAdresse)) {
                     editTextAdresseArbreArb.setError("Adresse non valide");
-                }else {
-                    count+=1;
+                } else {
+                    count += 1;
                 }
 
-                if(!checkPatternObervations(stringTextObservations)){
+                if (!checkPatternObervations(stringTextObservations)) {
                     editTextObservationsArb.setError("Commentaires non valide");
-                }else {
-                    count+=1;
+                } else {
+                    count += 1;
                 }
-        loadData();
-    }
 
-                if (count==5){
+                if (count == 5) {
                     saveData();
                     finish();
-                    Toast.makeText(AjoutArbre.this,"Correct",Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(AjoutArbre.this,"Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(AjoutArbre.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-        loadData();
-
-
     }
 
+
     public void saveData() {
-    public void saveData(View view) {
         openDialog();
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
