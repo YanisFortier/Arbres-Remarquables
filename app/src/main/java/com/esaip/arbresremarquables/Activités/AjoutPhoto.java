@@ -97,17 +97,17 @@ public class AjoutPhoto extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
-            Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
-            tst.setText(currentPath);
-            bitmap = RotateBitmap(bitmap,90);
+            //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
+            //tst.setText(currentPath);
+            bitmap = RotateBitmap(bitmap,0);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
         }
         else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
             contentUri = data.getData();
             result = saveImage(contentUri);
-            Toast.makeText(this,String.valueOf(result.getByteCount()),Toast.LENGTH_LONG).show();
-            //ivPhoto.setImageBitmap(result);
+            //Toast.makeText(this,String.valueOf(result.getByteCount()),Toast.LENGTH_LONG).show();
+            ivPhoto.setImageBitmap(result);
             infos.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -215,6 +215,7 @@ public class AjoutPhoto extends AppCompatActivity {
         startActivityForResult(galleryIntent, GALLERY);
     }
 
+    //Sauvegarder l'image de la gallerie
     private Bitmap saveImage(Uri contentUri) {
         String[] filePath = { MediaStore.Images.Media.DATA };
         Cursor c = getContentResolver().query(contentUri,filePath, null, null, null);
