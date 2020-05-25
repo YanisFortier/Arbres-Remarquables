@@ -104,7 +104,7 @@ public class AjoutArbre extends AppCompatActivity {
                 stringTextObservations = editTextObservations.getText().toString().trim();
                 int count = 0;
 
-                if (!checkPatternMail(stringTextMail)) {
+                if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
                     editTextAdresseMail.setError("Adresse mail non valide");
                 } else {
                     count += 1;
@@ -134,7 +134,7 @@ public class AjoutArbre extends AppCompatActivity {
                     count += 1;
                 }
 
-                if (!checkPatternObervations(stringTextObservations)) {
+                if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
                     editTextObservations.setError("Commentaires non valide");
                 } else {
                     count += 1;
