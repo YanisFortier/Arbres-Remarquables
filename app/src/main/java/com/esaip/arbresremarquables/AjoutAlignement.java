@@ -1,26 +1,18 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Dialog;
-import com.esaip.arbresremarquables.R;
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 public class AjoutAlignement extends AppCompatActivity {
 
@@ -103,7 +95,7 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private void openDialog() {
-        Dialog dialog = new Dialog(editTextNomPrenom.getText().toString());
+        DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
         dialog.show(getSupportFragmentManager(), "example dialog");
     }
 

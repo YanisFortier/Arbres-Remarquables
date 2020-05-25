@@ -1,6 +1,6 @@
-package com.esaip.arbresremarquables.Model;
+package com.esaip.arbresremarquables.Models;
 
-public class EspaceBoise {
+public class Alignement {
     private String nomPrenom;
     private String pseudo;
     private String mail;
@@ -10,20 +10,16 @@ public class EspaceBoise {
     private String photo;
     private String nbArbres;
     private String nbEspeces;
-    private String niveau;
-    private Boolean pointEau;
-    private Boolean abris;
-    private Boolean eclairage;
-    private String biodiversite;
-    private Boolean ombre;
-    private String entretien;
-    private String globalement;
+    private String especes;
+    private String lien;
+    private String protection;
     private String observations;
+    private Boolean verification;
 
-    public EspaceBoise() {
+    public Alignement() {
     }
 
-    public EspaceBoise(String nomPrenom, String pseudo, String mail, double latitude, double longitude, String adresseArbre, String photo, String nbArbres, String nbEspeces, String niveau, Boolean pointEau, Boolean abris, Boolean eclairage, String biodiversite, Boolean ombre, String entretien, String globalement, String observations) {
+    public Alignement(String nomPrenom, String pseudo, String mail, double latitude, double longitude, String adresseArbre, String photo, String nbArbres, String nbEspeces, String especes, String lien, String protection, String observations, Boolean verification) {
         this.nomPrenom = nomPrenom;
         this.pseudo = pseudo;
         this.mail = mail;
@@ -33,15 +29,11 @@ public class EspaceBoise {
         this.photo = photo;
         this.nbArbres = nbArbres;
         this.nbEspeces = nbEspeces;
-        this.niveau = niveau;
-        this.pointEau = pointEau;
-        this.abris = abris;
-        this.eclairage = eclairage;
-        this.biodiversite = biodiversite;
-        this.ombre = ombre;
-        this.entretien = entretien;
-        this.globalement = globalement;
+        this.especes = especes;
+        this.lien = lien;
+        this.protection = protection;
         this.observations = observations;
+        this.verification = verification;
     }
 
     public String getNomPrenom() {
@@ -116,68 +108,28 @@ public class EspaceBoise {
         this.nbEspeces = nbEspeces;
     }
 
-    public String getNiveau() {
-        return niveau;
+    public String getEspeces() {
+        return especes;
     }
 
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
+    public void setEspeces(String especes) {
+        this.especes = especes;
     }
 
-    public Boolean getPointEau() {
-        return pointEau;
+    public String getLien() {
+        return lien;
     }
 
-    public void setPointEau(Boolean pointEau) {
-        this.pointEau = pointEau;
+    public void setLien(String lien) {
+        this.lien = lien;
     }
 
-    public Boolean getAbris() {
-        return abris;
+    public String getProtection() {
+        return protection;
     }
 
-    public void setAbris(Boolean abris) {
-        this.abris = abris;
-    }
-
-    public Boolean getEclairage() {
-        return eclairage;
-    }
-
-    public void setEclairage(Boolean eclairage) {
-        this.eclairage = eclairage;
-    }
-
-    public String getBiodiversite() {
-        return biodiversite;
-    }
-
-    public void setBiodiversite(String biodiversite) {
-        this.biodiversite = biodiversite;
-    }
-
-    public Boolean getOmbre() {
-        return ombre;
-    }
-
-    public void setOmbre(Boolean ombre) {
-        this.ombre = ombre;
-    }
-
-    public String getEntretien() {
-        return entretien;
-    }
-
-    public void setEntretien(String entretien) {
-        this.entretien = entretien;
-    }
-
-    public String getGlobalement() {
-        return globalement;
-    }
-
-    public void setGlobalement(String globalement) {
-        this.globalement = globalement;
+    public void setProtection(String protection) {
+        this.protection = protection;
     }
 
     public String getObservations() {
@@ -186,5 +138,13 @@ public class EspaceBoise {
 
     public void setObservations(String observations) {
         this.observations = observations;
+    }
+
+    public Boolean getVerification() {
+        return verification;
+    }
+
+    public void setVerification(Boolean verification) {
+        this.verification = verification;
     }
 }

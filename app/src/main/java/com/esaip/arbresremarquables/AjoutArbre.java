@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Model.Arbre;
-import com.esaip.arbresremarquables.R;
+import com.esaip.arbresremarquables.Models.Arbre;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
 

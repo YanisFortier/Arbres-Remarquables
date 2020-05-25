@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables;
+package com.esaip.arbresremarquables.Dialogs;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,14 +13,34 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.esaip.arbresremarquables.Activités.MapsActivity;
+import com.esaip.arbresremarquables.MapsActivity;
+import com.esaip.arbresremarquables.R;
 
-public class Dialog extends AppCompatDialogFragment {
+public class DialogArbre extends AppCompatDialogFragment {
     private TextView textDialog_NomPrenom;
-    private String textNomPrenom;
+    private TextView textDialog_Pseudo;
+    private TextView textDialog_Email;
+    private TextView textDialog_NomArbre;
+    private TextView textDialog_AdresseArbre;
+    private TextView textDialog_Remarquable;
+    private TextView textDialog_Observations;
+    private TextView textDialog_Verification;
 
-    public Dialog(String textNomPrenom) {
+    private String textNomPrenom;
+    private String textPseudo;
+    private String textEmail;
+    private String textNomArbre;
+    private String textAdresseArbre;
+    private String textEspace;
+    private String textRemarquable;
+    private String textObservations;
+    private Boolean boolVerification;
+
+
+    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail) {
         this.textNomPrenom = textNomPrenom;
+        this.textPseudo = textPseudo;
+        this.textEmail = textEmail;
     }
 
     @NonNull
@@ -31,9 +51,11 @@ public class Dialog extends AppCompatDialogFragment {
 
         View view = inflater.inflate(R.layout.layout_dialog, null);
         textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
+        textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
+        textDialog_Email = view.findViewById(R.id.textDialog_Email);
 
         builder.setView(view)
-                .setTitle("Titre")
+                .setTitle("Récapitulatif")
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -50,6 +72,9 @@ public class Dialog extends AppCompatDialogFragment {
                 });
 
         textDialog_NomPrenom.setText(textNomPrenom);
+        textDialog_Pseudo.setText(textPseudo);
+        textDialog_Email.setText(textEmail);
+
         return builder.create();
     }
 }

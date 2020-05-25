@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables.Model;
+package com.esaip.arbresremarquables.Models;
 
 public class Arbre {
     private String nomPrenom;

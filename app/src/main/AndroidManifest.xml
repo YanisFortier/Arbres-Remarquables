@@ -22,10 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activités.AjoutPhoto"/>
-        <activity android:name=".Activités.AjoutEspaceBoise" />
-        <activity android:name=".Activités.AjoutAlignement" />
-        <activity android:name=".Activités.AjoutArbre" />
+        <activity android:name=".AjoutPhoto" />
+        <activity android:name=".AjoutEspaceBoise" />
+        <activity android:name=".AjoutAlignement" />
+        <activity android:name=".AjoutArbre" />
 
 
         <meta-data
@@ -33,7 +33,7 @@
             android:value="AtaIsF5ZaVYIAgGPfX-ONyZVwNJCf3SzJ-KCQMKLc83aSAiGddDvqT6Ggnh6jLMs" />
 
         <activity
-            android:name=".Activités.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

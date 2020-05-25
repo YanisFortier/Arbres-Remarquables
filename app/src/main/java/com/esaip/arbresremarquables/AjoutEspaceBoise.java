@@ -1,6 +1,5 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +7,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.R;
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 
 public class AjoutEspaceBoise extends AppCompatActivity {
     //Variables pour la sauvegarde utilisateur
@@ -68,6 +66,8 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     public void saveData(View view) {
+        openDialog();
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -75,10 +75,11 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMail.getText().toString());
         editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
         editor.apply();
+    }
 
-        new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Espace boisé enregistré !", Toast.LENGTH_LONG).show();
-        finish();
+    private void openDialog() {
+        DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
+        dialog.show(getSupportFragmentManager(), "example dialog");
     }
 
     public void loadData() {

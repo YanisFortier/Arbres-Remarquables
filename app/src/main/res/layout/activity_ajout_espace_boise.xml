@@ -186,7 +186,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textAdresseEspacebois"
+                    android:text="@string/textAdresseEspaceboise"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="@string/textEspaceEspacebois" />
+                    android:text="@string/textEspaceEspaceboise" />
 
                 <Spinner
                     android:layout_width="fill_parent"
@@ -236,7 +236,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descNbEspacebois"
+                    android:text="@string/descNbEspaceboise"
                     />
 
                 <Spinner
