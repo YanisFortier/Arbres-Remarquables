@@ -97,52 +97,52 @@ public class AjoutArbre extends AppCompatActivity {
         buttonValid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringTextNomPrenom = editTextNomPrenomArb.getText().toString().trim();
-                stringTextPseudo = editTextPseudoArb.getText().toString().trim();
-                stringTextMail = editTextAdresseMailArb.getText().toString().trim();
-                stringTextAdresse = editTextAdresseArbreArb.getText().toString().trim();
-                stringTextObservations = editTextObservationsArb.getText().toString().trim();
+                stringTextNomPrenom = editTextNomPrenom.getText().toString().trim();
+                stringTextPseudo = editTextPseudo.getText().toString().trim();
+                stringTextMail = editTextAdresseMail.getText().toString().trim();
+                stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
+                stringTextObservations = editTextObservations.getText().toString().trim();
                 int count = 0;
 
                 if (!checkPatternMail(stringTextMail)) {
-                    editTextAdresseMailArb.setError("Adresse mail non valide");
+                    editTextAdresseMail.setError("Adresse mail non valide");
                 } else {
                     count += 1;
                 }
 
                 if (stringTextNomPrenom.isEmpty()) {
-                    editTextNomPrenomArb.setError("Ce champ est obligatoire");
+                    editTextNomPrenom.setError("Ce champ est obligatoire");
                 } else if (!checkPatternGeneral(stringTextNomPrenom)) {
-                    editTextNomPrenomArb.setError("Nom et prénom non valide");
+                    editTextNomPrenom.setError("Nom et prénom non valide");
                 } else {
                     count += 1;
                 }
 
                 if (stringTextPseudo.isEmpty()) {
-                    editTextPseudoArb.setError("Ce champ est obligatoire");
+                    editTextPseudo.setError("Ce champ est obligatoire");
                 } else if (!checkPatternPseudo(stringTextPseudo)) {
-                    editTextPseudoArb.setError("Pseudonyme non valide");
+                    editTextPseudo.setError("Pseudonyme non valide");
                 } else {
                     count += 1;
                 }
 
                 if (stringTextAdresse.isEmpty()) {
-                    editTextAdresseArbreArb.setError("Ce champ est obligatoire");
+                    editTextAdresseArbre.setError("Ce champ est obligatoire");
                 } else if (!checkPatternAdresse(stringTextAdresse)) {
-                    editTextAdresseArbreArb.setError("Adresse non valide");
+                    editTextAdresseArbre.setError("Adresse non valide");
                 } else {
                     count += 1;
                 }
 
                 if (!checkPatternObervations(stringTextObservations)) {
-                    editTextObservationsArb.setError("Commentaires non valide");
+                    editTextObservations.setError("Commentaires non valide");
                 } else {
                     count += 1;
                 }
 
                 if (count == 5) {
                     saveData();
-                    finish();
+                    //finish();
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(AjoutArbre.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
@@ -255,7 +255,7 @@ public class AjoutArbre extends AppCompatActivity {
     }
 
     private Boolean checkPatternAdresse(String txt){
-        Pattern ADRESSE = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç\\-\\d ])+[']?([A-Za-zâäèéêëîïôöûüñç\\-\\d ])*$");
+        Pattern ADRESSE = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç\\-\\d ,])+[']?([A-Za-zâäèéêëîïôöûüñç\\-\\d ,])*$");
         return ADRESSE.matcher(txt).matches();
     }
 
