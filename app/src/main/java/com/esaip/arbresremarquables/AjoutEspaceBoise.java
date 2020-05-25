@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
+
 public class AjoutEspaceBoise extends AppCompatActivity {
     //Variables pour la sauvegarde utilisateur
     public static final String SHARED_PREFS = "SHARED_PREFS";
@@ -76,7 +78,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private void openDialog() {
-        Dialog dialog = new Dialog(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
+        DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
         dialog.show(getSupportFragmentManager(), "example dialog");
     }
 

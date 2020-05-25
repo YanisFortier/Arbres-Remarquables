@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables;
+package com.esaip.arbresremarquables.Dialogs;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class Dialog extends AppCompatDialogFragment {
+import com.esaip.arbresremarquables.MapsActivity;
+import com.esaip.arbresremarquables.R;
+
+public class DialogArbre extends AppCompatDialogFragment {
     private TextView textDialog_NomPrenom;
     private TextView textDialog_Pseudo;
     private TextView textDialog_Email;
@@ -34,7 +37,7 @@ public class Dialog extends AppCompatDialogFragment {
     private Boolean boolVerification;
 
 
-    public Dialog(String textNomPrenom, String textPseudo, String textEmail) {
+    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail) {
         this.textNomPrenom = textNomPrenom;
         this.textPseudo = textPseudo;
         this.textEmail = textEmail;

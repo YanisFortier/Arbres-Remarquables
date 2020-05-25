@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class AjoutAlignement extends AppCompatActivity {
@@ -94,7 +95,7 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private void openDialog() {
-        Dialog dialog = new Dialog(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
+        DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
         dialog.show(getSupportFragmentManager(), "example dialog");
     }
 
