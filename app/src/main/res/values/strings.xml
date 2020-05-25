@@ -59,8 +59,7 @@
     <string name="textProtection">"Protection : "</string>
     <string name="descProtection">"Cet alignement est selon vous à protéger car : "</string>
     <string name="textObservation">"Observations : "</string>
-    <string name="textInfoBotaniste">"Informations vérifiées sur site par un botaniste *"</string>
-    <string name="textInfoBotanisteClean">"Informations vérifiées sur site par un botaniste "</string>
+    <string name="textInfoBotaniste">"Informations vérifiées sur site par un botaniste "</string>
     <string name="descInfoBotaniste">"Le botaniste n'est pas obligatoire mais la réponse à cette question l'est."</string>
 
     <!--Ajout Espace Boisé-->

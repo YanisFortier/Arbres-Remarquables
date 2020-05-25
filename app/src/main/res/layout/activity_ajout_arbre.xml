@@ -369,7 +369,6 @@
                 android:layout_margin="15dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
-                android:onClick="saveData"
                 android:text="Valider" />
 
         </LinearLayout>

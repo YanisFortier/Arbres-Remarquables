@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
+import java.util.regex.Pattern;
+
 public class AjoutAlignement extends AppCompatActivity {
 
     //Variables pour la sauvegarde utilisateur
@@ -68,13 +70,8 @@ public class AjoutAlignement extends AppCompatActivity {
                 }
             }
         });
-
-
-
         loadData();
     }
-
-
 
     public void saveData(View view) {
         openDialog();

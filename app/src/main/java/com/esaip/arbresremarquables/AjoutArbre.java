@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.esaip.arbresremarquables.Models.Arbre;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.regex.Pattern;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
 
@@ -32,6 +37,8 @@ public class AjoutArbre extends AppCompatActivity {
     private EditText editTextLatitudeArb, editTextLongitudeArb, editTextNomPrenomArb, editTextAdresseMailArb, editTextPseudoArb,editTextObservationsArb, editTextAdresseArbreArb;
     private LinearLayout layoutNomArbreArb;
     private CheckBox checkBoxRemArb1,checkBoxRemArb2,checkBoxRemArb3,checkBoxVerifArb;
+    private Button buttonValid;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse;
 
     //Location
     private LatLng mLatLng;
@@ -59,6 +66,7 @@ public class AjoutArbre extends AppCompatActivity {
         checkBoxRemArb2 = findViewById(R.id.checkBoxRemArb2);
         checkBoxRemArb3 = findViewById(R.id.checkBoxRemArb3);
         checkBoxVerifArb = findViewById(R.id.checkBoxVerifArb);
+        buttonValid = findViewById(R.id.buttonValiderArb);
 
         //Détection si le nom de l'arbre est autre
         spinnerNomArbreArb.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -76,10 +84,68 @@ public class AjoutArbre extends AppCompatActivity {
             }
         });
 
+        buttonValid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stringTextNomPrenom = editTextNomPrenomArb.getText().toString().trim();
+                stringTextPseudo = editTextPseudoArb.getText().toString().trim();
+                stringTextMail = editTextAdresseMailArb.getText().toString().trim();
+                stringTextAdresse = editTextAdresseArbreArb.getText().toString().trim();
+                stringTextObservations = editTextObservationsArb.getText().toString().trim();
+                int count = 0;
+
+                if(!checkPatternMail(stringTextMail)){
+                    editTextAdresseMailArb.setError("Adresse mail non valide");
+                }else {
+                    count+=1;
+                }
+
+                if (stringTextNomPrenom.isEmpty()){
+                    editTextNomPrenomArb.setError("Ce champ est obligatoire");
+                }else if(!checkPatternGeneral(stringTextNomPrenom)){
+                    editTextNomPrenomArb.setError("Nom et prénom non valide");
+                }else {
+                    count+=1;
+                }
+
+                if (stringTextPseudo.isEmpty()){
+                    editTextPseudoArb.setError("Ce champ est obligatoire");
+                }else if(!checkPatternPseudo(stringTextPseudo)){
+                    editTextPseudoArb.setError("Pseudonyme non valide");
+                }else {
+                    count+=1;
+                }
+
+                if (stringTextAdresse.isEmpty()){
+                    editTextAdresseArbreArb.setError("Ce champ est obligatoire");
+                }else if(!checkPatternAdresse(stringTextAdresse)){
+                    editTextAdresseArbreArb.setError("Adresse non valide");
+                }else {
+                    count+=1;
+                }
+
+                if(!checkPatternObervations(stringTextObservations)){
+                    editTextObservationsArb.setError("Commentaires non valide");
+                }else {
+                    count+=1;
+                }
+
+                if (count==5){
+                    saveData();
+                    finish();
+                    Toast.makeText(AjoutArbre.this,"Correct",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(AjoutArbre.this,"Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        loadData();
+
 
     }
 
-    public void saveData(View view) {
+    public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -90,8 +156,7 @@ public class AjoutArbre extends AppCompatActivity {
         editor.apply();
 
         Intent i = new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Arbre enregistré !", Toast.LENGTH_LONG).show();
-        finish();
+        //Toast.makeText(this, "Arbre enregistré !", Toast.LENGTH_LONG).show();
     }
 
     public void loadData() {
@@ -143,6 +208,31 @@ public class AjoutArbre extends AppCompatActivity {
             arbre.setEspace("Inconnu");
         }
         return arbre;
+    }
+
+    private Boolean checkPatternMail(String txt){
+        Pattern MAIL = Pattern.compile("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$");
+        return MAIL.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternGeneral(String txt){
+        Pattern REG1 = Pattern.compile("^([A-Z][a-zâäèéêëîïôöûüñç ]+)(\\-?[A-Z][a-zâäèéêëîïôöûüñç ]+)*$");
+        return REG1.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternPseudo(String txt){
+        Pattern PSEUDO = Pattern.compile("^([A-zâäèéêëîïôöûüñç\\-\\d ])+$");
+        return PSEUDO.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternAdresse(String txt){
+        Pattern ADRESSE = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç\\-\\d ])+[']?([A-Za-zâäèéêëîïôöûüñç\\-\\d ])*$");
+        return ADRESSE.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternObervations(String txt){
+        Pattern OBSERVATIONS = Pattern.compile("^(([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])+[']?([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])*([,\\.;/!:?()\\[\\]])*)+$");
+        return OBSERVATIONS.matcher(txt).matches();
     }
 
 }

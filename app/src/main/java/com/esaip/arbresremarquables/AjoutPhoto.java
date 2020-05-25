@@ -148,7 +148,7 @@ public class AjoutPhoto extends AppCompatActivity {
     //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fname = "JPEG_" + timeStamp;
+        String fname = "JPEG_" + timeStamp + ".jpg";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = new File(storageDir, fname);
         //File image = File.createTempFile(fname,  /* prefix */".jpg",   /* suffix */storageDir/* directory */);
