@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
+import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
+import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
@@ -58,6 +61,7 @@ public class MapsActivity extends FragmentActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
         }
 
+        //Boutons
         btnArbre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +73,7 @@ public class MapsActivity extends FragmentActivity {
         btnMaxime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutAlignement.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +81,7 @@ public class MapsActivity extends FragmentActivity {
         btnYanis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutEspaceBoise.class);
+                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
                 startActivity(intent);
             }
         });
