@@ -1,6 +1,5 @@
-package com.esaip.arbresremarquables;
+package com.esaip.arbresremarquables.Formulaires;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,12 +8,14 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Models.Arbre;
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
+import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -28,15 +29,18 @@ public class AjoutArbre extends AppCompatActivity {
     public static final String TEXT_PSEUDO = "PSEUDO";
 
     //Variables
-    private Spinner spinnerNomArbreArb, spinnerEspaceArb;
-    private EditText editTextLatitudeArb, editTextLongitudeArb, editTextNomPrenomArb, editTextAdresseMailArb, editTextPseudoArb,editTextObservationsArb, editTextAdresseArbreArb;
-    private LinearLayout layoutNomArbreArb;
-    private CheckBox checkBoxRemArb1,checkBoxRemArb2,checkBoxRemArb3,checkBoxVerifArb;
+    private Spinner spinnerNomArbre, spinnerEspace;
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo, editTextLatitude, editTextLongitude, editTextAdresseArbre, editTextObservations;
+    private LinearLayout layoutNomArbre;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private CheckBox checkboxVerification;
 
     //Location
     private LatLng mLatLng;
     private Location mCurrentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
+
 
 
     @Override
@@ -45,30 +49,28 @@ public class AjoutArbre extends AppCompatActivity {
 
         //Setup - FindViewById
         setContentView(R.layout.activity_ajout_arbre);
-        spinnerNomArbreArb = findViewById(R.id.spinnerNomArbreArb);
-        spinnerEspaceArb = findViewById(R.id.spinnerEspaceArb);
-        layoutNomArbreArb = findViewById(R.id.layoutNomArbreArb);
-        editTextNomPrenomArb = findViewById(R.id.editTextNomPrenomArb);
-        editTextAdresseMailArb = findViewById(R.id.editTextAdresseMailArb);
-        editTextPseudoArb = findViewById(R.id.editTextPseudoArb);
-        editTextLongitudeArb = findViewById(R.id.editTextLongitudeArb);
-        editTextLatitudeArb = findViewById(R.id.editTextLatitudeArb);
-        editTextAdresseArbreArb = findViewById(R.id.editTextAdresseArbreArb);
-        editTextObservationsArb = findViewById(R.id.editTextObservationArb);
-        checkBoxRemArb1 = findViewById(R.id.checkBoxRemArb1);
-        checkBoxRemArb2 = findViewById(R.id.checkBoxRemArb2);
-        checkBoxRemArb3 = findViewById(R.id.checkBoxRemArb3);
-        checkBoxVerifArb = findViewById(R.id.checkBoxVerifArb);
+        spinnerNomArbre = findViewById(R.id.spinnerNomArbreArb);
+        spinnerEspace = findViewById(R.id.spinnerEspaceArb);
+        layoutNomArbre = findViewById(R.id.layoutNomArbreArb);
+        editTextNomPrenom = findViewById(R.id.editTextNomPrenomArb);
+        editTextAdresseMail = findViewById(R.id.editTextAdresseMailArb);
+        editTextPseudo = findViewById(R.id.editTextPseudoArb);
+        editTextLongitude = findViewById(R.id.editTextLongitudeArb);
+        editTextLatitude = findViewById(R.id.editTextLatitudeArb);
+        radioGroup = findViewById(R.id.RadioGroupRemarquable);
+        editTextAdresseArbre = findViewById(R.id.editTextAdresseArbreArb);
+        editTextObservations = findViewById(R.id.editTextObservationArb);
+        checkboxVerification = findViewById(R.id.checkBoxVerifArb);
 
         //Détection si le nom de l'arbre est autre
-        spinnerNomArbreArb.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spinnerNomArbre.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String nomArbreSelected = spinnerNomArbreArb.getSelectedItem().toString();
+                String nomArbreSelected = spinnerNomArbre.getSelectedItem().toString();
                 if (nomArbreSelected.equals("Autre")) {
-                    layoutNomArbreArb.setVisibility(View.VISIBLE);
+                    layoutNomArbre.setVisibility(View.VISIBLE);
                 } else {
-                    layoutNomArbreArb.setVisibility(View.GONE);
+                    layoutNomArbre.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -80,18 +82,38 @@ public class AjoutArbre extends AppCompatActivity {
     }
 
     public void saveData(View view) {
+        openDialog();
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(TEXT_NOM_PRENOM, editTextNomPrenomArb.getText().toString());
-        editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMailArb.getText().toString());
-        editor.putString(TEXT_PSEUDO, editTextPseudoArb.getText().toString());
-
+        editor.putString(TEXT_NOM_PRENOM, editTextNomPrenom.getText().toString());
+        editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMail.getText().toString());
+        editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
         editor.apply();
+    }
 
-        Intent i = new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Arbre enregistré !", Toast.LENGTH_LONG).show();
-        finish();
+    private void openDialog() {
+        String remarquable = null;
+        if (radioGroup.getCheckedRadioButtonId() != -1) {
+            radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            remarquable = radioButton.getText().toString();
+        }
+        String nomPrenom = editTextNomPrenom.getText().toString();
+        String pseudo = editTextPseudo.getText().toString();
+        String email = editTextAdresseMail.getText().toString();
+        String nomArbre = spinnerNomArbre.getSelectedItem().toString();
+        String adresseArbre = editTextAdresseArbre.getText().toString();
+        String espace = spinnerEspace.getSelectedItem().toString();
+        String observations = editTextObservations.getText().toString();
+
+        boolean verification = false;
+        if (checkboxVerification.isChecked())
+            verification = true;
+
+
+        DialogArbre dialog = new DialogArbre(nomPrenom, pseudo, email, nomArbre, adresseArbre, espace, remarquable, observations, verification);
+        dialog.show(getSupportFragmentManager(), "Dialog AjoutArbre");
     }
 
     public void loadData() {
@@ -101,11 +123,12 @@ public class AjoutArbre extends AppCompatActivity {
         String textAdresseMail = sharedPreferences.getString(TEXT_ADRESSE_MAIL, "");
         String textPseudo = sharedPreferences.getString(TEXT_PSEUDO, "");
 
-        editTextNomPrenomArb.setText(textNomPrenom);
-        editTextAdresseMailArb.setText(textAdresseMail);
-        editTextPseudoArb.setText(textPseudo);
+        editTextNomPrenom.setText(textNomPrenom);
+        editTextAdresseMail.setText(textAdresseMail);
+        editTextPseudo.setText(textPseudo);
     }
 
+    /*
     private Arbre getInfos(EditText nomPrenom, EditText pseudo, EditText adresseMail, EditText longitude, EditText latitude, EditText adresseArbre, EditText observation, Spinner nomArbre, Spinner espace, CheckBox rem1, CheckBox rem2, CheckBox rem3, CheckBox verif){
         Arbre arbre = new Arbre();
         arbre.setNomPrenom(nomPrenom.getText().toString());
@@ -143,6 +166,6 @@ public class AjoutArbre extends AppCompatActivity {
             arbre.setEspace("Inconnu");
         }
         return arbre;
-    }
+    }*/
 
 }

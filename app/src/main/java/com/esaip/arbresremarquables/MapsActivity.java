@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
+import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
+import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 

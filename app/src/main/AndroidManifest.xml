@@ -25,11 +25,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AjoutPhoto" android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".AjoutEspaceBoise" android:screenOrientation="portrait"
+        <activity
+            android:name=".Formulaires.AjoutEspaceBoise"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AjoutAlignement" android:screenOrientation="portrait"
+        <activity
+            android:name=".Formulaires.AjoutAlignement"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AjoutArbre" android:screenOrientation="portrait"
+        <activity
+            android:name=".Formulaires.AjoutArbre"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
 
 
@@ -47,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.esaip.arbresremarquables"
@@ -56,15 +63,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.esaip.arbresremarquables"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/csv_paths" />
-        </provider>
+
     </application>
 
 </manifest>

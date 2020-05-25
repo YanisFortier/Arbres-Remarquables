@@ -22,6 +22,7 @@ public class DialogArbre extends AppCompatDialogFragment {
     private TextView textDialog_Email;
     private TextView textDialog_NomArbre;
     private TextView textDialog_AdresseArbre;
+    private TextView textDialog_Espace;
     private TextView textDialog_Remarquable;
     private TextView textDialog_Observations;
     private TextView textDialog_Verification;
@@ -37,10 +38,16 @@ public class DialogArbre extends AppCompatDialogFragment {
     private Boolean boolVerification;
 
 
-    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail) {
+    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail, String textNomArbre, String textAdresseArbre, String textEspace, String textRemarquable, String textObservations, Boolean boolVerification) {
         this.textNomPrenom = textNomPrenom;
         this.textPseudo = textPseudo;
         this.textEmail = textEmail;
+        this.textNomArbre = textNomArbre;
+        this.textAdresseArbre = textAdresseArbre;
+        this.textEspace = textEspace;
+        this.textRemarquable = textRemarquable;
+        this.textObservations = textObservations;
+        this.boolVerification = boolVerification;
     }
 
     @NonNull
@@ -53,6 +60,12 @@ public class DialogArbre extends AppCompatDialogFragment {
         textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
         textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
         textDialog_Email = view.findViewById(R.id.textDialog_Email);
+        textDialog_Espace = view.findViewById(R.id.textDialog_Espace);
+        textDialog_NomArbre = view.findViewById(R.id.textDialog_NomArbre);
+        textDialog_AdresseArbre = view.findViewById(R.id.textDialog_AdresseArbre);
+        textDialog_Remarquable = view.findViewById(R.id.textDialog_Remarquable);
+        textDialog_Observations = view.findViewById(R.id.textDialog_Obervations);
+        textDialog_Verification = view.findViewById(R.id.textDialog_Verification);
 
         builder.setView(view)
                 .setTitle("Récapitulatif")
@@ -74,6 +87,14 @@ public class DialogArbre extends AppCompatDialogFragment {
         textDialog_NomPrenom.setText(textNomPrenom);
         textDialog_Pseudo.setText(textPseudo);
         textDialog_Email.setText(textEmail);
+        textDialog_NomArbre.setText(textNomArbre);
+        textDialog_AdresseArbre.setText(textAdresseArbre);
+        textDialog_Remarquable.setText(textRemarquable);
+        textDialog_Observations.setText(textObservations);
+        textDialog_Espace.setText(textEspace);
+
+        //if(boolVerification)
+        //  textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
 
         return builder.create();
     }
