@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,7 +16,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.esaip.arbresremarquables.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -98,7 +95,7 @@ public class AjoutPhoto extends AppCompatActivity {
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
             //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
-            //tst.setText(currentPath);
+            tst.setText(currentPath);
             bitmap = RotateBitmap(bitmap,0);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
@@ -151,13 +148,11 @@ public class AjoutPhoto extends AppCompatActivity {
     //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String fname = "JPEG_" + timeStamp;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
-        );
+        File image = new File(storageDir, fname);
+        //File image = File.createTempFile(fname,  /* prefix */".jpg",   /* suffix */storageDir/* directory */);
+
         //Sauvegarder l'image
         return image;
     }
@@ -200,7 +195,7 @@ public class AjoutPhoto extends AppCompatActivity {
             startActivity(ajout2);
         }
         if(rbType3.isChecked()){
-            Intent ajout3 = new Intent(getApplicationContext(),AjoutEspaceBoise.class);
+            Intent ajout3 = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
             ajout3.putExtra("photo",currentPath);
             if(rbYes.isChecked()){
                 ajout3.putExtra("geolocalisation",true);
