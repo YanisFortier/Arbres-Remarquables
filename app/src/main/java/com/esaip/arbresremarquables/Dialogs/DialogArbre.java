@@ -49,7 +49,7 @@ public class DialogArbre extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.layout_dialog, null);
+        View view = inflater.inflate(R.layout.layout_dialog_arbre, null);
         textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
         textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
         textDialog_Email = view.findViewById(R.id.textDialog_Email);

@@ -76,7 +76,7 @@ public class AjoutArbre extends AppCompatActivity {
             }
         });
 
-
+        loadData();
     }
 
     public void saveData(View view) {
