@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.esaip.arbresremarquables">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,10 +23,14 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AjoutPhoto" />
-        <activity android:name=".AjoutEspaceBoise" />
-        <activity android:name=".AjoutAlignement" />
-        <activity android:name=".AjoutArbre" />
+        <activity android:name=".AjoutPhoto" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".AjoutEspaceBoise" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".AjoutAlignement" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".AjoutArbre" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
 
 
         <meta-data
@@ -33,7 +38,8 @@
             android:value="AtaIsF5ZaVYIAgGPfX-ONyZVwNJCf3SzJ-KCQMKLc83aSAiGddDvqT6Ggnh6jLMs" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".MapsActivity" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,6 +55,15 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.esaip.arbresremarquables"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/csv_paths" />
         </provider>
     </application>
 
