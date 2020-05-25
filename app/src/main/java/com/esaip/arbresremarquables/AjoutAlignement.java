@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Dialog;
-import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class AjoutAlignement extends AppCompatActivity {

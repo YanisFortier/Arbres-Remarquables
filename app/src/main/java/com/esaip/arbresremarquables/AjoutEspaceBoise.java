@@ -1,4 +1,4 @@
-package com.esaip.arbresremarquables.Activités;
+package com.esaip.arbresremarquables;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,9 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.esaip.arbresremarquables.Dialog;
-import com.esaip.arbresremarquables.R;
 
 public class AjoutEspaceBoise extends AppCompatActivity {
     //Variables pour la sauvegarde utilisateur

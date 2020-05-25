@@ -1,8 +1,4 @@
-package com.esaip.arbresremarquables.Activités;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
+package com.esaip.arbresremarquables;
 
 import android.Manifest;
 import android.app.Activity;
@@ -24,7 +20,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esaip.arbresremarquables.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;

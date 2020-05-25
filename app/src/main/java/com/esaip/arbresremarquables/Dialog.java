@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.esaip.arbresremarquables.Activités.MapsActivity;
-
 public class Dialog extends AppCompatDialogFragment {
     private TextView textDialog_NomPrenom;
     private TextView textDialog_Pseudo;
