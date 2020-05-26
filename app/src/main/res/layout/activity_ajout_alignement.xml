@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titleAlignement"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,73 +31,75 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textNomPrenom"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descNomPrenom"
-                    />
+                    android:text="@string/descNomPrenom" />
+
                 <EditText
-                    android:id="@+id/editTextNomPrenomEsp"
+                    android:id="@+id/editTextNomPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="text" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textPseudo"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descPseudo"
-                    />
+                    android:text="@string/descPseudo" />
+
                 <EditText
-                    android:id="@+id/editTextPseudoEsp"
+                    android:id="@+id/editTextPseudo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="text" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textEmail"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descEmail"
-                    />
+                    android:text="@string/descEmail" />
+
                 <EditText
-                    android:id="@+id/editTextAdresseMailEsp"
+                    android:id="@+id/editTextAdresseMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -122,9 +124,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:text="Latitude *" />
+                    android:text="Latitude *"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="0dp"
@@ -134,9 +136,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:text="Longitude *" />
+                    android:text="Longitude *"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -172,30 +175,33 @@
                     android:gravity="center"
                     android:hint="Longitude"
                     android:inputType="text" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textAdresseAlignement"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descAdresse"
-                    />
+                    android:text="@string/descAdresse" />
+
                 <EditText
+                    android:id="@+id/editTextAdresseAlignement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -205,41 +211,43 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="@string/textEspaceAlignement" />
+                    android:text="@string/textEspaceAlignement"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/spinnerEspace"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/spinnerEspace"/>
+                    android:entries="@array/spinnerEspace" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="@string/textNombreArbres" />
+                    android:text="@string/textNombreArbres"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descNbAlignement"
-                    />
+                    android:text="@string/descNbAlignement" />
 
                 <Spinner
+                    android:id="@+id/spinnerNombresArbres"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:entries="@array/spinnerNombresArbres" />
@@ -248,40 +256,39 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="@string/textEspecesArbres" />
+                    android:text="@string/textEspecesArbres"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descNbEspece"
-                    />
+                    android:text="@string/descNbEspece" />
 
                 <Spinner
+                    android:id="@+id/spinnerNombresEspeces"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:entries="@array/spinnerNombresEspeces"/>
+                    android:entries="@array/spinnerNombresEspeces" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="@string/textEspeces" />
+                android:text="@string/textEspeces"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/descEspAlignement"
-                />
+                android:text="@string/descEspAlignement" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -298,30 +305,43 @@
                     android:orientation="vertical">
 
                     <CheckBox
+                        android:id="@+id/checkBoxChene"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Chêne" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxFrene"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Frêne" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxPeuplier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Peuplier" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxPin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Pin" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxCèdre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Cèdre" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxErable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Érable" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxSéquoia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Séquoia" />
@@ -339,31 +359,43 @@
                     android:orientation="vertical">
 
                     <CheckBox
+                        android:id="@+id/checkBoxPlatane"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Platane" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxMarronnier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Marronnier" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxChataignier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Châtaignier" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxHetre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Hêtre" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxMagniolia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Magnolia" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxTilleul"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Tilleul" />
+
                     <CheckBox
-                        android:id="@+id/checkAutre"
+                        android:id="@+id/checkBoxEspeceAutre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Autre" />
@@ -382,35 +414,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textAutreEspece"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descAutre"
-                    />
+                    android:text="@string/descAutre" />
+
                 <EditText
+                    android:id="@+id/editTextAutreEspece"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
+                    android:inputType="text" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textNomBotanique"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descBotanique"
-                    />
+                    android:text="@string/descBotanique" />
+
                 <EditText
+                    android:id="@+id/editTextNomBotanique"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -419,15 +455,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="@string/textLien" />
+                android:text="@string/textLien"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/descLien"
-                />
+                android:text="@string/descLien" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -444,10 +479,13 @@
                     android:orientation="vertical">
 
                     <CheckBox
+                        android:id="@+id/checkBoxEspaceBoise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/eb" />
+
                     <CheckBox
+                        android:id="@+id/checkBoxParcs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/parcs" />
@@ -465,11 +503,13 @@
                     android:orientation="vertical">
 
                     <CheckBox
+                        android:id="@+id/checkBoxAutresAlignement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/aligne" />
+
                     <CheckBox
-                        android:id="@+id/liencheckbox"
+                        android:id="@+id/checkBoxLienAutre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Autre" />
@@ -488,43 +528,46 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textAutreLien"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descAutreLien"
-                    />
+                    android:text="@string/descAutreLien" />
+
                 <EditText
+                    android:id="@+id/editTextAutreLien"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="@string/textProtection" />
+                    android:text="@string/textProtection"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descProtection"
-                    />
+                    android:text="@string/descProtection" />
 
                 <Spinner
+                    android:id="@+id/spinnerProtection"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:entries="@array/spinnerProtection" />
@@ -540,11 +583,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="Observations : " />
+                android:text="Observations : "
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/editTextObservation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -557,6 +601,7 @@
                 android:layout_height="wrap_content">
 
                 <CheckBox
+                    android:id="@+id/checkBoxVerification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
