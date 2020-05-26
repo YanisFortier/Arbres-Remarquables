@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
@@ -122,6 +126,11 @@ public class MapsActivity extends FragmentActivity {
 
         mapController.setZoom(13.00);
 
+        try {
+            generateArbres();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         final MapEventsReceiver mReceive = new MapEventsReceiver(){
             @Override
@@ -154,5 +163,23 @@ public class MapsActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+    }
+
+    private void generateArbres() throws JSONException {
+        String txt;
+        txt = "{ \"type\": \"FeatureCollection\", \"features\":[{ \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:42:00\", \"Remarquable\": \"* marquant\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Castanea sativa\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"7 chemin des cavaliers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"ChÃ¢taignier\", \"Identifiant\": \"41\", \"Photo\": \"41.jpg\", \"Identifiant de la rÃ©ponse\": \"41\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.6222872436\", \"47.4073779854\"] } }, { \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:44:00\", \"Remarquable\": \"* ancien* valeur\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Wisteria sinensis\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"22, rue des Saulniers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"Glycine de Chine\", \"Identifiant\": \"42\", \"Photo\": \"42.jpg\", \"Identifiant de la rÃ©ponse\": \"42\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.620834\", \"47.406899\"]}}]}";
+        JSONObject jsonObject = new JSONObject(txt);
+        JSONArray jsonArray = jsonObject.getJSONArray("features");
+        for (int i = 0; i< jsonArray.length();i++){
+            Marker m = new Marker(map);
+            m.setPosition(new GeoPoint(Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString()), Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(0).toString())));
+            m.setIcon(getResources().getDrawable(R.drawable.arbre));
+            m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
+            m.setSnippet(jsonArray.getJSONObject(i).getJSONObject("properties").get("Identifiant de la rÃ©ponse").toString());
+            m.setTitle(jsonArray.getJSONObject(i).getJSONObject("properties").get("Photo").toString());
+            map.getOverlays().add(m);
+            Log.i("JSON1",jsonArray.getJSONObject(i).getJSONObject("properties").get("Nom botanique").toString());
+            Log.i("JSON2",jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString());
+        }
     }
 }

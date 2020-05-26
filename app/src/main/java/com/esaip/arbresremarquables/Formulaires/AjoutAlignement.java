@@ -59,9 +59,11 @@ public class AjoutAlignement extends AppCompatActivity {
         checkBoxAutre = findViewById(R.id.checkAutre);
         autreLien = findViewById(R.id.editAutreLien);
         checkBoxLien = findViewById(R.id.liencheckbox);
-        editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
-        editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
-        editTextPseudo = findViewById(R.id.editTextPseudo);
+        editTextNomPrenom = findViewById(R.id.editTextNomPrenomAli);
+        editTextAdresseMail = findViewById(R.id.editTextAdresseMailAli);
+        editTextPseudo = findViewById(R.id.editTextPseudoAli);
+        editTextAdresseAlignement = findViewById(R.id.editTextAdresseAli);
+        spinnerNombreArbre = findViewById(R.id.spinnerNbArbresEsp);
 
         checkBoxAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -105,8 +107,8 @@ public class AjoutAlignement extends AppCompatActivity {
         String nomPrenom = editTextNomPrenom.getText().toString();
         String pseudo = editTextPseudo.getText().toString();
         String email = editTextAdresseMail.getText().toString();
-        String nomArbre = spinnerNomArbre.getSelectedItem().toString();
-        String adresseArbre = editTextAdresseArbre.getText().toString();
+        String nomArbre = spinnerNombreArbre.getSelectedItem().toString();
+        String adresseArbre = editTextAdresseAlignement.getText().toString();
         String espace = spinnerEspace.getSelectedItem().toString();
         String observations = editTextObservations.getText().toString();
 

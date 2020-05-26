@@ -202,7 +202,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private Boolean checkPatternGeneral(String txt){
-        Pattern REG1 = Pattern.compile("^([A-Z][a-zâäèéêëîïôöûüñç ]+)(\\-?[A-Z][a-zâäèéêëîïôöûüñç ]+)*$");
+        Pattern REG1 = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç ]+)(\\-?[A-Za-zâäèéêëîïôöûüñç ]+)*$");
         return REG1.matcher(txt).matches();
     }
 
