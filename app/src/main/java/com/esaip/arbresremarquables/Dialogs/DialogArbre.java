@@ -17,16 +17,6 @@ import com.esaip.arbresremarquables.MapsActivity;
 import com.esaip.arbresremarquables.R;
 
 public class DialogArbre extends AppCompatDialogFragment {
-    private TextView textDialog_NomPrenom;
-    private TextView textDialog_Pseudo;
-    private TextView textDialog_Email;
-    private TextView textDialog_NomArbre;
-    private TextView textDialog_AdresseArbre;
-    private TextView textDialog_Espace;
-    private TextView textDialog_Remarquable;
-    private TextView textDialog_Observations;
-    private TextView textDialog_Verification;
-
     private String textNomPrenom;
     private String textPseudo;
     private String textEmail;
@@ -57,15 +47,15 @@ public class DialogArbre extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_arbre, null);
-        textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
-        textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
-        textDialog_Email = view.findViewById(R.id.textDialog_Email);
-        textDialog_Espace = view.findViewById(R.id.textDialog_Espace);
-        textDialog_NomArbre = view.findViewById(R.id.textDialog_NomArbre);
-        textDialog_AdresseArbre = view.findViewById(R.id.textDialog_AdresseArbre);
-        textDialog_Remarquable = view.findViewById(R.id.textDialog_Remarquable);
-        textDialog_Observations = view.findViewById(R.id.textDialog_Obervations);
-        textDialog_Verification = view.findViewById(R.id.textDialog_Verification);
+        TextView textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
+        TextView textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
+        TextView textDialog_Email = view.findViewById(R.id.textDialog_Email);
+        TextView textDialog_Espace = view.findViewById(R.id.textDialog_Espace);
+        TextView textDialog_NomArbre = view.findViewById(R.id.textDialog_NomArbre);
+        TextView textDialog_AdresseArbre = view.findViewById(R.id.textDialog_AdresseArbre);
+        TextView textDialog_Remarquable = view.findViewById(R.id.textDialog_Remarquable);
+        TextView textDialog_Observations = view.findViewById(R.id.textDialog_Obervations);
+        TextView textDialog_Verification = view.findViewById(R.id.textDialog_Verification);
 
         builder.setView(view)
                 .setTitle("Récapitulatif")
@@ -92,9 +82,8 @@ public class DialogArbre extends AppCompatDialogFragment {
         textDialog_Remarquable.setText(textRemarquable);
         textDialog_Observations.setText(textObservations);
         textDialog_Espace.setText(textEspace);
-
-        //if(boolVerification)
-        //  textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
+        if (boolVerification)
+            textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
 
         return builder.create();
     }
