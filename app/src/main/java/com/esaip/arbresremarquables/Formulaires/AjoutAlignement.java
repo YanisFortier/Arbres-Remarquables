@@ -57,7 +57,6 @@ public class AjoutAlignement extends AppCompatActivity {
         checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
         autreLien = findViewById(R.id.editAutreLien);
         checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
-
         editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);

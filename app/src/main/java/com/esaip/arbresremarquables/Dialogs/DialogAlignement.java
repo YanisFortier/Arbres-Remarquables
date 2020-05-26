@@ -41,9 +41,9 @@ public class DialogAlignement extends AppCompatDialogFragment {
     private String textLien;
     private String textProtection;
     private String textObservations;
-    private Boolean textVerification;
+    private Boolean boolVerification;
 
-    public DialogAlignement(String textNomPrenom, String textPseudo, String textEmail, String textAdresseAlignement, String textEspace, String textNombreArbre, String textNombreEspece, String textEspeces, String textLien, String textProtection, String textObservations, Boolean textVerification) {
+    public DialogAlignement(String textNomPrenom, String textPseudo, String textEmail, String textAdresseAlignement, String textEspace, String textNombreArbre, String textNombreEspece, String textEspeces, String textLien, String textProtection, String textObservations, Boolean boolVerification) {
         this.textNomPrenom = textNomPrenom;
         this.textPseudo = textPseudo;
         this.textEmail = textEmail;
@@ -55,7 +55,7 @@ public class DialogAlignement extends AppCompatDialogFragment {
         this.textLien = textLien;
         this.textProtection = textProtection;
         this.textObservations = textObservations;
-        this.textVerification = textVerification;
+        this.boolVerification = boolVerification;
     }
 
     @NonNull
@@ -108,8 +108,8 @@ public class DialogAlignement extends AppCompatDialogFragment {
         textDialog_Observations.setText(textObservations);
 
 
-        //if(boolVerification)
-        //  textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
+        if (boolVerification)
+            textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
 
         return builder.create();
     }

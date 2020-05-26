@@ -188,6 +188,7 @@ public class AjoutArbre extends AppCompatActivity {
         editTextPseudo.setText(textPseudo);
     }
 
+    //Fonctions de vérification des données avec Regex
     private Boolean checkPatternMail(String txt){
         Pattern MAIL = Pattern.compile("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$");
         return MAIL.matcher(txt).matches();
