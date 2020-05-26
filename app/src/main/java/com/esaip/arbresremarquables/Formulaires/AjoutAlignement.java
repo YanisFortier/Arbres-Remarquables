@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,13 +23,27 @@ public class AjoutAlignement extends AppCompatActivity {
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
-    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo;
+
 
 
     //Variable
     private LinearLayout autre, autreLien;
     private EditText editTextLatitude, editTextLongitude;
-    private CheckBox liencheckBox, autreCheckBox;
+    private EditText editTextNomPrenom;
+    private EditText editTextPseudo;
+    private EditText editTextAdresseMail;
+    private EditText editTextAdresseAlignement;
+    private Spinner spinnerEspace;
+    private Spinner spinnerNombreArbre;
+    private Spinner spinnerNombreEspece;
+    private CheckBox checkBoxAutre; //Autre Espèce
+    private EditText editTextAutreEspece;
+    private EditText editTextNomBotanique;
+    private CheckBox checkBoxLien; // Autre Lien
+    private EditText editTextAutreLien;
+    private Spinner spinnerProtection;
+    private EditText editTextObservations;
+    private CheckBox checkboxVerification;
 
     //Location
     private Location mCurrentLocation;
@@ -41,14 +56,14 @@ public class AjoutAlignement extends AppCompatActivity {
 
         //Setup - FindViewById
         autre = findViewById(R.id.editAutre);
-        autreCheckBox = findViewById(R.id.checkAutre);
+        checkBoxAutre = findViewById(R.id.checkAutre);
         autreLien = findViewById(R.id.editAutreLien);
-        liencheckBox = findViewById(R.id.liencheckbox);
+        checkBoxLien = findViewById(R.id.liencheckbox);
         editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
 
-        autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkBoxAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -59,7 +74,7 @@ public class AjoutAlignement extends AppCompatActivity {
             }
         });
 
-        liencheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkBoxLien.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -82,12 +97,6 @@ public class AjoutAlignement extends AppCompatActivity {
         editor.putString(TEXT_ADRESSE_MAIL, editTextAdresseMail.getText().toString());
         editor.putString(TEXT_PSEUDO, editTextPseudo.getText().toString());
         editor.apply();
-
-        /*
-        new Intent(this, MapsActivity.class);
-        Toast.makeText(this, "Alignement d'arbres enregistré !", Toast.LENGTH_LONG).show();
-        finish();
-         */
     }
 
     private void openDialog() {
