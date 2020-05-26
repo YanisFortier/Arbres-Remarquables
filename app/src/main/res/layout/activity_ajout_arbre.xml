@@ -225,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Latitude"
-                    android:inputType="text" />
+                    android:digits="0123456789-."
+                    android:inputType="numberSigned" />
 
                 <Space
                     android:layout_width="0dp"
@@ -238,7 +239,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Longitude"
-                    android:inputType="text" />
+                    android:digits="0123456789-."
+                    android:inputType="numberSigned" />
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -41,7 +41,7 @@ public class AjoutArbre extends AppCompatActivity {
     private RadioButton radioButton;
     private CheckBox checkboxVerification;
     private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude;
 
     //Location
     private LatLng mLatLng;
@@ -133,7 +133,23 @@ public class AjoutArbre extends AppCompatActivity {
                     count += 1;
                 }
 
-                if (count == 5) {
+                if (stringLongitude.isEmpty()) {
+                    editTextLongitude.setError("Ce champ est obligatoire");
+                } else if (!checkLongitude(stringLongitude)) {
+                    editTextLongitude.setError("Longitude non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringLatitude.isEmpty()) {
+                    editTextLatitude.setError("Ce champ est obligatoire");
+                } else if (!checkLatitude(stringLatitude)) {
+                    editTextLatitude.setError("Latitude non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (count == 7) {
                     saveData();
                     //finish();
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
@@ -195,7 +211,7 @@ public class AjoutArbre extends AppCompatActivity {
     }
 
     private Boolean checkPatternGeneral(String txt){
-        Pattern REG1 = Pattern.compile("^([A-Z][a-zâäèéêëîïôöûüñç ]+)(\\-?[A-Z][a-zâäèéêëîïôöûüñç ]+)*$");
+        Pattern REG1 = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç ]+)(\\-?[A-Za-zâäèéêëîïôöûüñç ]+)*$");
         return REG1.matcher(txt).matches();
     }
 
@@ -212,6 +228,16 @@ public class AjoutArbre extends AppCompatActivity {
     private Boolean checkPatternObervations(String txt){
         Pattern OBSERVATIONS = Pattern.compile("^(([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])+[']?([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])*([,\\.;/!:?()\\[\\]])*)+$");
         return OBSERVATIONS.matcher(txt).matches();
+    }
+
+    private Boolean checkLatitude(String txt){
+        Pattern LATITUDE = Pattern.compile("^(\\+|-)?(?:90(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,8})?))$");
+        return LATITUDE.matcher(txt).matches();
+    }
+
+    private Boolean checkLongitude(String txt){
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$\n");
+        return LONGITUDE.matcher(txt).matches();
     }
 
 }

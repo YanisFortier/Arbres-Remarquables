@@ -134,7 +134,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
 
                 if (stringLongitude.isEmpty()) {
                     editTextLongitude.setError("Ce champ est obligatoire");
-                } else if (!checkPatternAdresse(stringLongitude)) {
+                } else if (!checkLongitude(stringLongitude)) {
                     editTextLongitude.setError("Longitude non valide");
                 } else {
                     count += 1;
@@ -142,7 +142,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
 
                 if (stringLatitude.isEmpty()) {
                     editTextLatitude.setError("Ce champ est obligatoire");
-                } else if (!checkPatternAdresse(stringLatitude)) {
+                } else if (!checkLatitude(stringLatitude)) {
                     editTextLatitude.setError("Latitude non valide");
                 } else {
                     count += 1;
