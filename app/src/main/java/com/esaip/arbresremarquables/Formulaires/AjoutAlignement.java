@@ -12,7 +12,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Dialogs.DialogArbre;
+import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
@@ -24,9 +24,7 @@ public class AjoutAlignement extends AppCompatActivity {
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
 
-
-
-    //Variable
+    //Variables Layout
     private LinearLayout autre, autreLien;
     private EditText editTextLatitude, editTextLongitude;
     private EditText editTextNomPrenom;
@@ -36,10 +34,10 @@ public class AjoutAlignement extends AppCompatActivity {
     private Spinner spinnerEspace;
     private Spinner spinnerNombreArbre;
     private Spinner spinnerNombreEspece;
-    private CheckBox checkBoxEspeceAutre; //Autre Espèce
+    private CheckBox checkBoxEspeceAutre;
     private EditText editTextAutreEspece;
     private EditText editTextNomBotanique;
-    private CheckBox checkBoxLienAutre; // Autre Lien
+    private CheckBox checkBoxLienAutre;
     private EditText editTextAutreLien;
     private Spinner spinnerProtection;
     private EditText editTextObservations;
@@ -59,9 +57,22 @@ public class AjoutAlignement extends AppCompatActivity {
         checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
         autreLien = findViewById(R.id.editAutreLien);
         checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
-        editTextNomPrenom = findViewById(R.id.editTextNomPrenomEsp);
+
+        editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
+        editTextAdresseAlignement = findViewById(R.id.editTextAdresseAlignement);
+        spinnerEspace = findViewById(R.id.spinnerEspace);
+        spinnerNombreArbre = findViewById(R.id.spinnerNombresArbres);
+        spinnerNombreEspece = findViewById(R.id.spinnerNombresEspeces);
+        checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
+        editTextAutreEspece = findViewById(R.id.editTextAutreEspece);
+        editTextNomBotanique = findViewById(R.id.editTextNomBotanique);
+        checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
+        editTextAutreLien = findViewById(R.id.editTextAutreLien);
+        spinnerProtection = findViewById(R.id.spinnerProtection);
+        editTextObservations = findViewById(R.id.editTextObservation);
+        checkboxVerification = findViewById(R.id.checkBoxVerification);
 
         checkBoxEspeceAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,14 +111,16 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private void openDialog() {
-        String remarquable = null;
-
         String nomPrenom = editTextNomPrenom.getText().toString();
         String pseudo = editTextPseudo.getText().toString();
         String email = editTextAdresseMail.getText().toString();
-        String nomArbre = spinnerNomArbre.getSelectedItem().toString();
-        String adresseArbre = editTextAdresseArbre.getText().toString();
+        String adresse = editTextAdresseAlignement.getText().toString();
         String espace = spinnerEspace.getSelectedItem().toString();
+        String nombresArbres = spinnerNombreArbre.getSelectedItem().toString();
+        String nombresEspeces = spinnerNombreEspece.getSelectedItem().toString();
+        String especes = ""; // TODO
+        String lien = ""; // TODO
+        String protection = spinnerProtection.getSelectedItem().toString();
         String observations = editTextObservations.getText().toString();
 
         boolean verification = false;
@@ -115,8 +128,8 @@ public class AjoutAlignement extends AppCompatActivity {
             verification = true;
 
 
-        DialogArbre dialog = new DialogArbre(nomPrenom, pseudo, email, nomArbre, adresseArbre, espace, remarquable, observations, verification);
-        dialog.show(getSupportFragmentManager(), "Dialog AjoutArbre");
+        DialogAlignement dialog = new DialogAlignement(nomPrenom, pseudo, email, adresse, espace, nombresArbres, nombresEspeces, especes, lien, protection, observations, verification);
+        dialog.show(getSupportFragmentManager(), "Dialog AjoutAlignement");
     }
 
     public void loadData() {

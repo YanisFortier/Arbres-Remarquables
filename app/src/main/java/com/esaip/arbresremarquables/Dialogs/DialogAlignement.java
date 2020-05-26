@@ -64,7 +64,7 @@ public class DialogAlignement extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.layout_dialog_arbre, null);
+        View view = inflater.inflate(R.layout.layout_dialog_alignement, null);
         textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
         textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
         textDialog_Email = view.findViewById(R.id.textDialog_Email);

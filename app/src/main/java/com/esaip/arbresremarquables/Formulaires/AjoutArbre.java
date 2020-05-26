@@ -27,6 +27,7 @@ import static android.widget.AdapterView.OnItemSelectedListener;
 
 public class AjoutArbre extends AppCompatActivity {
 
+
     public static final String SHARED_PREFS = "SHARED_PREFS";
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
@@ -141,6 +142,7 @@ public class AjoutArbre extends AppCompatActivity {
                 }
             }
         });
+        loadData();
     }
 
 
@@ -185,46 +187,6 @@ public class AjoutArbre extends AppCompatActivity {
         editTextAdresseMail.setText(textAdresseMail);
         editTextPseudo.setText(textPseudo);
     }
-
-    /*
-    private Arbre getInfos(EditText nomPrenom, EditText pseudo, EditText adresseMail, EditText longitude, EditText latitude, EditText adresseArbre, EditText observation, Spinner nomArbre, Spinner espace, CheckBox rem1, CheckBox rem2, CheckBox rem3, CheckBox verif){
-        Arbre arbre = new Arbre();
-        arbre.setNomPrenom(nomPrenom.getText().toString());
-        arbre.setPseudo(pseudo.getText().toString());
-        arbre.setMail(adresseMail.getText().toString());
-        arbre.setLongitude(longitude.getText().toString());
-        arbre.setLatitude(latitude.getText().toString());
-        arbre.setAdresseArbre(adresseArbre.getText().toString());
-        arbre.setObservations(observation.getText().toString());
-        String txtCheckBoxRem = "";
-        if(checkBoxRemArb1.isChecked()){
-            txtCheckBoxRem+="* Très remarquable ou exceptionnel";
-        }
-        if (checkBoxRemArb2.isChecked()){
-            txtCheckBoxRem+="* Remarquable ou majestueux";
-        }
-        if(checkBoxRemArb3.isChecked()){
-            txtCheckBoxRem+="* Notoire";
-        }
-        arbre.setRemarquable(txtCheckBoxRem);
-        if (checkBoxVerifArb.isChecked()){
-            arbre.setVerification("oui");
-        }
-        else{
-            arbre.setVerification("non");
-        }
-
-        if (spinnerEspaceArb.getSelectedItem().toString().equals("Un espace public")){
-            arbre.setEspace("Public");
-        }
-        else if(spinnerEspaceArb.getSelectedItem().toString().equals("Un espace privé")){
-            arbre.setEspace("Privé");
-        }
-        else if(spinnerEspaceArb.getSelectedItem().toString().equals("Je ne sais pas")){
-            arbre.setEspace("Inconnu");
-        }
-        return arbre;
-    }*/
 
     private Boolean checkPatternMail(String txt){
         Pattern MAIL = Pattern.compile("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$");
