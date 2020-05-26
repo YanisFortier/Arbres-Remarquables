@@ -28,7 +28,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     private CheckBox autreCheckBox,checkBoxArbre,checkBoxArbuste,checkBoxHerbe,checkBoxEcureuil,checkBoxChauve,checkBoxCapricorne,checkBoxChouette,checkBoxPic,checkBoxRefuge,checkBoxIlot,checkBoxPaysager;
     private Spinner spinnerTypeEspace, spinnerNbArbres, spinnerNbEspeces, spinnerEau, spinnerAbris, spinnerEclairage, spinnerOmbre, spinnerEntretien;
     private Button buttonValider;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +98,8 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                 stringTextMail = editTextAdresseMail.getText().toString().trim();
                 stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
                 stringTextObservations = editTextObservations.getText().toString().trim();
+                stringLatitude = editTextLatitude.getText().toString().trim();
+                stringLongitude = editTextLongitude.getText().toString().trim();
                 int count = 0;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
@@ -130,13 +132,29 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                     count += 1;
                 }
 
+                if (stringLongitude.isEmpty()) {
+                    editTextLongitude.setError("Ce champ est obligatoire");
+                } else if (!checkPatternAdresse(stringLongitude)) {
+                    editTextLongitude.setError("Longitude non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringLatitude.isEmpty()) {
+                    editTextLatitude.setError("Ce champ est obligatoire");
+                } else if (!checkPatternAdresse(stringLatitude)) {
+                    editTextLatitude.setError("Latitude non valide");
+                } else {
+                    count += 1;
+                }
+
                 if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
                     editTextObservations.setError("Commentaires non valide");
                 } else {
                     count += 1;
                 }
 
-                if (count == 5) {
+                if (count == 7) {
                     saveData();
                     //finish();
                     Toast.makeText(AjoutEspaceBoise.this, "Correct", Toast.LENGTH_LONG).show();
@@ -201,5 +219,15 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     private Boolean checkPatternObervations(String txt){
         Pattern OBSERVATIONS = Pattern.compile("^(([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])+[']?([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])*([,\\.;/!:?()\\[\\]])*)+$");
         return OBSERVATIONS.matcher(txt).matches();
+    }
+
+    private Boolean checkLatitude(String txt){
+        Pattern LATITUDE = Pattern.compile("^(\\+|-)?(?:90(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,8})?))$");
+        return LATITUDE.matcher(txt).matches();
+    }
+
+    private Boolean checkLongitude(String txt){
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$\n");
+        return LONGITUDE.matcher(txt).matches();
     }
 }

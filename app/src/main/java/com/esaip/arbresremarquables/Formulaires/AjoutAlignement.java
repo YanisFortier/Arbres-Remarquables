@@ -45,9 +45,9 @@ public class AjoutAlignement extends AppCompatActivity {
         autreCheckBox = findViewById(R.id.checkAutre);
         autreLien = findViewById(R.id.editAutreLien);
         liencheckBox = findViewById(R.id.liencheckbox);
-        editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
-        editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
-        editTextPseudo = findViewById(R.id.editTextPseudo);
+        editTextNomPrenom = findViewById(R.id.editTextNomPrenomAli);
+        editTextAdresseMail = findViewById(R.id.editTextAdresseMailAli);
+        editTextPseudo = findViewById(R.id.editTextPseudoAli);
 
         autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
