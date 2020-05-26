@@ -11,10 +11,9 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
-
-import java.util.regex.Pattern;
 
 public class AjoutAlignement extends AppCompatActivity {
 
@@ -92,8 +91,23 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private void openDialog() {
-        //DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
-        //dialog.show(getSupportFragmentManager(), "example dialog");
+        String remarquable = null;
+
+        String nomPrenom = editTextNomPrenom.getText().toString();
+        String pseudo = editTextPseudo.getText().toString();
+        String email = editTextAdresseMail.getText().toString();
+        String nomArbre = spinnerNomArbre.getSelectedItem().toString();
+        String adresseArbre = editTextAdresseArbre.getText().toString();
+        String espace = spinnerEspace.getSelectedItem().toString();
+        String observations = editTextObservations.getText().toString();
+
+        boolean verification = false;
+        if (checkboxVerification.isChecked())
+            verification = true;
+
+
+        DialogArbre dialog = new DialogArbre(nomPrenom, pseudo, email, nomArbre, adresseArbre, espace, remarquable, observations, verification);
+        dialog.show(getSupportFragmentManager(), "Dialog AjoutArbre");
     }
 
     public void loadData() {
