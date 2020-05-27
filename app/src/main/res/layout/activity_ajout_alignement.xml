@@ -292,6 +292,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/descEspAlignement" />
 
+            <TextView
+                android:id="@+id/errorEspece"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/design_default_color_error"
+                android:visibility="gone"
+                android:text="@string/errorEspece" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -465,6 +473,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/descLien" />
+
+            <TextView
+                android:id="@+id/errorLien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/design_default_color_error"
+                android:visibility="gone"
+                android:text="@string/errorLien" />
 
             <LinearLayout
                 android:layout_width="match_parent"
