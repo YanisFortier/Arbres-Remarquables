@@ -5,15 +5,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
-import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -23,11 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
@@ -40,7 +40,9 @@ public class MapsActivity extends FragmentActivity {
             new LatLng(42.6965954131, -4.32784220122),
             new LatLng(50.4644483399, 7.38468690323)
     );
-
+    // Volley - GeoJSON
+    public static JSONArray JsonArbre;
+    private RequestQueue mQueue;
     //Location
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
@@ -51,6 +53,10 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this)); //Cache pour la map
         setContentView(R.layout.activity_maps);
+
+        //Volley - GeoJSON
+        mQueue = Volley.newRequestQueue(this);
+        jsonParse();
 
         //Boutons
         FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
@@ -85,8 +91,7 @@ public class MapsActivity extends FragmentActivity {
         btnYanis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutArbre.class);
-                startActivity(intent);
+                jsonParse();
             }
         });
 
@@ -125,13 +130,9 @@ public class MapsActivity extends FragmentActivity {
         map.getOverlays().add(m3);
 
         mapController.setZoom(13.00);
+        map.invalidate();
 
-        try {
-            generateArbres();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+/* //Fonction Onclick qui récupère lat/long et lance le prise de photo
         final MapEventsReceiver mReceive = new MapEventsReceiver(){
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
@@ -148,9 +149,49 @@ public class MapsActivity extends FragmentActivity {
             public boolean longPressHelper(GeoPoint p) {
                 return false;
             }
-        };
-        map.getOverlays().add(new MapEventsOverlay(mReceive));
+        };*/
+        //map.getOverlays().add(new MapEventsOverlay(mReceive));
 
+    }
+
+    private void jsonParse() {
+        String urlArbres = "https://www.sauvegarde-anjou.org/arbres1/data/arbres.geojson";
+        String urlAlignements = "https://www.sauvegarde-anjou.org/arbres1/data/arbres.geojson";
+        String urlEspacesBoises = "https://www.sauvegarde-anjou.org/arbres1/data/arbres.geojson";
+
+        JsonObjectRequest requestArbre = new JsonObjectRequest(Request.Method.GET, urlArbres, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("features");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                Marker m = new Marker(map);
+                                m.setPosition(new GeoPoint(Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString()),
+                                        Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(0).toString())));
+                                m.setIcon(getResources().getDrawable(R.drawable.arbre));
+                                m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
+                                m.setSnippet(jsonArray.getJSONObject(i).getJSONObject("properties").get("Nom de l'arbre").toString());
+                                m.setTitle(jsonArray.getJSONObject(i).getJSONObject("properties").get("Photo").toString());
+                                map.getOverlays().add(m);
+                                map.invalidate();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+
+        mQueue.add(requestArbre);
+        //mQueue.add(requestAlignement);
+        //mQueue.add(requestEspaceBoise);
     }
 
     @Override
@@ -163,23 +204,5 @@ public class MapsActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    private void generateArbres() throws JSONException {
-        String txt;
-        txt = "{ \"type\": \"FeatureCollection\", \"features\":[{ \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:42:00\", \"Remarquable\": \"* marquant\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Castanea sativa\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"7 chemin des cavaliers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"ChÃ¢taignier\", \"Identifiant\": \"41\", \"Photo\": \"41.jpg\", \"Identifiant de la rÃ©ponse\": \"41\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.6222872436\", \"47.4073779854\"] } }, { \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:44:00\", \"Remarquable\": \"* ancien* valeur\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Wisteria sinensis\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"22, rue des Saulniers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"Glycine de Chine\", \"Identifiant\": \"42\", \"Photo\": \"42.jpg\", \"Identifiant de la rÃ©ponse\": \"42\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.620834\", \"47.406899\"]}}]}";
-        JSONObject jsonObject = new JSONObject(txt);
-        JSONArray jsonArray = jsonObject.getJSONArray("features");
-        for (int i = 0; i< jsonArray.length();i++){
-            Marker m = new Marker(map);
-            m.setPosition(new GeoPoint(Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString()), Double.parseDouble(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(0).toString())));
-            m.setIcon(getResources().getDrawable(R.drawable.arbre));
-            m.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_CENTER);
-            m.setSnippet(jsonArray.getJSONObject(i).getJSONObject("properties").get("Identifiant de la rÃ©ponse").toString());
-            m.setTitle(jsonArray.getJSONObject(i).getJSONObject("properties").get("Photo").toString());
-            map.getOverlays().add(m);
-            Log.i("JSON1",jsonArray.getJSONObject(i).getJSONObject("properties").get("Nom botanique").toString());
-            Log.i("JSON2",jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString());
-        }
     }
 }
