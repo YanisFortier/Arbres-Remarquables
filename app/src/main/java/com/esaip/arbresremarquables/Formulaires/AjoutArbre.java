@@ -95,6 +95,8 @@ public class AjoutArbre extends AppCompatActivity {
                 stringTextMail = editTextAdresseMail.getText().toString().trim();
                 stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
                 stringTextObservations = editTextObservations.getText().toString().trim();
+                stringLatitude = editTextLatitude.getText().toString();
+                stringLongitude = editTextLongitude.getText().toString();
                 int count = 0;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
@@ -236,7 +238,7 @@ public class AjoutArbre extends AppCompatActivity {
     }
 
     private Boolean checkLongitude(String txt){
-        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$\n");
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
         return LONGITUDE.matcher(txt).matches();
     }
 

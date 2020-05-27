@@ -156,12 +156,13 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/editTextLatitude"
+                    android:id="@+id/editTextLatitudeAli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Latitude"
-                    android:inputType="text" />
+                    android:digits="0123456789-."
+                    android:inputType="numberSigned" />
 
                 <Space
                     android:layout_width="0dp"
@@ -169,12 +170,13 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/editTextLongitude"
+                    android:id="@+id/editTextLongitudeAli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Longitude"
-                    android:inputType="text" />
+                    android:digits="0123456789-."
+                    android:inputType="numberSigned" />
 
                 <Space
                     android:layout_width="0dp"
@@ -613,13 +615,12 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonValiderAli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
-                android:onClick="saveData"
                 android:text="Valider" />
         </LinearLayout>
 

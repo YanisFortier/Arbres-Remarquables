@@ -4,17 +4,21 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
+
+import java.util.regex.Pattern;
 
 public class AjoutAlignement extends AppCompatActivity {
 
@@ -26,22 +30,11 @@ public class AjoutAlignement extends AppCompatActivity {
 
     //Variables Layout
     private LinearLayout autre, autreLien;
-    private EditText editTextLatitude, editTextLongitude;
-    private EditText editTextNomPrenom;
-    private EditText editTextPseudo;
-    private EditText editTextAdresseMail;
-    private EditText editTextAdresseAlignement;
-    private Spinner spinnerEspace;
-    private Spinner spinnerNombreArbre;
-    private Spinner spinnerNombreEspece;
-    private CheckBox checkBoxEspeceAutre;
-    private EditText editTextAutreEspece;
-    private EditText editTextNomBotanique;
-    private CheckBox checkBoxLienAutre;
-    private EditText editTextAutreLien;
-    private Spinner spinnerProtection;
-    private EditText editTextObservations;
-    private CheckBox checkboxVerification;
+    private EditText editTextLatitude, editTextLongitude,editTextNomPrenom,editTextPseudo,editTextAdresseMail,editTextAdresseAlignement,editTextAutreEspece,editTextNomBotanique,editTextObservations,editTextAutreLien;
+    private Spinner spinnerEspace,spinnerNombreArbre ,spinnerNombreEspece, spinnerProtection;
+    private CheckBox checkBoxEspeceAutre,checkBoxLienAutre,checkboxVerification,checkBoxChene,checkBoxFrene,checkBoxPeuplier,checkBoxPin,checkBoxCedre,checkBoxErable,checkBoxSequoia,checkBoxPlatane,checkBoxMarronnier,checkBoxChataignier,checkBoxHetre,checkBoxMagnolia,checkBoxTilleul,checkBoxEspaceBoise,checkBoxParc,checkBoxAutreAli;
+    private Button buttonValid;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreEspece, stringNomBotanique, stringAutreLien;
 
     //Location
     private Location mCurrentLocation;
@@ -54,30 +47,49 @@ public class AjoutAlignement extends AppCompatActivity {
 
         //Setup - FindViewById
         autre = findViewById(R.id.editAutre);
-        checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
         autreLien = findViewById(R.id.editAutreLien);
-        checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
         editTextNomPrenom = findViewById(R.id.editTextNomPrenom);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMail);
         editTextPseudo = findViewById(R.id.editTextPseudo);
         editTextAdresseAlignement = findViewById(R.id.editTextAdresseAlignement);
+        editTextAutreEspece = findViewById(R.id.editTextAutreEspece);
+        editTextNomBotanique = findViewById(R.id.editTextNomBotanique);
+        editTextAutreLien = findViewById(R.id.editTextAutreLien);
+        editTextObservations = findViewById(R.id.editTextObservation);
+        editTextLongitude = findViewById(R.id.editTextLongitudeAli);
+        editTextLatitude = findViewById(R.id.editTextLatitudeAli);
         spinnerEspace = findViewById(R.id.spinnerEspace);
         spinnerNombreArbre = findViewById(R.id.spinnerNombresArbres);
         spinnerNombreEspece = findViewById(R.id.spinnerNombresEspeces);
-        checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
-        editTextAutreEspece = findViewById(R.id.editTextAutreEspece);
-        editTextNomBotanique = findViewById(R.id.editTextNomBotanique);
-        checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
-        editTextAutreLien = findViewById(R.id.editTextAutreLien);
         spinnerProtection = findViewById(R.id.spinnerProtection);
-        editTextObservations = findViewById(R.id.editTextObservation);
+        checkBoxEspeceAutre = findViewById(R.id.checkBoxEspeceAutre);
+        checkBoxLienAutre = findViewById(R.id.checkBoxLienAutre);
         checkboxVerification = findViewById(R.id.checkBoxVerification);
+        checkBoxChene = findViewById(R.id.checkBoxChene);
+        checkBoxFrene = findViewById(R.id.checkBoxFrene);
+        checkBoxPeuplier = findViewById(R.id.checkBoxPeuplier);
+        checkBoxPin = findViewById(R.id.checkBoxPin);
+        checkBoxCedre = findViewById(R.id.checkBoxCèdre);
+        checkBoxErable = findViewById(R.id.checkBoxErable);
+        checkBoxSequoia = findViewById(R.id.checkBoxSéquoia);
+        checkBoxPlatane = findViewById(R.id.checkBoxPlatane);
+        checkBoxMarronnier = findViewById(R.id.checkBoxMarronnier);
+        checkBoxChataignier = findViewById(R.id.checkBoxChataignier);
+        checkBoxHetre = findViewById(R.id.checkBoxHetre);
+        checkBoxMagnolia = findViewById(R.id.checkBoxMagniolia);
+        checkBoxTilleul = findViewById(R.id.checkBoxTilleul);
+        checkBoxEspaceBoise = findViewById(R.id.checkBoxEspaceBoise);
+        checkBoxParc = findViewById(R.id.checkBoxParcs);
+        checkBoxAutreAli = findViewById(R.id.checkBoxAutresAlignement);
+        buttonValid = findViewById(R.id.buttonValiderAli);
 
         checkBoxEspeceAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     autre.setVisibility(View.VISIBLE);
+                    editTextAutreEspece.setText("");
+                    editTextNomBotanique.setText("");
                 } else {
                     autre.setVisibility(View.GONE);
                 }
@@ -89,15 +101,136 @@ public class AjoutAlignement extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     autreLien.setVisibility(View.VISIBLE);
+                    editTextAutreLien.setText("");
                 } else {
                     autreLien.setVisibility(View.GONE);
                 }
             }
         });
+
+        buttonValid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stringTextNomPrenom = editTextNomPrenom.getText().toString().trim();
+                stringTextPseudo = editTextPseudo.getText().toString().trim();
+                stringTextMail = editTextAdresseMail.getText().toString().trim();
+                stringTextAdresse = editTextAdresseAlignement.getText().toString().trim();
+                stringTextObservations = editTextObservations.getText().toString().trim();
+                stringLongitude = editTextLongitude.getText().toString();
+                stringLatitude = editTextLatitude.getText().toString();
+                int count = 0;
+
+                if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
+                    editTextAdresseMail.setError("Adresse mail non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringTextNomPrenom.isEmpty()) {
+                    editTextNomPrenom.setError("Ce champ est obligatoire");
+                } else if (!checkPatternGeneral(stringTextNomPrenom)) {
+                    editTextNomPrenom.setError("Nom et prénom non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringTextPseudo.isEmpty()) {
+                    editTextPseudo.setError("Ce champ est obligatoire");
+                } else if (!checkPatternPseudo(stringTextPseudo)) {
+                    editTextPseudo.setError("Pseudonyme non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringTextAdresse.isEmpty()) {
+                    editTextAdresseAlignement.setError("Ce champ est obligatoire");
+                } else if (!checkPatternAdresse(stringTextAdresse)) {
+                    editTextAdresseAlignement.setError("Adresse non valide");
+                } else {
+                    count += 1;
+                }
+
+                if(checkBoxEspeceAutre.isChecked()){
+                    stringAutreEspece = editTextAutreEspece.getText().toString().trim();
+                    stringNomBotanique = editTextNomBotanique.getText().toString().trim();
+                    if (!stringNomBotanique.isEmpty() && !checkPatternGeneral(stringNomBotanique)) {
+                        editTextNomBotanique.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+
+                    if (stringAutreEspece.isEmpty()) {
+                        editTextAutreEspece.setError("Ce champ est obligatoire");
+                    } else if (!checkPatternGeneral(stringAutreEspece)) {
+                        editTextAutreEspece.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+                }
+
+                if(checkBoxLienAutre.isChecked()){
+                    stringAutreLien = editTextAutreLien.getText().toString().trim();
+                    if (stringAutreLien.isEmpty()) {
+                        editTextAutreLien.setError("Ce champ est obligatoire");
+                    } else if (!checkPatternGeneral(stringAutreLien)) {
+                        editTextAutreLien.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+                }
+
+
+                if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
+                    editTextObservations.setError("Commentaires non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringLongitude.isEmpty()) {
+                    editTextLongitude.setError("Ce champ est obligatoire");
+                } else if (!checkLongitude(stringLongitude)) {
+                    editTextLongitude.setError("Longitude non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (stringLatitude.isEmpty()) {
+                    editTextLatitude.setError("Ce champ est obligatoire");
+                } else if (!checkLatitude(stringLatitude)) {
+                    editTextLatitude.setError("Latitude non valide");
+                } else {
+                    count += 1;
+                }
+
+                if (count == 7 && !checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked() ) {
+                    saveData();
+                    //finish();
+                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                }else if (count == 9 && checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()){
+                    saveData();
+                    //finish();
+                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                }
+                else if (count == 8 && !checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()){
+                    saveData();
+                    //finish();
+                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                }
+                else if (count == 10 && checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()){
+                    saveData();
+                    //finish();
+                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(AjoutAlignement.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         loadData();
     }
 
-    public void saveData(View view) {
+    public void saveData() {
         openDialog();
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -110,24 +243,27 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private void openDialog() {
-        String nomPrenom = editTextNomPrenom.getText().toString();
-        String pseudo = editTextPseudo.getText().toString();
-        String email = editTextAdresseMail.getText().toString();
-        String adresse = editTextAdresseAlignement.getText().toString();
+        stringTextNomPrenom = editTextNomPrenom.getText().toString();
+        stringTextPseudo = editTextPseudo.getText().toString();
+        stringTextMail = editTextAdresseMail.getText().toString();
+        stringTextAdresse = editTextAdresseAlignement.getText().toString();
         String espace = spinnerEspace.getSelectedItem().toString();
         String nombresArbres = spinnerNombreArbre.getSelectedItem().toString();
         String nombresEspeces = spinnerNombreEspece.getSelectedItem().toString();
-        String especes = ""; // TODO
-        String lien = ""; // TODO
+        String especes = "None";
+        String lien = "None";
         String protection = spinnerProtection.getSelectedItem().toString();
-        String observations = editTextObservations.getText().toString();
+        stringTextObservations = editTextObservations.getText().toString();
 
         boolean verification = false;
         if (checkboxVerification.isChecked())
             verification = true;
 
+        especes = getCheckBoxs();
 
-        DialogAlignement dialog = new DialogAlignement(nomPrenom, pseudo, email, adresse, espace, nombresArbres, nombresEspeces, especes, lien, protection, observations, verification);
+        lien = getLien();
+
+        DialogAlignement dialog = new DialogAlignement(stringTextNomPrenom, stringTextPseudo, stringTextMail, stringTextAdresse, espace, nombresArbres, nombresEspeces, especes, lien, protection, stringTextObservations, verification);
         dialog.show(getSupportFragmentManager(), "Dialog AjoutAlignement");
     }
 
@@ -141,5 +277,105 @@ public class AjoutAlignement extends AppCompatActivity {
         editTextNomPrenom.setText(textNomPrenom);
         editTextAdresseMail.setText(textAdresseMail);
         editTextPseudo.setText(textPseudo);
+    }
+
+    private String getCheckBoxs(){
+        String txt = "";
+        if(checkBoxChene.isChecked()){
+            txt+="Chêne;";
+        }
+        if(checkBoxFrene.isChecked()){
+            txt+="Frêne;";
+        }
+        if(checkBoxPeuplier.isChecked()){
+            txt+="Peuplier;";
+        }
+        if(checkBoxPin.isChecked()){
+            txt+="Pin;";
+        }
+        if(checkBoxCedre.isChecked()){
+            txt+="Cèdre;";
+        }
+        if(checkBoxErable.isChecked()){
+            txt+="Érable;";
+        }
+        if(checkBoxSequoia.isChecked()){
+            txt+="Séquoia;";
+        }
+        if(checkBoxPlatane.isChecked()){
+            txt+="Platane;";
+        }
+        if(checkBoxMarronnier.isChecked()){
+            txt+="Marronnier;";
+        }
+        if(checkBoxChataignier.isChecked()){
+            txt+="Châtaignier;";
+        }
+        if(checkBoxHetre.isChecked()){
+            txt+="Hètre;";
+        }
+        if(checkBoxMagnolia.isChecked()){
+            txt+="Magnolia;";
+        }
+        if(checkBoxTilleul.isChecked()){
+            txt+="Tilleul;";
+        }
+        if(checkBoxEspeceAutre.isChecked()){
+            txt += editTextAutreEspece.getText().toString()+";";
+        }
+        return txt;
+    }
+
+    private String getLien(){
+        String txt = "";
+        if(checkBoxEspaceBoise.isChecked()){
+            txt += "Espace Boise;";
+        }
+        if(checkBoxParc.isChecked()){
+            txt += "Parc;";
+        }
+        if(checkBoxEspaceBoise.isChecked()){
+            txt += "Autres Alignements;";
+        }
+        if(checkBoxLienAutre.isChecked()){
+            txt += editTextAutreLien.getText().toString() + ";";
+        }
+        return txt;
+    }
+
+    //Fonctions de vérification des données avec Regex
+    private Boolean checkPatternMail(String txt){
+        Pattern MAIL = Pattern.compile("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$");
+        return MAIL.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternGeneral(String txt){
+        Pattern REG1 = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç ]+)(\\-?[A-Za-zâäèéêëîïôöûüñç ]+)*$");
+        return REG1.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternPseudo(String txt){
+        Pattern PSEUDO = Pattern.compile("^([A-zâäèéêëîïôöûüñç\\-\\d ])+$");
+        return PSEUDO.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternAdresse(String txt){
+        Pattern ADRESSE = Pattern.compile("^([A-Za-zâäèéêëîïôöûüñç\\-\\d ,])+[']?([A-Za-zâäèéêëîïôöûüñç\\-\\d ,])*$");
+        return ADRESSE.matcher(txt).matches();
+    }
+
+    private Boolean checkPatternObervations(String txt){
+        Pattern OBSERVATIONS = Pattern.compile("^(([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])+[']?([A-Za-zâäàèéêëîïôöûüùñç\\-\\d ])*([,\\.;/!:?()\\[\\]])*)+$");
+        return OBSERVATIONS.matcher(txt).matches();
+    }
+
+    private Boolean checkLatitude(String txt){
+        Pattern LATITUDE = Pattern.compile("^(\\+|-)?(?:90(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,8})?))$");
+        return LATITUDE.matcher(txt).matches();
+    }
+
+    private Boolean checkLongitude(String txt){
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
+        return LONGITUDE.matcher(txt).matches();
     }
 }

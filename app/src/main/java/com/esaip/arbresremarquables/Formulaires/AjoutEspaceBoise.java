@@ -73,8 +73,8 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         if (bundle != null) {
             lat = bundle.getDouble("latitude");
             lon = bundle.getDouble("longitude");
-            editTextLatitude = findViewById(R.id.editTextLatitude);
-            editTextLongitude = findViewById(R.id.editTextLongitude);
+            editTextLatitude = findViewById(R.id.editTextLatitudeEsp);
+            editTextLongitude = findViewById(R.id.editTextLongitudeEsp);
             editTextLatitude.setText(String.valueOf(lat));
             editTextLongitude.setText(String.valueOf(lon));
         }
@@ -227,7 +227,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private Boolean checkLongitude(String txt){
-        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$\n");
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
         return LONGITUDE.matcher(txt).matches();
     }
 }
