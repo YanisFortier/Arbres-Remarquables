@@ -190,9 +190,11 @@ public class MapsActivity extends FragmentActivity {
                                             if (!jsonProperties.optString("Photo").equals("242.jpg")) {
                                                 if (!jsonProperties.optString("Photo").equals("245.jpg")) {
                                                     if (!jsonProperties.optString("Photo").equals("246.jpg")) {
-                                                        Log.i("Arbre", jsonProperties.getString("Identifiant"));
-                                                        String urlImage = "https://www.sauvegarde-anjou.org/arbres1/images/arbres/" + jsonProperties.getString("Photo");
-                                                        m.setImage(drawableFromUrl(urlImage));
+                                                        if (!jsonProperties.optString("Photo").equals("263.jpg")) {
+                                                            Log.i("Arbre", jsonProperties.getString("Identifiant"));
+                                                            String urlImage = "https://www.sauvegarde-anjou.org/arbres1/images/arbres/" + jsonProperties.getString("Photo");
+                                                            m.setImage(drawableFromUrl(urlImage));
+                                                        }
                                                     }
                                                 }
                                             }
@@ -284,6 +286,7 @@ public class MapsActivity extends FragmentActivity {
         mQueue.add(requestEspaceBoise);
     }
 
+    // TODO : Metre ça en Async
     Drawable drawableFromUrl(String url) throws java.io.IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestProperty("User-agent", "Mozilla/4.0");
