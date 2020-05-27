@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -183,6 +184,8 @@ public class MapsActivity extends FragmentActivity {
 
                                 m.setTitle("Informations");
 
+                                Async async1 = new Async();
+
                                 // TODO : Oui c'est dégeu, je sais, Je patcherai plus tard. Promis !
                                 if (!jsonProperties.optString("Photo").equals("Aucune")) {
                                     if (!jsonProperties.optString("Photo").equals("171.jpg")) {
@@ -193,7 +196,9 @@ public class MapsActivity extends FragmentActivity {
                                                         if (!jsonProperties.optString("Photo").equals("263.jpg")) {
                                                             Log.i("Arbre", jsonProperties.getString("Identifiant"));
                                                             String urlImage = "https://www.sauvegarde-anjou.org/arbres1/images/arbres/" + jsonProperties.getString("Photo");
-                                                            m.setImage(drawableFromUrl(urlImage));
+                                                            async1.execute(urlImage);
+                                                            m.setImage(async1.get());
+                                                            //m.setImage(drawableFromUrl(urlImage));
                                                         }
                                                     }
                                                 }
@@ -207,7 +212,11 @@ public class MapsActivity extends FragmentActivity {
                                 map.getOverlays().add(m);
                                 map.invalidate();
                             }
-                        } catch (JSONException | IOException e) {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
                     }

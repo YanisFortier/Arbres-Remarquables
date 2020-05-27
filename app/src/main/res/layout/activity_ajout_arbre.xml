@@ -320,6 +320,7 @@
                         android:id="@+id/radioButtonFort"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Très remarquable ou exceptionnel" />
 
                     <RadioButton

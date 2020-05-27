@@ -35,13 +35,13 @@ public class AjoutArbre extends AppCompatActivity {
 
     //Variables
     private Spinner spinnerNomArbre, spinnerEspace;
-    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo, editTextLatitude, editTextLongitude, editTextAdresseArbre, editTextObservations;
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo, editTextLatitude, editTextLongitude, editTextAdresseArbre, editTextObservations, editTextAutreArbre, editTextNomBotanique;
     private LinearLayout layoutNomArbre;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private CheckBox checkboxVerification;
     private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude,stringAutreArbre, stringNomBotanique;
 
     //Location
     private LatLng mLatLng;
@@ -69,6 +69,8 @@ public class AjoutArbre extends AppCompatActivity {
         radioGroup = findViewById(R.id.RadioGroupRemarquable);
         editTextAdresseArbre = findViewById(R.id.editTextAdresseArbreArb);
         editTextObservations = findViewById(R.id.editTextObservationArb);
+        editTextAutreArbre = findViewById(R.id.editTextAutreArbreArb);
+        editTextNomBotanique = findViewById(R.id.editTextNomBotaniqueArb);
         checkboxVerification = findViewById(R.id.checkBoxVerifArb);
 
         //Détection si le nom de l'arbre est autre
@@ -151,7 +153,25 @@ public class AjoutArbre extends AppCompatActivity {
                     count += 1;
                 }
 
-                if (count == 7) {
+                if(spinnerNomArbre.getSelectedItem().toString().equals("Autre")){
+                    stringAutreArbre = editTextAutreArbre.getText().toString().trim();
+                    stringNomBotanique = editTextNomBotanique.getText().toString().trim();
+                    if (!stringNomBotanique.isEmpty() && !checkPatternGeneral(stringNomBotanique)) {
+                        editTextNomBotanique.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+
+                    if (stringAutreArbre.isEmpty()) {
+                        editTextAutreArbre.setError("Ce champ est obligatoire");
+                    } else if (!checkPatternGeneral(stringAutreArbre)) {
+                        editTextAutreArbre.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+                }
+
+                if ((count == 7 && !spinnerNomArbre.getSelectedItem().toString().equals("Autre")) || (count == 9 && spinnerNomArbre.getSelectedItem().toString().equals("Autre"))) {
                     saveData();
                     //finish();
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
