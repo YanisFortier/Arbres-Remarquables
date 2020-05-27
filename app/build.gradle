@@ -36,5 +36,6 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.30'
     implementation 'org.osmdroid:osmdroid-third-party:6.0.1'
     implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 
 }

@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class AjoutAlignement extends AppCompatActivity {
 
     //Variables Layout
     private LinearLayout autre, autreLien;
+    private TextView errorEspece, errorLien;
     private EditText editTextLatitude, editTextLongitude,editTextNomPrenom,editTextPseudo,editTextAdresseMail,editTextAdresseAlignement,editTextAutreEspece,editTextNomBotanique,editTextObservations,editTextAutreLien;
     private Spinner spinnerEspace,spinnerNombreArbre ,spinnerNombreEspece, spinnerProtection;
     private CheckBox checkBoxEspeceAutre,checkBoxLienAutre,checkboxVerification,checkBoxChene,checkBoxFrene,checkBoxPeuplier,checkBoxPin,checkBoxCedre,checkBoxErable,checkBoxSequoia,checkBoxPlatane,checkBoxMarronnier,checkBoxChataignier,checkBoxHetre,checkBoxMagnolia,checkBoxTilleul,checkBoxEspaceBoise,checkBoxParc,checkBoxAutreAli;
@@ -81,6 +83,8 @@ public class AjoutAlignement extends AppCompatActivity {
         checkBoxEspaceBoise = findViewById(R.id.checkBoxEspaceBoise);
         checkBoxParc = findViewById(R.id.checkBoxParcs);
         checkBoxAutreAli = findViewById(R.id.checkBoxAutresAlignement);
+        errorEspece = findViewById(R.id.errorEspece);
+        errorLien = findViewById(R.id.errorLien);
         buttonValid = findViewById(R.id.buttonValiderAli);
 
         checkBoxEspeceAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -118,6 +122,8 @@ public class AjoutAlignement extends AppCompatActivity {
                 stringTextObservations = editTextObservations.getText().toString().trim();
                 stringLongitude = editTextLongitude.getText().toString();
                 stringLatitude = editTextLatitude.getText().toString();
+                boolean checkEspece = (checkBoxChene.isChecked() || checkBoxFrene.isChecked() || checkBoxPeuplier.isChecked() || checkBoxPin.isChecked() || checkBoxCedre.isChecked() || checkBoxErable.isChecked() || checkBoxSequoia.isChecked() || checkBoxPlatane.isChecked() || checkBoxMarronnier.isChecked() || checkBoxChataignier.isChecked() || checkBoxHetre.isChecked() || checkBoxMagnolia.isChecked() || checkBoxTilleul.isChecked() || checkBoxEspeceAutre.isChecked());
+                boolean checkLien = (checkBoxEspaceBoise.isChecked() || checkBoxParc.isChecked() || checkBoxAutreAli.isChecked() || checkBoxLienAutre.isChecked());
                 int count = 0;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
@@ -202,21 +208,24 @@ public class AjoutAlignement extends AppCompatActivity {
                     count += 1;
                 }
 
-                if (count == 7 && !checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked() ) {
-                    saveData();
-                    //finish();
-                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
-                }else if (count == 9 && checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()){
-                    saveData();
-                    //finish();
-                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                if(checkEspece){
+                    count += 1;
+                    errorEspece.setVisibility(View.GONE);
                 }
-                else if (count == 8 && !checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()){
-                    saveData();
-                    //finish();
-                    Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
+                else{
+                    errorEspece.setVisibility(View.VISIBLE);
                 }
-                else if (count == 10 && checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()){
+
+                if(checkLien){
+                    count += 1;
+                    errorLien.setVisibility(View.GONE);
+                }else {
+                    errorLien.setVisibility(View.VISIBLE);
+                }
+
+
+
+                if ((count == 9 && !checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()) || (count == 10 && !checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()) || (count == 11 && checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()) || (count == 12 && checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked())) {
                     saveData();
                     //finish();
                     Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
@@ -334,7 +343,7 @@ public class AjoutAlignement extends AppCompatActivity {
         if(checkBoxParc.isChecked()){
             txt += "Parc;";
         }
-        if(checkBoxEspaceBoise.isChecked()){
+        if(checkBoxAutreAli.isChecked()){
             txt += "Autres Alignements;";
         }
         if(checkBoxLienAutre.isChecked()){
