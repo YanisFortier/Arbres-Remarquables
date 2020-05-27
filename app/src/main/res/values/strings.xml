@@ -15,6 +15,8 @@
     <string name="type3">Espace Boisé</string>
     <string name="verifDialog">Veillez vérifier les informations</string>
     <string name="descForm">"Les éléments marqués par un astérisque (*) sont des champs obligatoires et doivent être remplis."</string>
+    <string name="errorEspece">Veuillez cocher au minimum une espèce</string>
+    <string name="errorLien">Veuillez cocher au minimum un lien</string>
 
     <!--Ajout Arbre -->
     <string name="titleArbre">"Enregistrer un arbre"</string>
