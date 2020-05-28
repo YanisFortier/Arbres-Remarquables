@@ -259,8 +259,8 @@ public class AjoutAlignement extends AppCompatActivity {
         String espace = spinnerEspace.getSelectedItem().toString();
         String nombresArbres = spinnerNombreArbre.getSelectedItem().toString();
         String nombresEspeces = spinnerNombreEspece.getSelectedItem().toString();
-        String especes = "None";
-        String lien = "None";
+        String especes = "";
+        String lien = "";
         String protection = spinnerProtection.getSelectedItem().toString();
         stringTextObservations = editTextObservations.getText().toString();
 
