@@ -291,43 +291,43 @@ public class AjoutAlignement extends AppCompatActivity {
     private String getCheckBoxs(){
         String txt = "";
         if(checkBoxChene.isChecked()){
-            txt+="Chêne;";
+            txt+="Chêne ;";
         }
         if(checkBoxFrene.isChecked()){
-            txt+="Frêne;";
+            txt+="Frêne ;";
         }
         if(checkBoxPeuplier.isChecked()){
-            txt+="Peuplier;";
+            txt+="Peuplier ;";
         }
         if(checkBoxPin.isChecked()){
-            txt+="Pin;";
+            txt+="Pin ;";
         }
         if(checkBoxCedre.isChecked()){
-            txt+="Cèdre;";
+            txt+="Cèdre ;";
         }
         if(checkBoxErable.isChecked()){
-            txt+="Érable;";
+            txt+="Érable ;";
         }
         if(checkBoxSequoia.isChecked()){
-            txt+="Séquoia;";
+            txt+="Séquoia ;";
         }
         if(checkBoxPlatane.isChecked()){
-            txt+="Platane;";
+            txt+="Platane ;";
         }
         if(checkBoxMarronnier.isChecked()){
-            txt+="Marronnier;";
+            txt+="Marronnier ;";
         }
         if(checkBoxChataignier.isChecked()){
-            txt+="Châtaignier;";
+            txt+="Châtaignier ;";
         }
         if(checkBoxHetre.isChecked()){
-            txt+="Hètre;";
+            txt+="Hètre ;";
         }
         if(checkBoxMagnolia.isChecked()){
-            txt+="Magnolia;";
+            txt+="Magnolia ;";
         }
         if(checkBoxTilleul.isChecked()){
-            txt+="Tilleul;";
+            txt+="Tilleul ;";
         }
         if(checkBoxEspeceAutre.isChecked()){
             txt += editTextAutreEspece.getText().toString()+";";
@@ -338,13 +338,13 @@ public class AjoutAlignement extends AppCompatActivity {
     private String getLien(){
         String txt = "";
         if(checkBoxEspaceBoise.isChecked()){
-            txt += "Espace Boise;";
+            txt += "Espace Boise ;";
         }
         if(checkBoxParc.isChecked()){
-            txt += "Parc;";
+            txt += "Parc ;";
         }
         if(checkBoxAutreAli.isChecked()){
-            txt += "Autres Alignements;";
+            txt += "Autres Alignements ;";
         }
         if(checkBoxLienAutre.isChecked()){
             txt += editTextAutreLien.getText().toString() + ";";

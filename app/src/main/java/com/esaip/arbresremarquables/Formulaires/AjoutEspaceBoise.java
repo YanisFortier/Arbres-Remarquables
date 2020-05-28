@@ -9,10 +9,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
+import com.esaip.arbresremarquables.Dialogs.DialogEspaceBoise;
 import com.esaip.arbresremarquables.R;
 
 import java.util.regex.Pattern;
@@ -23,12 +26,14 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
-    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo,editTextLatitude, editTextLongitude, editTextAdresseArbre, editTextObservations ;
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo,editTextLatitude, editTextLongitude, editTextAdresseEsp, editTextObservations, editTextAutreBiodiv ;
     private LinearLayout autre;
+    private TextView niveau, global;
     private CheckBox autreCheckBox,checkBoxArbre,checkBoxArbuste,checkBoxHerbe,checkBoxEcureuil,checkBoxChauve,checkBoxCapricorne,checkBoxChouette,checkBoxPic,checkBoxRefuge,checkBoxIlot,checkBoxPaysager;
     private Spinner spinnerTypeEspace, spinnerNbArbres, spinnerNbEspeces, spinnerEau, spinnerAbris, spinnerEclairage, spinnerOmbre, spinnerEntretien;
     private Button buttonValider;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreBiodiversite, stringEspace, stringNombresArbres, stringNombresEspeces;
+    private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,12 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editTextNomPrenom = findViewById(R.id.editTextNomPrenomEsp);
         editTextAdresseMail = findViewById(R.id.editTextAdresseMailEsp);
         editTextPseudo = findViewById(R.id.editTextPseudoEsp);
-        editTextAdresseArbre = findViewById(R.id.editTextAdresseEsp);
+        editTextAdresseEsp = findViewById(R.id.editTextAdresseEsp);
         editTextObservations = findViewById(R.id.editTextObservationEsp);
+        editTextAutreBiodiv = findViewById(R.id.editTextAutreBiodiv);
         autre = findViewById(R.id.editAutre);
+        niveau = findViewById(R.id.errorNiveau);
+        global = findViewById(R.id.errorGlobal);
         autreCheckBox = findViewById(R.id.checkautrebox);
         checkBoxArbre = findViewById(R.id.checkBoxArbre);
         checkBoxArbuste = findViewById(R.id.checkBoxArbuste);
@@ -96,10 +104,13 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                 stringTextNomPrenom = editTextNomPrenom.getText().toString().trim();
                 stringTextPseudo = editTextPseudo.getText().toString().trim();
                 stringTextMail = editTextAdresseMail.getText().toString().trim();
-                stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
+                stringTextAdresse = editTextAdresseEsp.getText().toString().trim();
                 stringTextObservations = editTextObservations.getText().toString().trim();
                 stringLatitude = editTextLatitude.getText().toString().trim();
                 stringLongitude = editTextLongitude.getText().toString().trim();
+                boolean checkNiveau = (checkBoxArbuste.isChecked() || checkBoxArbre.isChecked() || checkBoxHerbe.isChecked());
+                boolean checkBiodiversité = (checkBoxEcureuil.isChecked() || checkBoxChauve.isChecked() || checkBoxCapricorne.isChecked() || checkBoxPic.isChecked() || checkBoxChouette.isChecked() || autreCheckBox.isChecked());
+                boolean checkGlobal = (checkBoxIlot.isChecked() || checkBoxRefuge.isChecked() || checkBoxPaysager.isChecked());
                 int count = 0;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
@@ -125,9 +136,9 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                 }
 
                 if (stringTextAdresse.isEmpty()) {
-                    editTextAdresseArbre.setError("Ce champ est obligatoire");
+                    editTextAdresseEsp.setError("Ce champ est obligatoire");
                 } else if (!checkPatternAdresse(stringTextAdresse)) {
-                    editTextAdresseArbre.setError("Adresse non valide");
+                    editTextAdresseEsp.setError("Adresse non valide");
                 } else {
                     count += 1;
                 }
@@ -148,13 +159,40 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                     count += 1;
                 }
 
+                if(autreCheckBox.isChecked()){
+                    stringAutreBiodiversite = editTextAutreBiodiv.getText().toString().trim();
+                    if (stringAutreBiodiversite.isEmpty()) {
+                        editTextAutreBiodiv.setError("Ce champ est obligatoire");
+                    } else if (!checkPatternGeneral(stringAutreBiodiversite)) {
+                        editTextAutreBiodiv.setError("Nom non valide");
+                    } else {
+                        count += 1;
+                    }
+                }
+
                 if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
                     editTextObservations.setError("Commentaires non valide");
                 } else {
                     count += 1;
                 }
 
-                if (count == 7) {
+                if(checkNiveau){
+                    count += 1;
+                    niveau.setVisibility(View.GONE);
+                }
+                else{
+                    niveau.setVisibility(View.VISIBLE);
+                }
+
+                if(checkGlobal){
+                    count += 1;
+                    global.setVisibility(View.GONE);
+                }
+                else{
+                    global.setVisibility(View.VISIBLE);
+                }
+
+                if ((count == 9 && !autreCheckBox.isChecked()) || (count == 10 && autreCheckBox.isChecked())) {
                     saveData();
                     //finish();
                     Toast.makeText(AjoutEspaceBoise.this, "Correct", Toast.LENGTH_LONG).show();
@@ -180,8 +218,25 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private void openDialog() {
-        //DialogArbre dialog = new DialogArbre(editTextNomPrenom.getText().toString(), editTextPseudo.getText().toString(), editTextAdresseMail.getText().toString());
-        //dialog.show(getSupportFragmentManager(), "example dialog");
+        stringTextNomPrenom = editTextNomPrenom.getText().toString();
+        stringTextPseudo = editTextPseudo.getText().toString();
+        stringTextMail = editTextAdresseMail.getText().toString();
+        stringTextAdresse = editTextAdresseEsp.getText().toString();
+        stringEspace = spinnerTypeEspace.getSelectedItem().toString();
+        stringNombresArbres = spinnerNbArbres.getSelectedItem().toString();
+        stringNombresEspeces = spinnerNbEspeces.getSelectedItem().toString();
+        stringNiveau = getNiveau();
+        stringBiodiv = getBiodiv();
+        stringGlobal = getGlobal();
+        stringEau = spinnerEau.getSelectedItem().toString();
+        stringAbris = spinnerAbris.getSelectedItem().toString();
+        stringEclairage = spinnerEclairage.getSelectedItem().toString();
+        stringOmbre = spinnerOmbre.getSelectedItem().toString();
+        stringEntretien = spinnerEntretien.getSelectedItem().toString();
+        stringTextObservations = editTextObservations.getText().toString();
+
+        DialogEspaceBoise dialog = new DialogEspaceBoise(stringTextNomPrenom, stringTextPseudo, stringTextMail, stringTextAdresse ,stringEspace, stringNombresArbres, stringNombresEspeces,stringNiveau, stringEau, stringAbris, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal, stringTextObservations);
+        dialog.show(getSupportFragmentManager(), "Dialog AjoutEspaceBoise");
     }
 
     public void loadData() {
@@ -194,6 +249,57 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editTextNomPrenom.setText(textNomPrenom);
         editTextAdresseMail.setText(textAdresseMail);
         editTextPseudo.setText(textPseudo);
+    }
+
+    private String getNiveau(){
+        String txt = "";
+        if(checkBoxArbre.isChecked()){
+            txt += "Arbre ;";
+        }
+        if(checkBoxArbuste.isChecked()){
+            txt += "Arbuste ;";
+        }
+        if(checkBoxHerbe.isChecked()){
+            txt += "Herbe ;";
+        }
+        return txt;
+    }
+
+    private String getBiodiv(){
+        String txt = "";
+        if(checkBoxEcureuil.isChecked()){
+            txt += "Écureuil ;";
+        }
+        if(checkBoxChauve.isChecked()){
+            txt += "Chauve-Souris ;";
+        }
+        if(checkBoxCapricorne.isChecked()){
+            txt += "Capricorne ;";
+        }
+        if(checkBoxChouette.isChecked()){
+            txt += "Chouette ;";
+        }
+        if(checkBoxPic.isChecked()){
+            txt += "Pic ;";
+        }
+        if(autreCheckBox.isChecked()){
+            txt += stringAutreBiodiversite + " ;";
+        }
+        return txt;
+    }
+
+    private String getGlobal(){
+        String txt = "";
+        if(checkBoxRefuge.isChecked()){
+            txt += "Refuge ;";
+        }
+        if(checkBoxIlot.isChecked()){
+            txt += "Ilot ;";
+        }
+        if(checkBoxPaysager.isChecked()){
+            txt += "Paysager ;";
+        }
+        return txt;
     }
 
     private Boolean checkPatternMail(String txt){

@@ -20,6 +20,8 @@
 
     <!--Errors -->
     <string name="errorLien">Veuillez cocher au minimum un lien</string>
+    <string name="errorNiveau">Veuillez cocher au minimum un niveau</string>
+    <string name="errorGlobal">Veuillez cocher au minimum un choix</string>
 
     <!--Ajout Arbre -->
     <string name="titleArbre">"Enregistrer un arbre"</string>
@@ -74,21 +76,21 @@
     <string name="textEspaceEspaceboise">"Cet espace boisé est sur   :  "</string>
     <string name="descNbEspaceboise">"Nombre d'arbres composant cet espace boisé"</string>
     <string name="descNbEspeces">"Y'a t'il au moins quatres espèces d'arbres ?"</string>
-    <string name="textNiveauVegetation">"Niveaux"</string>
+    <string name="textNiveauVegetation">"Niveaux : "</string>
     <string name="descVegetation">"Y a t-il plusieurs niveaux de végétation ?"</string>
-    <string name="textPtEau">"Point d'eau"</string>
+    <string name="textPtEau">"Point d'eau : "</string>
     <string name="descPtEau">"Y a t-il un point d'eau ? (mare, étang, cours d'eau, etc.)"</string>
-    <string name="textAbris">"Abris d'animaux"</string>
+    <string name="textAbris">"Abris d'animaux : "</string>
     <string name="descAbris">"Y a t-il des abris pour les animaux sauvages (murs en pierre, cavités dans les arbres,…) ?"</string>
-    <string name="textEclairage">"Éclairage"</string>
+    <string name="textEclairage">"Éclairage : "</string>
     <string name="descEclairage">"Le site est-il éclairé la nuit ?"</string>
-    <string name="textBiodiversite">"Biodiversité"</string>
+    <string name="textBiodiversite">"Biodiversité : "</string>
     <string name="descBiodiversite">"Y avez-vous vu un ou plusieurs spécimens d'espèce protégée ?"</string>
-    <string name="textOmbre">"Ombre"</string>
+    <string name="textOmbre">"Ombre : "</string>
     <string name="descOmbre">"Si l’espace est en zone urbaine, des habitants viennent-ils s’y mettre à l’ombre en été ?"</string>
-    <string name="textEntretien">"Entretien"</string>
+    <string name="textEntretien">"Entretien : "</string>
     <string name="descEntretien">" Cet espace est pour vous plutôt :"</string>
-    <string name="textGlobal">"Globalement"</string>
+    <string name="textGlobal">"Globalement : "</string>
     <string name="descGlobal">"Globalement, ce site est pour vous :"</string>
 
     <!--Types Arbres -->

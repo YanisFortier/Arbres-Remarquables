@@ -295,6 +295,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/descVegetation"
                     />
+                <TextView
+                    android:id="@+id/errorNiveau"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/design_default_color_error"
+                    android:visibility="gone"
+                    android:text="@string/errorNiveau" />
+
 
                 <CheckBox
                     android:id="@+id/checkBoxHerbe"
@@ -491,6 +499,7 @@
                     android:text="@string/descAutre"
                     />
                 <EditText
+                    android:id="@+id/editTextAutreBiodiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"/>
@@ -563,6 +572,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/descGlobal"
                     />
+                <TextView
+                    android:id="@+id/errorGlobal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/design_default_color_error"
+                    android:visibility="gone"
+                    android:text="@string/errorGlobal" />
 
                 <CheckBox
                     android:id="@+id/checkBoxRefuge"
