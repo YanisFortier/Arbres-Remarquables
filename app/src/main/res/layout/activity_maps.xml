@@ -32,44 +32,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutCompat"
+    <ru.dimorinny.floatingtextbutton.FloatingTextButton
+        android:id="@+id/floatingTxtBtnArbre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="125dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        app:floating_background_color="@color/colorPrimaryDark"
+        app:floating_title="Enregistrer un arbre"
+        app:floating_title_color="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ru.dimorinny.floatingtextbutton.FloatingTextButton
-            android:id="@+id/floatingTxtBtnMaxime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:floating_background_color="@color/colorPrimaryDark"
-            app:floating_title="Debug Maxime"
-            app:floating_title_color="@android:color/white" />
-
-        <ru.dimorinny.floatingtextbutton.FloatingTextButton
-            android:id="@+id/floatingTxtBtnYanis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:floating_background_color="@color/colorPrimaryDark"
-            app:floating_title="Debug Yanis"
-            app:floating_title_color="@android:color/white" />
-
-        <ru.dimorinny.floatingtextbutton.FloatingTextButton
-            android:id="@+id/floatingTxtBtnArbre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:floating_background_color="@color/colorPrimaryDark"
-            app:floating_title="Enregistrer un arbre"
-            app:floating_title_color="@android:color/white" />
-
-    </LinearLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/white"

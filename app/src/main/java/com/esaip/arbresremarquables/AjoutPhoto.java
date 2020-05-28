@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,8 +20,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
@@ -31,19 +28,11 @@ import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
 import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
 import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class AjoutPhoto extends AppCompatActivity {
 
@@ -83,12 +72,6 @@ public class AjoutPhoto extends AppCompatActivity {
             Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
         }
 
-        try {
-            JsonData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         btTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +92,18 @@ public class AjoutPhoto extends AppCompatActivity {
                 choosePhotoFromGallery();
             }
         });
+
+        //Location
+        double lat = 0;
+        double lon = 0;
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            lat = bundle.getDouble("latitude");
+            lon = bundle.getDouble("longitude");
+            Toast.makeText(this, "Latitude : " + lat, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -258,14 +253,4 @@ public class AjoutPhoto extends AppCompatActivity {
         return finalBitmap;
     }
 
-    private void JsonData() throws JSONException {
-        String txt;
-        txt = "{ \"type\": \"FeatureCollection\", \"features\":[{ \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:42:00\", \"Remarquable\": \"* marquant\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Castanea sativa\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"7 chemin des cavaliers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"ChÃ¢taignier\", \"Identifiant\": \"41\", \"Photo\": \"41.jpg\", \"Identifiant de la rÃ©ponse\": \"41\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.6222872436\", \"47.4073779854\"] } }, { \"type\": \"Feature\", \"properties\": { \"Date\": \"2019-04-23 10:44:00\", \"Remarquable\": \"* ancien* valeur\", \"RemarquabilitÃ©\": \"Notoire\", \"Nom botanique\": \"Wisteria sinensis\", \"SituÃ© sur un espace\": \"privÃ©\", \"VÃ©rification\": \"Oui\", \"Adresse\": \"22, rue des Saulniers, Bouchemaine\", \"Pseudonyme\": \"MJ\", \"Nom de l'arbre\": \"Glycine de Chine\", \"Identifiant\": \"42\", \"Photo\": \"42.jpg\", \"Identifiant de la rÃ©ponse\": \"42\" }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ \"-0.620834\", \"47.406899\"]}}]}";
-        JSONObject jsonObject = new JSONObject(txt);
-        JSONArray jsonArray = jsonObject.getJSONArray("features");
-        for (int i = 0; i< jsonArray.length();i++){
-            Log.i("JSON1",jsonArray.getJSONObject(i).getJSONObject("properties").get("Nom botanique").toString());
-            Log.i("JSON2",jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").get(1).toString());
-        }
-    }
 }

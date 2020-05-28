@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,8 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
@@ -43,10 +44,14 @@ public class MapsActivity extends FragmentActivity {
     );
     //Location
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+
     // Volley - GeoJSON
     private RequestQueue mQueue;
     private MapView map = null;
     private MyLocationNewOverlay mLocationOverlay;
+    private Intent intentAjoutPhoto = new Intent(MapsActivity.this, AjoutPhoto.class);
+    private Double latitude;
+    private Double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +64,17 @@ public class MapsActivity extends FragmentActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //OpenStreetMap
+        map = findViewById(R.id.mapview);
+        final Marker markerPos = new Marker(map);
+
+        //Chargement des arbres
         mQueue = Volley.newRequestQueue(this);
         chargementJSON();
 
         //Boutons
         FloatingActionButton btnInfo = findViewById(R.id.floatingBtnInfo);
-        FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
-        FloatingTextButton btnYanis = findViewById(R.id.floatingTxtBtnYanis);
-        FloatingTextButton btnMaxime = findViewById(R.id.floatingTxtBtnMaxime);
+        final FloatingTextButton btnArbre = findViewById(R.id.floatingTxtBtnArbre);
 
         // Permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -81,6 +89,8 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivity(intent);
             }
         });
@@ -93,21 +103,7 @@ public class MapsActivity extends FragmentActivity {
             }
         });
 
-        btnMaxime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, AjoutAlignement.class);
-                startActivity(intent);
-            }
-        });
 
-        btnYanis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
-        map = findViewById(R.id.mapview);
         //Ajout de l'overlay avec la location utilisateur
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);
         this.mLocationOverlay.enableMyLocation();
@@ -119,31 +115,35 @@ public class MapsActivity extends FragmentActivity {
 
 
         mapController.setCenter(startPoint);
-
         mapController.setZoom(13.00);
         map.invalidate();
 
-        /*
+
         //Fonction Onclick qui récupère lat/long et lance le prise de photo
-        final MapEventsReceiver mReceive = new MapEventsReceiver(){
+        final MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                Toast.makeText(getBaseContext(),p.getLatitude() + " - "+p.getLongitude(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MapsActivity.this, AjoutEspaceBoise.class);
 
-                intent.putExtra("latitude",p.getLatitude());
-                intent.putExtra("longitude",p.getLongitude());
+                latitude = p.getLatitude();
+                longitude = p.getLongitude();
 
-                startActivity(intent);
+                markerPos.setPosition(new GeoPoint(p.getLatitude(), p.getLongitude()));
+                markerPos.setSnippet("<b> Latitude : </b>" + p.getLatitude() + "<br>"
+                        + "<b> Longitude : </b>" + p.getLongitude() + "<br>");
+                map.getOverlays().add(markerPos);
+                map.invalidate();
+
+                btnArbre.setVisibility(View.VISIBLE);
                 return false;
             }
+
             @Override
             public boolean longPressHelper(GeoPoint p) {
                 return false;
             }
         };
-        */
-
+        MapEventsOverlay OverlayEvents = new MapEventsOverlay(getBaseContext(), mReceive);
+        map.getOverlays().add(OverlayEvents);
     }
 
     private void chargementJSON() {
@@ -179,6 +179,7 @@ public class MapsActivity extends FragmentActivity {
                                         + "<b> Pseudonyme : </b> " + jsonProperties.optString("Pseudonyme", "Inconnu") + "<br>"
                                         + "<b> Vérification : </b> " + jsonProperties.optString("Vérification", "Inconnu") + "<br>"
                                         + "<b> Identifiant de la réponse : </b> " + jsonProperties.optString("Identifiant de la réponse", "Inconnu") + "<br>"
+                                        + "<center><b> Cliquez pour afficher la photo </b></center>"
                                 );
 
 
