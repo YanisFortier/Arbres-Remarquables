@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:floating_background_color="@color/colorPrimaryDark"
-        app:floating_title="Enregistrer un arbre"
+        app:floating_title="Prendre une photo"
         app:floating_title_color="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
