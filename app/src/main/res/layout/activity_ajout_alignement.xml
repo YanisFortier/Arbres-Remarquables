@@ -5,19 +5,28 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/titleAlignement"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="#80EA78"
         android:gravity="center"
-        android:text="@string/descForm" />
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titleAlignement"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/descForm"
+            android:textColor="#454545" />
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,7 +59,6 @@
                     android:id="@+id/editTextNomPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -76,7 +84,6 @@
                     android:id="@+id/editTextPseudo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -102,7 +109,6 @@
                     android:id="@+id/editTextAdresseMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:inputType="textEmailAddress" />
             </LinearLayout>
 
@@ -162,7 +168,7 @@
                     android:gravity="center"
                     android:hint="Latitude"
                     android:digits="0123456789-."
-                    android:inputType="numberSigned" />
+                    android:inputType="text" />
 
                 <Space
                     android:layout_width="0dp"
@@ -176,7 +182,7 @@
                     android:gravity="center"
                     android:hint="Longitude"
                     android:digits="0123456789-."
-                    android:inputType="numberSigned" />
+                    android:inputType="text" />
 
                 <Space
                     android:layout_width="0dp"
