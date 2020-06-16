@@ -41,7 +41,7 @@ public class AjoutPhoto extends AppCompatActivity {
     private ImageView ivPhoto;
     private Bitmap result;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
-    private RadioButton rbYes, rbNo, rbType1,rbType2,rbType3;
+    private RadioButton rbType1,rbType2,rbType3;
     private LinearLayout infos;
     private Uri contentUri;
     private TextView tst;
@@ -55,8 +55,6 @@ public class AjoutPhoto extends AppCompatActivity {
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
         btChoosePhoto = findViewById(R.id.btGalleryTake);
         infos = findViewById(R.id.infos);
-        rbYes = findViewById(R.id.rdButOui);
-        rbNo = findViewById(R.id.rdButNon);
         rbType1 = findViewById(R.id.arbres);
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
@@ -197,25 +195,19 @@ public class AjoutPhoto extends AppCompatActivity {
         if(rbType1.isChecked()) {
             Intent ajout = new Intent(getApplicationContext(), AjoutArbre.class);
             ajout.putExtra("photo", currentPath);
-            if (rbYes.isChecked()) {
-                ajout.putExtra("geolocalisation",true);
-            }
+            ajout.putExtra("geolocalisation",true);
             startActivity(ajout);
         }
         if (rbType2.isChecked()) {
             Intent ajout2 = new Intent(getApplicationContext(), AjoutAlignement.class);
             ajout2.putExtra("photo", currentPath);
-            if (rbYes.isChecked()) {
-                ajout2.putExtra("geolocalisation",true);
-            }
+            ajout2.putExtra("geolocalisation",true);
             startActivity(ajout2);
         }
         if(rbType3.isChecked()){
             Intent ajout3 = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
             ajout3.putExtra("photo",currentPath);
-            if(rbYes.isChecked()){
-                ajout3.putExtra("geolocalisation",true);
-            }
+            ajout3.putExtra("geolocalisation",true);
             startActivity(ajout3);
         }
     }

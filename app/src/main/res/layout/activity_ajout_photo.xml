@@ -102,35 +102,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"> <!-- to show what the parent is -->
-
-                <RadioGroup
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rdButOui"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="Oui" />
-
-                    <RadioButton
-                        android:id="@+id/rdButNon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Non" />
-                </RadioGroup>
-            </LinearLayout>
-
             <Button
                 android:id="@+id/btPhotoKeep"
                 android:layout_width="match_parent"
