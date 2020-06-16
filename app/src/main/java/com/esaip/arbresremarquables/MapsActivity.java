@@ -49,7 +49,6 @@ public class MapsActivity extends FragmentActivity {
     private RequestQueue mQueue;
     private MapView map = null;
     private MyLocationNewOverlay mLocationOverlay;
-    //private Intent intentAjoutPhoto = new Intent(MapsActivity.this, AjoutPhoto.class);
     private Double latitude;
     private Double longitude;
 
