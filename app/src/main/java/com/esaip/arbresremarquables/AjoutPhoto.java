@@ -27,24 +27,34 @@ import androidx.core.content.FileProvider;
 import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
 import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
 import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
+import com.thegrizzlylabs.sardineandroid.Sardine;
+import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
+
 public class AjoutPhoto extends AppCompatActivity {
 
-    private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2;
-    private String currentPath, fname;
+    private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
+    private static String LOGIN = "invitesaip",PWD="Hg6ykLuvZBk";
+    private String currentPath, fname= "", timeStamp = "";
     private ImageView ivPhoto;
-    private Bitmap result;
+    private Bitmap result,resultCompress;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
     private RadioButton rbType1,rbType2,rbType3;
     private LinearLayout infos;
     private Uri contentUri;
     private TextView tst;
+    private File fileInfo,fileInfoBis;
+    private Sardine sardine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +112,10 @@ public class AjoutPhoto extends AppCompatActivity {
             lon = bundle.getDouble("longitude");
             Toast.makeText(this, "Latitude : " + lat, Toast.LENGTH_LONG).show();
         }
+
+        sardine = new OkHttpSardine();
+        sardine.setCredentials(LOGIN,PWD);
+
     }
 
     @Override
@@ -111,14 +125,32 @@ public class AjoutPhoto extends AppCompatActivity {
             //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
             tst.setText(currentPath);
             bitmap = RotateBitmap(bitmap,0);
+            resultCompress = saveCompressImage(changeRatio(bitmap));
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
         }
         else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
             contentUri = data.getData();
             result = saveImage(contentUri);
-            //Toast.makeText(this,String.valueOf(result.getByteCount()),Toast.LENGTH_LONG).show();
-            ivPhoto.setImageBitmap(result);
+            resultCompress = saveCompressImage(changeRatio(result));
+            /*
+            String path = fileInfo.getAbsolutePath();
+            String path2 = fileInfoBis.getAbsolutePath();
+            Toast.makeText(this,path,Toast.LENGTH_LONG).show();
+            Toast.makeText(this,path2,Toast.LENGTH_LONG).show();
+            byte[] pho = new byte[0];
+            try {
+                pho = FileUtils.readFileToByteArray(new File(path));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                sardine.put("https://www.sauvegarde-anjou.org/nuage/remote.php/dav/files/invitesaip/", pho);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            */
+            ivPhoto.setImageBitmap(resultCompress);
             infos.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,14 +193,12 @@ public class AjoutPhoto extends AppCompatActivity {
 
     //Creer le fichier contenant l'image
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fname = "JPEG_" + timeStamp + ".jpg";
+        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        fname = "JPEG_" + timeStamp + ".jpg";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = new File(storageDir, fname);
-        //File image = File.createTempFile(fname,  /* prefix */".jpg",   /* suffix */storageDir/* directory */);
-
+        fileInfo = new File(storageDir, fname);
         //Sauvegarder l'image
-        return image;
+        return fileInfo;
     }
 
     //Rotation de l'image
@@ -229,14 +259,14 @@ public class AjoutPhoto extends AppCompatActivity {
         Bitmap finalBitmap = (BitmapFactory.decodeFile(picturePath));
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         storageDir.mkdirs();
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         fname = "JPEG_"+ timeStamp +".jpg";
 
-        File file = new File(storageDir, fname);
-        if (file.exists()) file.delete();
+        fileInfo = new File(storageDir, fname);
+        if (fileInfo.exists()) fileInfo.delete();
         try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            FileOutputStream out = new FileOutputStream(fileInfo);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 75, out);
             out.flush();
             out.close();
         } catch (Exception e) {
@@ -245,4 +275,29 @@ public class AjoutPhoto extends AppCompatActivity {
         return finalBitmap;
     }
 
+    private Bitmap saveCompressImage(Bitmap bitmap){
+        fname = "JPEG_" + timeStamp + "_compress.jpg";
+        fileInfoBis = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname);
+        if (fileInfoBis.exists()) fileInfoBis.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(fileInfoBis);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    private Bitmap changeRatio(Bitmap bitmap){
+        double height = bitmap.getHeight();
+        double width = bitmap.getWidth();
+        double ratio = width / height;
+
+        int newWidth = (int) (ratio * (int)Math.sqrt(IMAGE_MAX_SIZE / ratio));
+        int newHeight = (int)Math.sqrt(IMAGE_MAX_SIZE / ratio);
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap,newWidth,newHeight,false);
+        return newBitmap;
+    }
 }
