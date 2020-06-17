@@ -44,7 +44,7 @@ import org.apache.commons.io.FileUtils;
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
-    private static String LOGIN = "invitesaip",PWD="Hg6ykLuvZBk";
+    private static String LOGIN = "craftycooking",PWD="webdavsecure";
     private String currentPath, fname= "", fname2= "", timeStamp = "";
     private ImageView ivPhoto;
     private Bitmap result,resultCompress;
@@ -73,11 +73,11 @@ public class AjoutPhoto extends AppCompatActivity {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             } else {
-                Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG);
+                Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG).show();
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
             }
         } else {
-            Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG).show();
         }
 
         btTakePhoto.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +134,7 @@ public class AjoutPhoto extends AppCompatActivity {
             result = saveImage(contentUri);
             resultCompress = saveCompressImage(changeRatio(result));
             Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
+
             /*
             String path = fileInfo.getAbsolutePath();
             String path2 = fileInfoBis.getAbsolutePath();
@@ -146,11 +147,13 @@ public class AjoutPhoto extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                sardine.put("https://www.sauvegarde-anjou.org/nuage/remote.php/dav/files/invitesaip/", pho);
+                sardine.put("http://webdav-craftycooking.alwaysdata.net", pho);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            */
+
+             */
+
             ivPhoto.setImageBitmap(resultCompress);
             infos.setVisibility(View.VISIBLE);
         }
