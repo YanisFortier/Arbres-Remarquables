@@ -42,5 +42,4 @@ dependencies {
     implementation 'org.apache.commons:commons-io:1.3.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
     implementation 'com.github.Nextome:GeoJsonify:v1.0.0'
-    implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.6'
 }

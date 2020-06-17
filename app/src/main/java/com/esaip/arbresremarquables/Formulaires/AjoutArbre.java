@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,9 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.Models.Arbre;
 import com.esaip.arbresremarquables.R;
+import com.esaip.arbresremarquables.Uploader;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
 import java.util.regex.Pattern;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
@@ -211,6 +214,11 @@ public class AjoutArbre extends AppCompatActivity {
                             verification);
 
                     arbre.CreateCsv();
+
+                    /*
+                    Uploader uploader = new Uploader();
+                    uploader.uploadFile("http://82.120.215.111", new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/file.csv"));
+                     */
 
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
