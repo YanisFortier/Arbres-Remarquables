@@ -1,6 +1,7 @@
 package com.esaip.arbresremarquables.Formulaires;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class AjoutArbre extends AppCompatActivity {
     private RadioButton radioButton;
     private CheckBox checkboxVerification;
     private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude,stringAutreArbre, stringNomBotanique;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude,stringAutreArbre, stringNomBotanique,stringPhoto;
 
     //Location
     private LatLng mLatLng;
@@ -188,6 +189,9 @@ public class AjoutArbre extends AppCompatActivity {
                         remarquable = radioButton.getText().toString();
                     }
 
+                    Intent intent = getIntent();
+                    stringPhoto = intent.getStringExtra("photo1");
+
                     String verification = "non";
                     if (checkboxVerification.isChecked()) verification = "oui";
 
@@ -198,7 +202,7 @@ public class AjoutArbre extends AppCompatActivity {
                             editTextLatitude.getText().toString().trim(),
                             editTextLongitude.getText().toString().trim(),
                             stringTextAdresse,
-                            "photo",
+                            stringPhoto,
                             stringTextObservations,
                             nomArbre,
                             stringNomBotanique,

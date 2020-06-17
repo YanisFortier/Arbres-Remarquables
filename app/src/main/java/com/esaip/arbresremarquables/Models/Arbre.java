@@ -45,7 +45,7 @@ public class Arbre extends generique {
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
-                "Photo",
+                super.photo,
                 espace,
                 remarquable,
                 "Autre raison",

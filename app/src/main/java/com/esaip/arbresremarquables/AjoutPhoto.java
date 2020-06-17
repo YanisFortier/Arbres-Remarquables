@@ -45,7 +45,7 @@ public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
     private static String LOGIN = "invitesaip",PWD="Hg6ykLuvZBk";
-    private String currentPath, fname= "", timeStamp = "";
+    private String currentPath, fname= "", fname2= "", timeStamp = "";
     private ImageView ivPhoto;
     private Bitmap result,resultCompress;
     private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
@@ -133,6 +133,7 @@ public class AjoutPhoto extends AppCompatActivity {
             contentUri = data.getData();
             result = saveImage(contentUri);
             resultCompress = saveCompressImage(changeRatio(result));
+            Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
             /*
             String path = fileInfo.getAbsolutePath();
             String path2 = fileInfoBis.getAbsolutePath();
@@ -224,19 +225,22 @@ public class AjoutPhoto extends AppCompatActivity {
         Intent i = getIntent();
         if(rbType1.isChecked()) {
             Intent ajout = new Intent(getApplicationContext(), AjoutArbre.class);
-            ajout.putExtra("photo", currentPath);
+            ajout.putExtra("photo1", fname);
+            ajout.putExtra("photo2", fname2);
             ajout.putExtra("geolocalisation",true);
             startActivity(ajout);
         }
         if (rbType2.isChecked()) {
             Intent ajout2 = new Intent(getApplicationContext(), AjoutAlignement.class);
-            ajout2.putExtra("photo", currentPath);
+            ajout2.putExtra("photo1", fname);
+            ajout2.putExtra("photo2", fname2);
             ajout2.putExtra("geolocalisation",true);
             startActivity(ajout2);
         }
         if(rbType3.isChecked()){
             Intent ajout3 = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
-            ajout3.putExtra("photo",currentPath);
+            ajout3.putExtra("photo1", fname);
+            ajout3.putExtra("photo2", fname2);
             ajout3.putExtra("geolocalisation",true);
             startActivity(ajout3);
         }
@@ -276,8 +280,8 @@ public class AjoutPhoto extends AppCompatActivity {
     }
 
     private Bitmap saveCompressImage(Bitmap bitmap){
-        fname = "JPEG_" + timeStamp + "_compress.jpg";
-        fileInfoBis = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname);
+        fname2 = "JPEG_" + timeStamp + "_compress.jpg";
+        fileInfoBis = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname2);
         if (fileInfoBis.exists()) fileInfoBis.delete();
         try {
             FileOutputStream out = new FileOutputStream(fileInfoBis);

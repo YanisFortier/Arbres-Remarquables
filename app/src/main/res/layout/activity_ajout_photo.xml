@@ -25,16 +25,16 @@
 
             <Button
                 android:id="@+id/btPhotoTake"
-                android:layout_width="312dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/bt_take_photo" />
+                android:text="@string/bt_take_photo"
+                android:layout_width="match_parent" />
 
             <Button
                 android:visibility="visible"
                 android:id="@+id/btGalleryTake"
-                android:layout_width="312dp"
                 android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:onClick="changePhoto"
                 android:text="@string/bt_choose_gallery" />
@@ -92,15 +92,6 @@
                 </RadioGroup>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/askGeolocalisation"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btPhotoKeep"
