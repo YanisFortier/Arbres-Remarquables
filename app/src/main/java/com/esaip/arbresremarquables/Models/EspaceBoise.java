@@ -1,36 +1,31 @@
 package com.esaip.arbresremarquables.Models;
 
-public class EspaceBoise {
-    private String nomPrenom;
-    private String pseudo;
-    private String mail;
-    private double latitude;
-    private double longitude;
-    private String adresseArbre;
-    private String photo;
+
+import com.esaip.arbresremarquables.Csv;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EspaceBoise extends generique{
     private String nbArbres;
     private String nbEspeces;
     private String niveau;
-    private Boolean pointEau;
-    private Boolean abris;
-    private Boolean eclairage;
+    private String pointEau;
+    private String abris;
+    private String eclairage;
     private String biodiversite;
-    private Boolean ombre;
+    private String ombre;
     private String entretien;
     private String globalement;
-    private String observations;
 
-    public EspaceBoise() {
+    public EspaceBoise(){
+        super();
     }
 
-    public EspaceBoise(String nomPrenom, String pseudo, String mail, double latitude, double longitude, String adresseArbre, String photo, String nbArbres, String nbEspeces, String niveau, Boolean pointEau, Boolean abris, Boolean eclairage, String biodiversite, Boolean ombre, String entretien, String globalement, String observations) {
-        this.nomPrenom = nomPrenom;
-        this.pseudo = pseudo;
-        this.mail = mail;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.adresseArbre = adresseArbre;
-        this.photo = photo;
+    public EspaceBoise(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,
+                       String nbArbres, String nbEspeces, String niveau, String pointEau, String abris, String eclairage, String biodiversite, String ombre, String entretien, String globalement) {
+        //Récup les infos de l'héritage (générique).
+        super(nomPrenom,pseudo,mail,latitude,longitude,adresseArbre,photo,observations);
+
         this.nbArbres = nbArbres;
         this.nbEspeces = nbEspeces;
         this.niveau = niveau;
@@ -41,63 +36,42 @@ public class EspaceBoise {
         this.ombre = ombre;
         this.entretien = entretien;
         this.globalement = globalement;
-        this.observations = observations;
     }
 
-    public String getNomPrenom() {
-        return nomPrenom;
-    }
+    public void CreateCsv(){
 
-    public void setNomPrenom(String nomPrenom) {
-        this.nomPrenom = nomPrenom;
-    }
+        List<String[]> data= new ArrayList<String[]>();
+        //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        data.add(new String[]{
+                "id_Reponse",
+                super.date,
+                "utilisateur",
+                "IP",
+                super.nomPrenom,
+                super.pseudo,
+                super.mail,
+                super.latitude,
+                super.longitude,
+                super.adresseArbre,
+                "Photo",
+                nbEspeces,
+                nbArbres,
+                niveau,
+                pointEau,
+                abris,
+                eclairage,
+                biodiversite,
+                ombre,
+                entretien,
+                globalement,
+                super.observations
+        });
 
-    public String getPseudo() {
-        return pseudo;
-    }
+        //création de mon objet qui gère les CSV
+        Csv csv = new Csv();
+        //appelle de ma fonction qui va créer un CSV.
+        csv.createCSV(data);
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getAdresseArbre() {
-        return adresseArbre;
-    }
-
-    public void setAdresseArbre(String adresseArbre) {
-        this.adresseArbre = adresseArbre;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getNbArbres() {
@@ -124,27 +98,27 @@ public class EspaceBoise {
         this.niveau = niveau;
     }
 
-    public Boolean getPointEau() {
+    public String getPointEau() {
         return pointEau;
     }
 
-    public void setPointEau(Boolean pointEau) {
+    public void setPointEau(String pointEau) {
         this.pointEau = pointEau;
     }
 
-    public Boolean getAbris() {
+    public String getAbris() {
         return abris;
     }
 
-    public void setAbris(Boolean abris) {
+    public void setAbris(String abris) {
         this.abris = abris;
     }
 
-    public Boolean getEclairage() {
+    public String getEclairage() {
         return eclairage;
     }
 
-    public void setEclairage(Boolean eclairage) {
+    public void setEclairage(String eclairage) {
         this.eclairage = eclairage;
     }
 
@@ -152,15 +126,13 @@ public class EspaceBoise {
         return biodiversite;
     }
 
-    public void setBiodiversite(String biodiversite) {
-        this.biodiversite = biodiversite;
-    }
+    public void setBiodiversite(String biodiversite) {this.biodiversite = biodiversite; }
 
-    public Boolean getOmbre() {
+    public String getOmbre() {
         return ombre;
     }
 
-    public void setOmbre(Boolean ombre) {
+    public void setOmbre(String ombre) {
         this.ombre = ombre;
     }
 
@@ -178,13 +150,5 @@ public class EspaceBoise {
 
     public void setGlobalement(String globalement) {
         this.globalement = globalement;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-
-    public void setObservations(String observations) {
-        this.observations = observations;
     }
 }

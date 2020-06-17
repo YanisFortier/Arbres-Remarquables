@@ -1,5 +1,6 @@
 package com.esaip.arbresremarquables.Formulaires;
 
+
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.esaip.arbresremarquables.Dialogs.DialogArbre;
+import com.esaip.arbresremarquables.Models.Arbre;
 import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
@@ -100,6 +103,7 @@ public class AjoutArbre extends AppCompatActivity {
                 stringLatitude = editTextLatitude.getText().toString();
                 stringLongitude = editTextLongitude.getText().toString();
                 int count = 0;
+                String nomArbre = null;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
                     editTextAdresseMail.setError("Adresse mail non valide");
@@ -168,12 +172,42 @@ public class AjoutArbre extends AppCompatActivity {
                         editTextAutreArbre.setError("Nom non valide");
                     } else {
                         count += 1;
+                        nomArbre = editTextAutreArbre.toString();
                     }
+                }else{
+                    nomArbre = spinnerNomArbre.getSelectedItem().toString();
                 }
 
                 if ((count == 7 && !spinnerNomArbre.getSelectedItem().toString().equals("Autre")) || (count == 9 && spinnerNomArbre.getSelectedItem().toString().equals("Autre"))) {
                     saveData();
                     //finish();
+
+                    String remarquable = null;
+                    if (radioGroup.getCheckedRadioButtonId() != -1) {
+                        radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                        remarquable = radioButton.getText().toString();
+                    }
+
+                    String verification = "non";
+                    if (checkboxVerification.isChecked()) verification = "oui";
+
+                    Arbre arbre = new Arbre(
+                            stringTextNomPrenom,
+                            stringTextPseudo,
+                            stringTextMail,
+                            editTextLatitude.getText().toString().trim(),
+                            editTextLongitude.getText().toString().trim(),
+                            stringTextAdresse,
+                            "photo",
+                            stringTextObservations,
+                            nomArbre,
+                            stringNomBotanique,
+                            spinnerEspace.getSelectedItem().toString(),
+                            remarquable,
+                            verification);
+
+                    arbre.CreateCsv();
+
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(AjoutArbre.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
@@ -182,7 +216,6 @@ public class AjoutArbre extends AppCompatActivity {
         });
         loadData();
     }
-
 
     public void saveData() {
         openDialog();
@@ -202,6 +235,7 @@ public class AjoutArbre extends AppCompatActivity {
             radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
             remarquable = radioButton.getText().toString();
         }
+
         String nomArbre = spinnerNomArbre.getSelectedItem().toString();
         String espace = spinnerEspace.getSelectedItem().toString();
 

@@ -1,95 +1,75 @@
 package com.esaip.arbresremarquables.Models;
 
-public class Alignement {
-    private String nomPrenom;
-    private String pseudo;
-    private String mail;
-    private double latitude;
-    private double longitude;
-    private String adresseArbre;
-    private String photo;
+import com.esaip.arbresremarquables.Csv;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Alignement extends generique{
     private String nbArbres;
     private String nbEspeces;
     private String especes;
     private String lien;
+    private String nomBotannique;
     private String protection;
-    private String observations;
     private Boolean verification;
 
     public Alignement() {
+        super();
     }
 
-    public Alignement(String nomPrenom, String pseudo, String mail, double latitude, double longitude, String adresseArbre, String photo, String nbArbres, String nbEspeces, String especes, String lien, String protection, String observations, Boolean verification) {
-        this.nomPrenom = nomPrenom;
-        this.pseudo = pseudo;
-        this.mail = mail;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.adresseArbre = adresseArbre;
-        this.photo = photo;
+    public Alignement(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,
+                      String nbArbres, String nbEspeces, String especes, String lien, String nomBotannique, String protection, Boolean verification) {
+        //Récup les infos de l'héritage (générique).
+        super(nomPrenom,pseudo,mail,latitude,longitude,adresseArbre,photo,observations);
+
         this.nbArbres = nbArbres;
         this.nbEspeces = nbEspeces;
         this.especes = especes;
+        this.nomBotannique = nomBotannique;
         this.lien = lien;
         this.protection = protection;
-        this.observations = observations;
         this.verification = verification;
     }
 
-    public String getNomPrenom() {
-        return nomPrenom;
-    }
+    public void CreateCsv(){
+        //Conversion d'un booléen en String
+        String verif;
+        if (verification == true){ verif = "oui";}
+        else {verif = "non";}
+        // /Conversion
 
-    public void setNomPrenom(String nomPrenom) {
-        this.nomPrenom = nomPrenom;
-    }
 
-    public String getPseudo() {
-        return pseudo;
-    }
+        List<String[]> data= new ArrayList<String[]>();
+        //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        data.add(new String[]{
+                "id_Reponse",
+                super.date,
+                "utilisateur",
+                "IP",
+                super.nomPrenom,
+                super.pseudo,
+                super.mail,
+                especes,
+                nbEspeces,
+                nomBotannique,
+                super.latitude,
+                super.longitude,
+                super.adresseArbre,
+                "Photo",
+                nbArbres,
+                lien,
+                "Autre raison",
+                "biodiversite",
+                "autre espace protege",
+                super.observations,
+                protection,
+                verif
+        });
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getAdresseArbre() {
-        return adresseArbre;
-    }
-
-    public void setAdresseArbre(String adresseArbre) {
-        this.adresseArbre = adresseArbre;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
+        //création de mon objet qui gère les CSV
+        Csv csv = new Csv();
+        //appelle de ma fonction qui va créer un CSV.
+        csv.createCSV(data);
     }
 
     public String getNbArbres() {
@@ -130,14 +110,6 @@ public class Alignement {
 
     public void setProtection(String protection) {
         this.protection = protection;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-
-    public void setObservations(String observations) {
-        this.observations = observations;
     }
 
     public Boolean getVerification() {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
+import com.esaip.arbresremarquables.Models.Alignement;
 import com.esaip.arbresremarquables.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
@@ -172,7 +173,7 @@ public class AjoutAlignement extends AppCompatActivity {
                     } else {
                         count += 1;
                     }
-                }
+                }else stringNomBotanique = "";
 
                 if(checkBoxLienAutre.isChecked()){
                     stringAutreLien = editTextAutreLien.getText().toString().trim();
@@ -228,6 +229,34 @@ public class AjoutAlignement extends AppCompatActivity {
                 if ((count == 9 && !checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()) || (count == 10 && !checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked()) || (count == 11 && checkBoxEspeceAutre.isChecked() && !checkBoxLienAutre.isChecked()) || (count == 12 && checkBoxEspeceAutre.isChecked() && checkBoxLienAutre.isChecked())) {
                     saveData();
                     //finish();
+
+                    Boolean verification = false;
+                    if (checkboxVerification.isChecked()) verification = true;
+
+                    String espece = getCheckBoxs();
+                    String lien = getLien();
+
+                    Alignement alignement = new Alignement(
+                            stringTextNomPrenom,
+                            stringTextPseudo,
+                            stringTextMail,
+                            editTextLatitude.getText().toString().trim(),
+                            editTextLongitude.getText().toString().trim(),
+                            stringTextAdresse,
+                            "photo",
+                            stringTextObservations,
+
+                            spinnerNombreArbre.getSelectedItem().toString(),
+                            spinnerNombreEspece.getSelectedItem().toString(),
+                            espece,
+                            stringNomBotanique,
+                            lien,
+                            spinnerProtection.getSelectedItem().toString(),
+                            verification);
+
+                    alignement.CreateCsv();
+
+
                     Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
                 }
                 else {

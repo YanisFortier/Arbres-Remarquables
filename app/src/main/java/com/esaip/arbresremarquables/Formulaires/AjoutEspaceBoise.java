@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.Dialogs.DialogEspaceBoise;
+import com.esaip.arbresremarquables.Models.EspaceBoise;
 import com.esaip.arbresremarquables.R;
 
 import java.util.regex.Pattern;
@@ -195,6 +196,32 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                 if ((count == 9 && !autreCheckBox.isChecked()) || (count == 10 && autreCheckBox.isChecked())) {
                     saveData();
                     //finish();
+
+                    EspaceBoise espaceBoise = new EspaceBoise(
+                            stringTextNomPrenom,
+                            stringTextPseudo,
+                            stringTextMail,
+                            editTextLatitude.getText().toString().trim(),
+                            editTextLongitude.getText().toString().trim(),
+                            stringTextAdresse,
+                            "photo",
+                            stringTextObservations,
+
+                            spinnerNbArbres.getSelectedItem().toString(),
+                            spinnerNbEspeces.getSelectedItem().toString(),
+                            getNiveau(),
+                            spinnerEau.getSelectedItem().toString(),
+                            spinnerAbris.getSelectedItem().toString(),
+                            spinnerEclairage.getSelectedItem().toString(),
+                            getBiodiv(),
+                            spinnerOmbre.getSelectedItem().toString(),
+                            spinnerEntretien.getSelectedItem().toString(),
+                            getGlobal());
+
+                    espaceBoise.CreateCsv();
+
+
+
                     Toast.makeText(AjoutEspaceBoise.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(AjoutEspaceBoise.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
