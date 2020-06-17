@@ -1,6 +1,7 @@
 package com.esaip.arbresremarquables;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,15 +33,10 @@ import com.thegrizzlylabs.sardineandroid.Sardine;
 import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
 
 public class AjoutPhoto extends AppCompatActivity {
 
@@ -47,15 +44,20 @@ public class AjoutPhoto extends AppCompatActivity {
     private static String LOGIN = "craftycooking",PWD="webdavsecure";
     private String currentPath, fname= "", fname2= "", timeStamp = "";
     private ImageView ivPhoto;
-    private Bitmap result,resultCompress;
-    private Button btTakePhoto, btKeepPhoto,btChoosePhoto;
-    private RadioButton rbType1,rbType2,rbType3;
+    private Bitmap result, resultCompress;
+    private Button btTakePhoto, btKeepPhoto, btChoosePhoto;
+    private RadioButton rbType1, rbType2, rbType3;
     private LinearLayout infos;
     private Uri contentUri;
     private TextView tst;
-    private File fileInfo,fileInfoBis;
+    private File fileInfo, fileInfoBis;
     private Sardine sardine;
 
+    //Arbre location
+    private Double latitude_arbre;
+    private Double longitude_arbre;
+
+    @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,16 +103,12 @@ public class AjoutPhoto extends AppCompatActivity {
             }
         });
 
-        //Location
-        double lat = 0;
-        double lon = 0;
-
         Bundle bundle = getIntent().getExtras();
-
         if (bundle != null) {
-            lat = bundle.getDouble("latitude");
-            lon = bundle.getDouble("longitude");
-            Toast.makeText(this, "Latitude : " + lat, Toast.LENGTH_LONG).show();
+            Log.e("Latitude arbre", String.valueOf(bundle.getDouble("latitude_arbre")));
+            Log.e("Longitude arbre", String.valueOf(bundle.getDouble("longitude_arbre")));
+            latitude_arbre = bundle.getDouble("latitude_arbre");
+            longitude_arbre = bundle.getDouble("latitude_arbre");
         }
 
         sardine = new OkHttpSardine();
@@ -225,27 +223,32 @@ public class AjoutPhoto extends AppCompatActivity {
 
     //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
     public void goToAjout(View view){
-        Intent i = getIntent();
         if(rbType1.isChecked()) {
-            Intent ajout = new Intent(getApplicationContext(), AjoutArbre.class);
-            ajout.putExtra("photo1", fname);
-            ajout.putExtra("photo2", fname2);
-            ajout.putExtra("geolocalisation",true);
-            startActivity(ajout);
+            Intent arbre = new Intent(getApplicationContext(), AjoutArbre.class);
+            arbre.putExtra("photo1", fname);
+            arbre.putExtra("photo2", fname2);
+            arbre.putExtra("latitude_arbre", latitude_arbre);
+            arbre.putExtra("longitude_arbre", longitude_arbre);
+            arbre.putExtra("geolocalisation", true);
+            startActivity(arbre);
         }
         if (rbType2.isChecked()) {
-            Intent ajout2 = new Intent(getApplicationContext(), AjoutAlignement.class);
-            ajout2.putExtra("photo1", fname);
-            ajout2.putExtra("photo2", fname2);
-            ajout2.putExtra("geolocalisation",true);
-            startActivity(ajout2);
+            Intent alignement = new Intent(getApplicationContext(), AjoutAlignement.class);
+            alignement.putExtra("photo1", fname);
+            alignement.putExtra("photo2", fname2);
+            alignement.putExtra("latitude_arbre", latitude_arbre);
+            alignement.putExtra("longitude_arbre", longitude_arbre);
+            alignement.putExtra("geolocalisation", true);
+            startActivity(alignement);
         }
-        if(rbType3.isChecked()){
-            Intent ajout3 = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
-            ajout3.putExtra("photo1", fname);
-            ajout3.putExtra("photo2", fname2);
-            ajout3.putExtra("geolocalisation",true);
-            startActivity(ajout3);
+        if(rbType3.isChecked()) {
+            Intent espace = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
+            espace.putExtra("photo1", fname);
+            espace.putExtra("photo2", fname2);
+            espace.putExtra("latitude_arbre", latitude_arbre);
+            espace.putExtra("longitude_arbre", longitude_arbre);
+            espace.putExtra("geolocalisation", true);
+            startActivity(espace);
         }
     }
 

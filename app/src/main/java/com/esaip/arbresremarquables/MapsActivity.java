@@ -1,6 +1,8 @@
 package com.esaip.arbresremarquables;
 
 import android.content.Intent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -48,8 +50,12 @@ public class MapsActivity extends AppCompatActivity {
 
     //Location
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
-    private Double latitude;
-    private Double longitude;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+
+    private Double latitude_arbre;
+    private Double longitude_arbre;
+
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private MapView mapView;
@@ -80,8 +86,8 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, AjoutPhoto.class);
-                intent.putExtra("latitude", latitude);
-                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude_arbre", latitude_arbre);
+                intent.putExtra("longitude_arbre", longitude_arbre);
                 startActivity(intent);
             }
         });
@@ -116,10 +122,29 @@ public class MapsActivity extends AppCompatActivity {
                         //Chargement des arbres
                         mQueue = Volley.newRequestQueue(MapsActivity.this);
                         chargementJSON();
+
+                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+                            @Override
+                            public boolean onMapClick(@NonNull LatLng point) {
+                                latitude_arbre = point.getLatitude();
+                                longitude_arbre = point.getLongitude();
+
+                                mapboxMap.addMarker(new MarkerOptions()
+                                        .setSnippet("Latitude : " + latitude_arbre + "\n" +
+                                                "Longitude : " + longitude_arbre)
+                                        .setPosition(new LatLng(latitude_arbre,
+                                                longitude_arbre)));
+
+                                btnArbre.setVisibility(View.VISIBLE);
+                                return true;
+                            }
+                        });
                     }
                 });
             }
         });
+
+
     }
 
 
@@ -271,35 +296,29 @@ public class MapsActivity extends AppCompatActivity {
 
     @SuppressWarnings({"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
-// Check if permissions are enabled and if not request
+        // Check if permissions are enabled and if not request
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
 
-// Get an instance of the component
+            // Get an instance of the component
             LocationComponent locationComponent = mapboxMap.getLocationComponent();
 
-// Activate with options
+            // Activate with options
             locationComponent.activateLocationComponent(
                     LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
 
-// Enable to make component visible
+            // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
 
-// Set the component's camera mode
+            // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
 
-// Set the component's render mode
+            // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
         } else {
             permissionsManager = new PermissionsManager((PermissionsListener) this);
             permissionsManager.requestLocationPermissions(this);
         }
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
 
     @Override
     public void onStart() {
@@ -335,11 +354,5 @@ public class MapsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
     }
 }

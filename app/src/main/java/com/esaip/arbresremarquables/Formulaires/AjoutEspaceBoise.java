@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.Dialogs.DialogEspaceBoise;
 import com.esaip.arbresremarquables.Models.EspaceBoise;
 import com.esaip.arbresremarquables.R;
@@ -27,14 +26,17 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
     public static final String TEXT_PSEUDO = "PSEUDO";
-    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo,editTextLatitude, editTextLongitude, editTextAdresseEsp, editTextObservations, editTextAutreBiodiv ;
+
+    //Variables
+    private EditText editTextNomPrenom, editTextAdresseMail, editTextPseudo, editTextLatitude, editTextLongitude, editTextAdresseEsp, editTextObservations, editTextAutreBiodiv;
     private LinearLayout autre;
     private TextView niveau, global;
-    private CheckBox autreCheckBox,checkBoxArbre,checkBoxArbuste,checkBoxHerbe,checkBoxEcureuil,checkBoxChauve,checkBoxCapricorne,checkBoxChouette,checkBoxPic,checkBoxRefuge,checkBoxIlot,checkBoxPaysager;
+    private CheckBox autreCheckBox, checkBoxArbre, checkBoxArbuste, checkBoxHerbe, checkBoxEcureuil, checkBoxChauve, checkBoxCapricorne, checkBoxChouette, checkBoxPic, checkBoxRefuge, checkBoxIlot, checkBoxPaysager;
     private Spinner spinnerTypeEspace, spinnerNbArbres, spinnerNbEspeces, spinnerEau, spinnerAbris, spinnerEclairage, spinnerOmbre, spinnerEntretien;
     private Button buttonValider;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreBiodiversite, stringEspace, stringNombresArbres, stringNombresEspeces;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse, stringLatitude, stringLongitude, stringAutreBiodiversite, stringEspace, stringNombresArbres, stringNombresEspeces;
     private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,19 +75,18 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         spinnerEntretien = findViewById(R.id.spinnerEntretien);
         buttonValider = findViewById(R.id.buttonValiderEsp);
 
-        //Location
-        double lat=0;
-        double lon=0;
-
+        //Ajout de la géolocalisation
         Bundle bundle = getIntent().getExtras();
-
         if (bundle != null) {
-            lat = bundle.getDouble("latitude");
-            lon = bundle.getDouble("longitude");
-            editTextLatitude = findViewById(R.id.editTextLatitudeEsp);
-            editTextLongitude = findViewById(R.id.editTextLongitudeEsp);
-            editTextLatitude.setText(String.valueOf(lat));
-            editTextLongitude.setText(String.valueOf(lon));
+            //Récupération des coordonnées depuis le bundle
+            Double latitude_arbre = bundle.getDouble("latitude_arbre");
+            Double longitude_arbre = bundle.getDouble("latitude_arbre");
+            //Format à 7 décimales
+            String latitude = String.format("%.7f", latitude_arbre);
+            String longitude = String.format("%.7f", longitude_arbre);
+            //Ouput
+            editTextLatitude.setText(latitude);
+            editTextLongitude.setText(longitude);
         }
 
         autreCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

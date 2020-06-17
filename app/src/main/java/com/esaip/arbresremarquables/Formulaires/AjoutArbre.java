@@ -3,9 +3,7 @@ package com.esaip.arbresremarquables.Formulaires;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,15 +17,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.Models.Arbre;
 import com.esaip.arbresremarquables.R;
-import com.esaip.arbresremarquables.Uploader;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.maps.model.LatLng;
 
-import java.io.File;
 import java.util.regex.Pattern;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
@@ -49,13 +42,6 @@ public class AjoutArbre extends AppCompatActivity {
     private CheckBox checkboxVerification;
     private Button buttonValid;
     private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude,stringAutreArbre, stringNomBotanique,stringPhoto;
-
-    //Location
-    private LatLng mLatLng;
-    private Location mCurrentLocation;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +65,20 @@ public class AjoutArbre extends AppCompatActivity {
         editTextAutreArbre = findViewById(R.id.editTextAutreArbreArb);
         editTextNomBotanique = findViewById(R.id.editTextNomBotaniqueArb);
         checkboxVerification = findViewById(R.id.checkBoxVerifArb);
+
+        //Ajout de la géolocalisation
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //Récupération des coordonnées depuis le bundle
+            Double latitude_arbre = bundle.getDouble("latitude_arbre");
+            Double longitude_arbre = bundle.getDouble("latitude_arbre");
+            //Format à 7 décimales
+            String latitude = String.format("%.7f", latitude_arbre);
+            String longitude = String.format("%.7f", longitude_arbre);
+            //Ouput
+            editTextLatitude.setText(latitude);
+            editTextLongitude.setText(longitude);
+        }
 
         //Détection si le nom de l'arbre est autre
         spinnerNomArbre.setOnItemSelectedListener(new OnItemSelectedListener() {
