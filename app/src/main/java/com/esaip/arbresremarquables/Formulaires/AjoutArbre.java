@@ -4,6 +4,7 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -76,6 +77,9 @@ public class AjoutArbre extends AppCompatActivity {
             String latitude = String.format("%.7f", latitude_arbre);
             String longitude = String.format("%.7f", longitude_arbre);
             //Ouput
+            Log.e("Latitude arbre", String.valueOf(latitude_arbre));
+            Log.e("Longitude arbre", String.valueOf(longitude_arbre));
+
             editTextLatitude.setText(latitude);
             editTextLongitude.setText(longitude);
         }

@@ -108,7 +108,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Log.e("Latitude arbre", String.valueOf(bundle.getDouble("latitude_arbre")));
             Log.e("Longitude arbre", String.valueOf(bundle.getDouble("longitude_arbre")));
             latitude_arbre = bundle.getDouble("latitude_arbre");
-            longitude_arbre = bundle.getDouble("latitude_arbre");
+            longitude_arbre = bundle.getDouble("longitude_arbre");
         }
 
         sardine = new OkHttpSardine();
