@@ -31,7 +31,7 @@ public class Alignement extends generique{
         this.verification = verification;
     }
 
-    public void CreateCsv(){
+    public void CreateCsv(String path){
         //Conversion d'un booléen en String
         String verif;
         if (verification == true){ verif = "oui";}

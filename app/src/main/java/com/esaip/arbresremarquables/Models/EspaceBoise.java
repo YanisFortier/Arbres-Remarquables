@@ -38,7 +38,7 @@ public class EspaceBoise extends generique{
         this.globalement = globalement;
     }
 
-    public void CreateCsv(){
+    public void CreateCsv(String path){
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
