@@ -57,11 +57,10 @@ public class Arbre extends generique {
                 super.observations,
                 verification
         });
-
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data,"reponse_"+super.photo);
+        csv.createCSV(data,"reponse_"+super.photo.replace("JPEG_","").replace(".jpg",""));
     }
 
     //Getter and setter (generate)
