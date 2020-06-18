@@ -39,8 +39,6 @@ public class generique {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(today);
     }
 
-
-
     public String getNomPrenom() {
         return nomPrenom;
     }

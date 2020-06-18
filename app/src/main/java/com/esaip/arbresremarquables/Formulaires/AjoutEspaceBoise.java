@@ -1,5 +1,6 @@
 package com.esaip.arbresremarquables.Formulaires;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     private Spinner spinnerTypeEspace, spinnerNbArbres, spinnerNbEspeces, spinnerEau, spinnerAbris, spinnerEclairage, spinnerOmbre, spinnerEntretien;
     private Button buttonValider;
     private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse, stringLatitude, stringLongitude, stringAutreBiodiversite, stringEspace, stringNombresArbres, stringNombresEspeces;
-    private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal;
+    private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal, stringPhoto;
 
 
     @Override
@@ -198,6 +199,10 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                     saveData();
                     //finish();
 
+                    Intent intent = getIntent();
+                    stringPhoto = intent.getStringExtra("photo1");
+                    String paths = intent.getStringExtra("path");
+
                     EspaceBoise espaceBoise = new EspaceBoise(
                             stringTextNomPrenom,
                             stringTextPseudo,
@@ -205,7 +210,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                             editTextLatitude.getText().toString().trim(),
                             editTextLongitude.getText().toString().trim(),
                             stringTextAdresse,
-                            "photo",
+                            stringPhoto,
                             stringTextObservations,
 
                             spinnerNbArbres.getSelectedItem().toString(),
@@ -219,7 +224,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                             spinnerEntretien.getSelectedItem().toString(),
                             getGlobal());
 
-                    espaceBoise.CreateCsv();
+                    espaceBoise.CreateCsv(paths);
 
 
 

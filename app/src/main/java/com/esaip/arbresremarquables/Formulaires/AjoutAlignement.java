@@ -1,5 +1,6 @@
 package com.esaip.arbresremarquables.Formulaires;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class AjoutAlignement extends AppCompatActivity {
     private Spinner spinnerEspace,spinnerNombreArbre ,spinnerNombreEspece, spinnerProtection;
     private CheckBox checkBoxEspeceAutre,checkBoxLienAutre,checkboxVerification,checkBoxChene,checkBoxFrene,checkBoxPeuplier,checkBoxPin,checkBoxCedre,checkBoxErable,checkBoxSequoia,checkBoxPlatane,checkBoxMarronnier,checkBoxChataignier,checkBoxHetre,checkBoxMagnolia,checkBoxTilleul,checkBoxEspaceBoise,checkBoxParc,checkBoxAutreAli;
     private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreEspece, stringNomBotanique, stringAutreLien;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreEspece, stringNomBotanique, stringAutreLien, stringPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,6 +239,10 @@ public class AjoutAlignement extends AppCompatActivity {
                     saveData();
                     //finish();
 
+                    Intent intent = getIntent();
+                    stringPhoto = intent.getStringExtra("photo1");
+                    String paths = intent.getStringExtra("path");
+
                     Boolean verification = false;
                     if (checkboxVerification.isChecked()) verification = true;
 
@@ -251,7 +256,7 @@ public class AjoutAlignement extends AppCompatActivity {
                             editTextLatitude.getText().toString().trim(),
                             editTextLongitude.getText().toString().trim(),
                             stringTextAdresse,
-                            "photo",
+                            stringPhoto,
                             stringTextObservations,
 
                             spinnerNombreArbre.getSelectedItem().toString(),
@@ -262,7 +267,7 @@ public class AjoutAlignement extends AppCompatActivity {
                             spinnerProtection.getSelectedItem().toString(),
                             verification);
 
-                    alignement.CreateCsv();
+                    alignement.CreateCsv(paths);
 
 
                     Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();

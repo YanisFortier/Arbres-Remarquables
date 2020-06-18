@@ -38,7 +38,7 @@ public class EspaceBoise extends generique{
         this.globalement = globalement;
     }
 
-    public void CreateCsv(){
+    public void CreateCsv(String path){
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
@@ -53,7 +53,7 @@ public class EspaceBoise extends generique{
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
-                "Photo",
+                super.photo,
                 nbEspeces,
                 nbArbres,
                 niveau,
@@ -70,7 +70,7 @@ public class EspaceBoise extends generique{
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data);
+        csv.createCSV(data,"","reponse_"+super.photo);
 
     }
 

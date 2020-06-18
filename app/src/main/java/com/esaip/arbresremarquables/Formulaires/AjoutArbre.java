@@ -4,7 +4,6 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,7 +26,6 @@ import java.util.regex.Pattern;
 import static android.widget.AdapterView.OnItemSelectedListener;
 
 public class AjoutArbre extends AppCompatActivity {
-
 
     public static final String SHARED_PREFS = "SHARED_PREFS";
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
@@ -196,12 +194,14 @@ public class AjoutArbre extends AppCompatActivity {
                         remarquable = radioButton.getText().toString();
                     }
 
-                    Intent intent = getIntent();
-                    stringPhoto = intent.getStringExtra("photo1");
-
                     String verification = "non";
                     if (checkboxVerification.isChecked()) verification = "oui";
 
+                    Intent intent = getIntent();
+                    stringPhoto = intent.getStringExtra("photo1");
+                    String paths = intent.getStringExtra("path");
+
+                    //Stocker les données dans la classe Arbre
                     Arbre arbre = new Arbre(
                             stringTextNomPrenom,
                             stringTextPseudo,
@@ -217,7 +217,14 @@ public class AjoutArbre extends AppCompatActivity {
                             remarquable,
                             verification);
 
-                    arbre.CreateCsv();
+                    //Créer le fichier CSV
+                    arbre.CreateCsv(paths);
+
+                    //Zip le CSV + Photo
+                    String []s=new String[2];
+                    s[0]=paths+stringPhoto;
+                    s[1]=paths+"reponse_"+stringPhoto.replace("JPEG_","").replace(".jpg","")+".csv";
+                    zip(s,paths+"reponse_appli_arbreIsol_"+stringPhoto.replace("JPEG_","").replace(".jpg","")+".zip");
 
                     /*
                     Uploader uploader = new Uploader();
@@ -275,6 +282,40 @@ public class AjoutArbre extends AppCompatActivity {
         editTextAdresseMail.setText(textAdresseMail);
         editTextPseudo.setText(textPseudo);
     }
+
+    //Fonction pour Zip les fichiers
+    public void zip(String[] files, String zipFile) {
+        String[] _files = files;
+        String _zipFile = zipFile;
+
+        try {
+            BufferedInputStream origin = null;
+            FileOutputStream dest = new FileOutputStream(_zipFile);
+
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
+
+            byte data[] = new byte[1024];
+
+            for (int i = 0; i < _files.length; i++) {
+                Log.d("add:", _files[i]);
+                Log.v("Compress", "Adding: " + _files[i]);
+                FileInputStream fi = new FileInputStream(_files[i]);
+                origin = new BufferedInputStream(fi, 1024);
+                ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+                out.putNextEntry(entry);
+                int count;
+                while ((count = origin.read(data, 0, 1024)) != -1) {
+                    out.write(data, 0, count);
+                }
+                origin.close();
+            }
+
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //Fonctions de vérification des données avec Regex
     private Boolean checkPatternMail(String txt){
