@@ -55,7 +55,7 @@ public class Alignement extends generique{
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
-                "Photo",
+                super.photo,
                 nbArbres,
                 lien,
                 "Autre raison",

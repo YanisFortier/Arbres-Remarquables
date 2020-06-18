@@ -16,8 +16,6 @@ public class Csv {
         //Chemin du CSV
         java.io.File csv = new java.io.File(path+name+".csv");
         //java.io.File csv = new java.io.File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/"+name+".csv");
-        // java.io.File csv = new java.io.File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/com.esaip.arbresremarquables/files/Pictures");
-        //  File csv = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
         //obligé de mettre dans un try catch pour gérer les erreurs.
         try {

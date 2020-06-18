@@ -53,7 +53,7 @@ public class EspaceBoise extends generique{
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
-                "Photo",
+                super.photo,
                 nbEspeces,
                 nbArbres,
                 niveau,
