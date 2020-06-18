@@ -31,7 +31,7 @@ public class Alignement extends generique{
         this.verification = verification;
     }
 
-    public void CreateCsv(){
+    public void CreateCsv(String path){
         //Conversion d'un booléen en String
         String verif;
         if (verification == true){ verif = "oui";}
@@ -55,7 +55,7 @@ public class Alignement extends generique{
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
-                "Photo",
+                super.photo,
                 nbArbres,
                 lien,
                 "Autre raison",

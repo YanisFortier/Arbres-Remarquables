@@ -16,8 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Async extends AsyncTask<String, Void, Drawable> {
-    private String data;
-
     @Override
     protected Drawable doInBackground(String... params) {
         String[] split = params[0].split(";");
