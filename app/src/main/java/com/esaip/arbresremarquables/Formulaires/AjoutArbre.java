@@ -4,6 +4,7 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.Models.Arbre;
 import com.esaip.arbresremarquables.R;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static android.widget.AdapterView.OnItemSelectedListener;

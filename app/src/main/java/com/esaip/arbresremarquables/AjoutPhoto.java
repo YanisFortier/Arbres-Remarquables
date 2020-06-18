@@ -41,7 +41,7 @@ import java.util.Date;
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
-    private static String LOGIN = "craftycooking",PWD="webdavsecure";
+    private static String LOGIN = "invitesaip",PWD="webdavsecure";
     private String currentPath, fname= "", fname2= "", timeStamp = "";
     private ImageView ivPhoto;
     private Bitmap result, resultCompress;
