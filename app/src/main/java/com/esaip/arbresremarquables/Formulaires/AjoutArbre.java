@@ -196,6 +196,7 @@ public class AjoutArbre extends AppCompatActivity {
 
                     Intent intent = getIntent();
                     stringPhoto = intent.getStringExtra("photo1");
+                    String paths = intent.getStringExtra("path");
 
                     String verification = "non";
                     if (checkboxVerification.isChecked()) verification = "oui";
@@ -215,7 +216,7 @@ public class AjoutArbre extends AppCompatActivity {
                             remarquable,
                             verification);
 
-                    arbre.CreateCsv();
+                    arbre.CreateCsv(paths);
 
                     /*
                     Uploader uploader = new Uploader();

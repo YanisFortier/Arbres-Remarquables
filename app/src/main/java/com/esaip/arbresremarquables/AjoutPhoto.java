@@ -229,6 +229,7 @@ public class AjoutPhoto extends AppCompatActivity {
             arbre.putExtra("photo2", fname2);
             arbre.putExtra("latitude_arbre", latitude_arbre);
             arbre.putExtra("longitude_arbre", longitude_arbre);
+            arbre.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
             arbre.putExtra("geolocalisation", true);
             startActivity(arbre);
         }
@@ -238,6 +239,7 @@ public class AjoutPhoto extends AppCompatActivity {
             alignement.putExtra("photo2", fname2);
             alignement.putExtra("latitude_arbre", latitude_arbre);
             alignement.putExtra("longitude_arbre", longitude_arbre);
+            alignement.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
             alignement.putExtra("geolocalisation", true);
             startActivity(alignement);
         }
@@ -247,6 +249,7 @@ public class AjoutPhoto extends AppCompatActivity {
             espace.putExtra("photo2", fname2);
             espace.putExtra("latitude_arbre", latitude_arbre);
             espace.putExtra("longitude_arbre", longitude_arbre);
+            espace.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
             espace.putExtra("geolocalisation", true);
             startActivity(espace);
         }
