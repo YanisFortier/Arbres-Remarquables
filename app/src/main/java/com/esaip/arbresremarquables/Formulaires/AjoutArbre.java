@@ -37,7 +37,6 @@ import static android.widget.AdapterView.OnItemSelectedListener;
 
 public class AjoutArbre extends AppCompatActivity {
 
-
     public static final String SHARED_PREFS = "SHARED_PREFS";
     public static final String TEXT_NOM_PRENOM = "NOM_PRENOM";
     public static final String TEXT_ADRESSE_MAIL = "ADRESSE_MAIL";
