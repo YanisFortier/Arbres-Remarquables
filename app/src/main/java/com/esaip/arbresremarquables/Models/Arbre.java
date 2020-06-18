@@ -1,5 +1,7 @@
 package com.esaip.arbresremarquables.Models;
 
+import android.os.Environment;
+
 import com.esaip.arbresremarquables.Csv;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Arbre extends generique {
         this.verification = verification;
     }
 
-    public void CreateCsv(){
+    public void CreateCsv(String path){
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
@@ -55,11 +57,10 @@ public class Arbre extends generique {
                 super.observations,
                 verification
         });
-
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data);
+        csv.createCSV(data,path,"reponse_"+super.photo.replace("JPEG_","").replace(".jpg",""));
     }
 
     //Getter and setter (generate)

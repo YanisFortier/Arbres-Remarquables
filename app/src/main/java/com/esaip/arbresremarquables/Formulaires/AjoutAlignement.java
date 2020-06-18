@@ -1,7 +1,6 @@
 package com.esaip.arbresremarquables.Formulaires;
 
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.Models.Alignement;
 import com.esaip.arbresremarquables.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.regex.Pattern;
 
@@ -38,10 +36,6 @@ public class AjoutAlignement extends AppCompatActivity {
     private CheckBox checkBoxEspeceAutre,checkBoxLienAutre,checkboxVerification,checkBoxChene,checkBoxFrene,checkBoxPeuplier,checkBoxPin,checkBoxCedre,checkBoxErable,checkBoxSequoia,checkBoxPlatane,checkBoxMarronnier,checkBoxChataignier,checkBoxHetre,checkBoxMagnolia,checkBoxTilleul,checkBoxEspaceBoise,checkBoxParc,checkBoxAutreAli;
     private Button buttonValid;
     private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreEspece, stringNomBotanique, stringAutreLien;
-
-    //Location
-    private Location mCurrentLocation;
-    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +81,20 @@ public class AjoutAlignement extends AppCompatActivity {
         errorEspece = findViewById(R.id.errorEspece);
         errorLien = findViewById(R.id.errorLien);
         buttonValid = findViewById(R.id.buttonValiderAli);
+
+        //Ajout de la géolocalisation
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //Récupération des coordonnées depuis le bundle
+            Double latitude_arbre = bundle.getDouble("latitude_arbre");
+            Double longitude_arbre = bundle.getDouble("longitude_arbre");
+            //Format à 7 décimales
+            String latitude = String.format("%.7f", latitude_arbre);
+            String longitude = String.format("%.7f", longitude_arbre);
+            //Ouput
+            editTextLatitude.setText(latitude);
+            editTextLongitude.setText(longitude);
+        }
 
         checkBoxEspeceAutre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

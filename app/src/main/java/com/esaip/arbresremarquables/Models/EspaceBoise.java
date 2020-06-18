@@ -70,7 +70,7 @@ public class EspaceBoise extends generique{
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data);
+        csv.createCSV(data,"","reponse_"+super.photo);
 
     }
 

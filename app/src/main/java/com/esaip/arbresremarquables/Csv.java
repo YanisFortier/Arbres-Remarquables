@@ -12,9 +12,10 @@ public class Csv {
 
     public Csv(){}
 
-    public void createCSV(List<String[]> data){
+    public void createCSV(List<String[]> data,String path,String name){
         //Chemin du CSV
-        java.io.File csv = new java.io.File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/file.csv");
+        java.io.File csv = new java.io.File(path+name+".csv");
+        //java.io.File csv = new java.io.File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/"+name+".csv");
         // java.io.File csv = new java.io.File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/com.esaip.arbresremarquables/files/Pictures");
         //  File csv = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
