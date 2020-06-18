@@ -21,6 +21,7 @@ import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -56,10 +57,9 @@ public class MapsActivity extends AppCompatActivity {
     private Double latitude_arbre;
     private Double longitude_arbre;
 
-    private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private MapView mapView;
-
+    private Marker marqueurArbre;
     private Icon iconArbre;
     private Icon iconAlignement;
     private Icon iconEspaceBoise;
@@ -116,24 +116,29 @@ public class MapsActivity extends AppCompatActivity {
                 mapboxMap.setStyle(Style.SATELLITE_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-                        // User Location
-                        enableLocationComponent(style);
+                        enableLocationComponent(style); // User Location
 
                         //Chargement des arbres
                         mQueue = Volley.newRequestQueue(MapsActivity.this);
                         chargementJSON();
 
+                        //Fonction OnClick pour ajouter un marqueur
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
                                 latitude_arbre = point.getLatitude();
                                 longitude_arbre = point.getLongitude();
 
-                                mapboxMap.addMarker(new MarkerOptions()
+                                if (marqueurArbre != null) {
+                                    mapboxMap.removeMarker(marqueurArbre);
+                                }
+                                marqueurArbre = mapboxMap.addMarker(new MarkerOptions()
                                         .setSnippet("Latitude : " + latitude_arbre + "\n" +
                                                 "Longitude : " + longitude_arbre)
-                                        .setPosition(new LatLng(latitude_arbre,
-                                                longitude_arbre)));
+                                        .setPosition(new LatLng(point)));
+
+                                mapboxMap.updateMarker(marqueurArbre);
+                                mapboxMap.animateCamera(CameraUpdateFactory.newLatLng(point), 1000);
 
                                 btnArbre.setVisibility(View.VISIBLE);
                                 return true;
@@ -315,7 +320,7 @@ public class MapsActivity extends AppCompatActivity {
             // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
         } else {
-            permissionsManager = new PermissionsManager((PermissionsListener) this);
+            PermissionsManager permissionsManager = new PermissionsManager((PermissionsListener) this);
             permissionsManager.requestLocationPermissions(this);
         }
     }

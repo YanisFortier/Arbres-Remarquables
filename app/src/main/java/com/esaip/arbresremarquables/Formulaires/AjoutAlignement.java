@@ -87,7 +87,7 @@ public class AjoutAlignement extends AppCompatActivity {
         if (bundle != null) {
             //Récupération des coordonnées depuis le bundle
             Double latitude_arbre = bundle.getDouble("latitude_arbre");
-            Double longitude_arbre = bundle.getDouble("latitude_arbre");
+            Double longitude_arbre = bundle.getDouble("longitude_arbre");
             //Format à 7 décimales
             String latitude = String.format("%.7f", latitude_arbre);
             String longitude = String.format("%.7f", longitude_arbre);
