@@ -2,11 +2,8 @@ package com.esaip.arbresremarquables;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,35 +42,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
-public class MapsActivity extends AppCompatActivity {
-
-
+public class MapsActivity extends AppCompatActivity implements PermissionsListener {
     //Mapbox
-    private static final String SOURCE_ID = "SOURCE_ID";
-    private static final String ICON_ID = "ICON_ID";
-    private static final String LAYER_ID = "LAYER_ID";
     private MapboxMap mapboxMap;
     private MapView mapView;
 
-    //Location
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
-    protected LocationManager locationManager;
-    protected LocationListener locationListener;
-
-    private Double latitude_arbre;
-    private Double longitude_arbre;
-
-
+    //Affichage des marqueurs
     private Marker marqueurArbre;
     private Icon iconArbre;
     private Icon iconAlignement;
     private Icon iconEspaceBoise;
 
+    //Location
+    private Double latitude_arbre;
+    private Double longitude_arbre;
+
     // Volley - GeoJSON
     private RequestQueue mQueue;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +114,8 @@ public class MapsActivity extends AppCompatActivity {
 
                         //Setup view
                         View view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-
                         ImageView imageView = view.findViewById(R.id.imageView);
                         TextView descView = view.findViewById(R.id.descView);
-
 
                         //Setup Description
                         descView.setText(marker.getSnippet());
@@ -147,7 +134,9 @@ public class MapsActivity extends AppCompatActivity {
                 mapboxMap.setStyle(Style.SATELLITE_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
+                        mapboxMap.setMaxZoomPreference(17.4);
                         enableLocationComponent(style); // User Location
+
                         CameraPosition position = new CameraPosition.Builder()
                                 .target(new LatLng(47.475, -0.55))
                                 .zoom(12)
@@ -186,14 +175,6 @@ public class MapsActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    private void setMargins(View view, int left, int top, int right, int bottom) {
-        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            p.setMargins(left, top, right, bottom);
-            view.requestLayout();
-        }
     }
 
     private void chargementJSON() {
@@ -327,32 +308,6 @@ public class MapsActivity extends AppCompatActivity {
         mQueue.add(requestEspaceBoise);
     }
 
-    @SuppressWarnings({"MissingPermission"})
-    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
-        // Check if permissions are enabled and if not request
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
-            // Get an instance of the component
-            LocationComponent locationComponent = mapboxMap.getLocationComponent();
-
-            // Activate with options
-            locationComponent.activateLocationComponent(
-                    LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
-
-            // Enable to make component visible
-            locationComponent.setLocationComponentEnabled(true);
-
-            // Set the component's camera mode
-            locationComponent.setCameraMode(CameraMode.TRACKING);
-
-            // Set the component's render mode
-            locationComponent.setRenderMode(RenderMode.COMPASS);
-        } else {
-            PermissionsManager permissionsManager = new PermissionsManager((PermissionsListener) this);
-            permissionsManager.requestLocationPermissions(this);
-        }
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -387,5 +342,39 @@ public class MapsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+    }
+
+    @SuppressWarnings({"MissingPermission"})
+    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
+        // Check if permissions are enabled and if not request
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            LocationComponent locationComponent = mapboxMap.getLocationComponent();
+            locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
+            locationComponent.setLocationComponentEnabled(true);
+            locationComponent.setCameraMode(CameraMode.TRACKING);
+            locationComponent.setRenderMode(RenderMode.COMPASS);
+        } else {
+            PermissionsManager permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
+        }
+    }
+
+
+    public void focusUser(View view) {
+        if (mapboxMap.getLocationComponent().getLastKnownLocation() != null) {
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+                    mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude(),
+                    mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude()), 14));
+        }
+    }
+
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+
+    }
+
+    @Override
+    public void onPermissionResult(boolean granted) {
+
     }
 }
