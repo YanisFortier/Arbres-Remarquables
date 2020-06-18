@@ -4,6 +4,7 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,7 +22,13 @@ import com.esaip.arbresremarquables.Dialogs.DialogArbre;
 import com.esaip.arbresremarquables.Models.Arbre;
 import com.esaip.arbresremarquables.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
 
@@ -74,10 +81,10 @@ public class AjoutArbre extends AppCompatActivity {
             //Format à 7 décimales
             String latitude = String.format("%.7f", latitude_arbre);
             String longitude = String.format("%.7f", longitude_arbre);
+
             //Ouput
             Log.e("Latitude arbre", String.valueOf(latitude_arbre));
             Log.e("Longitude arbre", String.valueOf(longitude_arbre));
-
             editTextLatitude.setText(latitude);
             editTextLongitude.setText(longitude);
         }
@@ -294,7 +301,7 @@ public class AjoutArbre extends AppCompatActivity {
 
             ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
 
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
 
             for (int i = 0; i < _files.length; i++) {
                 Log.d("add:", _files[i]);
