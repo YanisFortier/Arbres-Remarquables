@@ -133,25 +133,6 @@ public class AjoutPhoto extends AppCompatActivity {
             resultCompress = saveCompressImage(changeRatio(result));
             Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
 
-            /*
-            String path = fileInfo.getAbsolutePath();
-            String path2 = fileInfoBis.getAbsolutePath();
-            Toast.makeText(this,path,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,path2,Toast.LENGTH_LONG).show();
-            byte[] pho = new byte[0];
-            try {
-                pho = FileUtils.readFileToByteArray(new File(path));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                sardine.put("http://webdav-craftycooking.alwaysdata.net", pho);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-             */
-
             ivPhoto.setImageBitmap(resultCompress);
             infos.setVisibility(View.VISIBLE);
         }

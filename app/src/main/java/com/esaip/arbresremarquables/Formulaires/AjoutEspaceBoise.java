@@ -3,6 +3,7 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,7 +20,13 @@ import com.esaip.arbresremarquables.Dialogs.DialogEspaceBoise;
 import com.esaip.arbresremarquables.Models.EspaceBoise;
 import com.esaip.arbresremarquables.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class AjoutEspaceBoise extends AppCompatActivity {
     //Variables pour la sauvegarde utilisateur
@@ -36,7 +43,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     private Spinner spinnerTypeEspace, spinnerNbArbres, spinnerNbEspeces, spinnerEau, spinnerAbris, spinnerEclairage, spinnerOmbre, spinnerEntretien;
     private Button buttonValider;
     private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse, stringLatitude, stringLongitude, stringAutreBiodiversite, stringEspace, stringNombresArbres, stringNombresEspeces;
-    private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal, stringPhoto;
+    private String stringNiveau, stringAbris, stringEau, stringEclairage, stringBiodiv, stringOmbre, stringEntretien, stringGlobal, stringPhoto, ZipName;
 
 
     @Override
@@ -51,6 +58,8 @@ public class AjoutEspaceBoise extends AppCompatActivity {
         editTextAdresseEsp = findViewById(R.id.editTextAdresseEsp);
         editTextObservations = findViewById(R.id.editTextObservationEsp);
         editTextAutreBiodiv = findViewById(R.id.editTextAutreBiodiv);
+        editTextLatitude = findViewById(R.id.editTextLatitudeEsp);
+        editTextLongitude = findViewById(R.id.editTextLongitudeEsp);
         autre = findViewById(R.id.editAutre);
         niveau = findViewById(R.id.errorNiveau);
         global = findViewById(R.id.errorGlobal);
@@ -83,8 +92,8 @@ public class AjoutEspaceBoise extends AppCompatActivity {
             Double latitude_arbre = bundle.getDouble("latitude_arbre");
             Double longitude_arbre = bundle.getDouble("longitude_arbre");
             //Format à 7 décimales
-            String latitude = String.format("%.7f", latitude_arbre);
-            String longitude = String.format("%.7f", longitude_arbre);
+            String latitude = String.format("%.7f", latitude_arbre).replace(",",".");
+            String longitude = String.format("%.7f", longitude_arbre).replace(",",".");
             //Ouput
             editTextLatitude.setText(latitude);
             editTextLongitude.setText(longitude);
@@ -211,22 +220,28 @@ public class AjoutEspaceBoise extends AppCompatActivity {
                             editTextLongitude.getText().toString().trim(),
                             stringTextAdresse,
                             stringPhoto,
+                            getEspace(),
                             stringTextObservations,
-
-                            spinnerNbArbres.getSelectedItem().toString(),
-                            spinnerNbEspeces.getSelectedItem().toString(),
+                            getArbresNb(),
+                            getAnswer(spinnerNbEspeces),
                             getNiveau(),
-                            spinnerEau.getSelectedItem().toString(),
-                            spinnerAbris.getSelectedItem().toString(),
-                            spinnerEclairage.getSelectedItem().toString(),
+                            getAnswer(spinnerEau),
+                            getAnswer(spinnerAbris),
+                            getAnswer(spinnerEclairage),
                             getBiodiv(),
-                            spinnerOmbre.getSelectedItem().toString(),
-                            spinnerEntretien.getSelectedItem().toString(),
+                            stringAutreBiodiversite,
+                            getAnswer(spinnerOmbre),
+                            getEntretien(),
                             getGlobal());
 
                     espaceBoise.CreateCsv(paths);
 
-
+                    //Zip le CSV + Photo
+                    ZipName = paths + "reponse_appli_EB_" + stringPhoto.replace("JPEG_","").replace(".jpg","")+".zip";
+                    String []s=new String[2];
+                    s[0]=paths+stringPhoto;
+                    s[1]=paths+"reponse_"+ stringPhoto.replace("JPEG_","").replace(".jpg","")+".csv";
+                    zip(s,ZipName);
 
                     Toast.makeText(AjoutEspaceBoise.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
@@ -285,54 +300,155 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private String getNiveau(){
-        String txt = "";
+        String txt = "* ";
         if(checkBoxArbre.isChecked()){
-            txt += "Arbre ;";
+            txt += "arbres *";
         }
         if(checkBoxArbuste.isChecked()){
-            txt += "Arbuste ;";
+            txt += "arbustes *";
         }
         if(checkBoxHerbe.isChecked()){
-            txt += "Herbe ;";
+            txt += "herbes *";
         }
-        return txt;
+        return txt.substring(0,txt.lastIndexOf(" *"));
     }
 
     private String getBiodiv(){
-        String txt = "";
+        String txt = "* ";
         if(checkBoxEcureuil.isChecked()){
-            txt += "Écureuil ;";
+            txt += "écureuil *";
         }
         if(checkBoxChauve.isChecked()){
-            txt += "Chauve-Souris ;";
+            txt += "chauve-souris *";
         }
         if(checkBoxCapricorne.isChecked()){
-            txt += "Capricorne ;";
+            txt += "capricorne *";
         }
         if(checkBoxChouette.isChecked()){
-            txt += "Chouette ;";
+            txt += "chouette *";
         }
         if(checkBoxPic.isChecked()){
-            txt += "Pic ;";
+            txt += "pic *";
         }
         if(autreCheckBox.isChecked()){
-            txt += stringAutreBiodiversite + " ;";
+            txt += "autre *";
+        }
+        return txt.substring(0,txt.lastIndexOf(" *"));
+    }
+
+    private String getGlobal(){
+        String txt = "* ";
+        if(checkBoxRefuge.isChecked()){
+            txt += "biodiv *";
+        }
+        if(checkBoxIlot.isChecked()){
+            txt += "fraicheur *";
+        }
+        if(checkBoxPaysager.isChecked()){
+            txt += "paysager *";
+        }
+        return txt.substring(0,txt.lastIndexOf(" *"));
+    }
+
+    private String getEspace(){
+        String txt = "";
+        switch (spinnerTypeEspace.getSelectedItem().toString())
+        {
+            case "Un espace public":
+                txt = "Public";
+                break;
+            case "Un espace privé":
+                txt = "Privé";
+                break;
+            case "Je ne sais pas":
+                txt = "Inconnu";
+                break;
         }
         return txt;
     }
 
-    private String getGlobal(){
+    private String getArbresNb(){
         String txt = "";
-        if(checkBoxRefuge.isChecked()){
-            txt += "Refuge ;";
-        }
-        if(checkBoxIlot.isChecked()){
-            txt += "Ilot ;";
-        }
-        if(checkBoxPaysager.isChecked()){
-            txt += "Paysager ;";
+        switch (spinnerNbArbres.getSelectedItem().toString())
+        {
+            case "Entre 2 et 10":
+                txt = "2";
+                break;
+            case "Entre 10 et 50":
+                txt = "10";
+                break;
+            case "Plus de 50":
+                txt = "50";
+                break;
         }
         return txt;
+    }
+
+    private String getAnswer(Spinner spinner){
+        String txt = "";
+        switch (spinner.getSelectedItem().toString())
+        {
+            case "Oui":
+                txt = "oui";
+                break;
+            case "Non":
+                txt = "non";
+                break;
+            case "Je ne sais pas":
+                txt = "Inconnu";
+                break;
+        }
+        return txt;
+    }
+
+    private String getEntretien(){
+        String txt = "";
+        switch (spinnerEntretien.getSelectedItem().toString())
+        {
+            case "Très entretenu (tontes fréquentes, massifs entretenus…)":
+                txt = "beaucoup";
+                break;
+            case "Entretenu mais de manière plus douce (zones non fauchées…)":
+                txt = "moyen";
+                break;
+            case "Très peu ou pas du tout entretenu (pas d’entretien mécanisé, herbes hautes…) ":
+                txt = "peu";
+                break;
+        }
+        return txt;
+    }
+
+    //Fonction pour Zip les fichiers
+    public void zip(String[] files, String zipFile) {
+        String[] _files = files;
+        String _zipFile = zipFile;
+
+        try {
+            BufferedInputStream origin = null;
+            FileOutputStream dest = new FileOutputStream(_zipFile);
+
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
+
+            byte[] data = new byte[1024];
+
+            for (int i = 0; i < _files.length; i++) {
+                Log.d("add:", _files[i]);
+                Log.v("Compress", "Adding: " + _files[i]);
+                FileInputStream fi = new FileInputStream(_files[i]);
+                origin = new BufferedInputStream(fi, 1024);
+                ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+                out.putNextEntry(entry);
+                int count;
+                while ((count = origin.read(data, 0, 1024)) != -1) {
+                    out.write(data, 0, count);
+                }
+                origin.close();
+            }
+
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Boolean checkPatternMail(String txt){
@@ -366,7 +482,7 @@ public class AjoutEspaceBoise extends AppCompatActivity {
     }
 
     private Boolean checkLongitude(String txt){
-        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$");
         return LONGITUDE.matcher(txt).matches();
     }
 }

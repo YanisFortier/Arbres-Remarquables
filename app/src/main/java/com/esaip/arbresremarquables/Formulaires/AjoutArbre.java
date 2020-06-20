@@ -46,8 +46,10 @@ public class AjoutArbre extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private CheckBox checkboxVerification;
-    private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude,stringAutreArbre, stringNomBotanique,stringPhoto;
+    private Button buttonValid, buttonDialog;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreArbre = "*Sans réponse*", stringNomBotanique = "*Sans réponse*",stringPhoto,ZipName;
+    private String nomArbre = null, verification = "non", remarquable = null;
+    private DialogArbre dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,8 @@ public class AjoutArbre extends AppCompatActivity {
             Double latitude_arbre = bundle.getDouble("latitude_arbre");
             Double longitude_arbre = bundle.getDouble("longitude_arbre");
             //Format à 7 décimales
-            String latitude = String.format("%.7f", latitude_arbre);
-            String longitude = String.format("%.7f", longitude_arbre);
+            String latitude = String.format("%.7f", latitude_arbre).replace(",",".");;
+            String longitude = String.format("%.7f", longitude_arbre).replace(",",".");
 
             //Ouput
             Log.e("Latitude arbre", String.valueOf(latitude_arbre));
@@ -116,7 +118,6 @@ public class AjoutArbre extends AppCompatActivity {
                 stringLatitude = editTextLatitude.getText().toString();
                 stringLongitude = editTextLongitude.getText().toString();
                 int count = 0;
-                String nomArbre = null;
 
                 if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
                     editTextAdresseMail.setError("Adresse mail non valide");
@@ -185,7 +186,8 @@ public class AjoutArbre extends AppCompatActivity {
                         editTextAutreArbre.setError("Nom non valide");
                     } else {
                         count += 1;
-                        nomArbre = editTextAutreArbre.toString();
+                        stringAutreArbre = editTextAutreArbre.toString();
+                        nomArbre = "autre";
                     }
                 }else{
                     nomArbre = spinnerNomArbre.getSelectedItem().toString();
@@ -195,13 +197,11 @@ public class AjoutArbre extends AppCompatActivity {
                     saveData();
                     //finish();
 
-                    String remarquable = null;
                     if (radioGroup.getCheckedRadioButtonId() != -1) {
                         radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
                         remarquable = radioButton.getText().toString();
                     }
 
-                    String verification = "non";
                     if (checkboxVerification.isChecked()) verification = "oui";
 
                     Intent intent = getIntent();
@@ -219,8 +219,9 @@ public class AjoutArbre extends AppCompatActivity {
                             stringPhoto,
                             stringTextObservations,
                             nomArbre,
+                            stringAutreArbre,
                             stringNomBotanique,
-                            spinnerEspace.getSelectedItem().toString(),
+                            getEspace(),
                             remarquable,
                             verification);
 
@@ -228,15 +229,11 @@ public class AjoutArbre extends AppCompatActivity {
                     arbre.CreateCsv(paths);
 
                     //Zip le CSV + Photo
+                    ZipName = paths+ "reponse_appli_arbreIsol_" + stringPhoto.replace("JPEG_","").replace(".jpg","")+".zip";
                     String []s=new String[2];
                     s[0]=paths+stringPhoto;
-                    s[1]=paths+"reponse_"+stringPhoto.replace("JPEG_","").replace(".jpg","")+".csv";
-                    zip(s,paths+"reponse_appli_arbreIsol_"+stringPhoto.replace("JPEG_","").replace(".jpg","")+".zip");
-
-                    /*
-                    Uploader uploader = new Uploader();
-                    uploader.uploadFile("http://82.120.215.111", new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/file.csv"));
-                     */
+                    s[1]=paths+"reponse_"+ stringPhoto.replace("JPEG_","").replace(".jpg","")+".csv";
+                    zip(s,ZipName);
 
                     Toast.makeText(AjoutArbre.this, "Correct", Toast.LENGTH_LONG).show();
                 } else {
@@ -274,7 +271,7 @@ public class AjoutArbre extends AppCompatActivity {
             verification = true;
 
 
-        DialogArbre dialog = new DialogArbre(stringTextNomPrenom, stringTextPseudo, stringTextMail, nomArbre, stringTextAdresse, espace, remarquable, stringTextObservations, verification);
+        dialog = new DialogArbre(stringTextNomPrenom, stringTextPseudo, stringTextMail, nomArbre, stringTextAdresse, espace, remarquable, stringTextObservations, verification);
         dialog.show(getSupportFragmentManager(), "Dialog AjoutArbre");
     }
 
@@ -288,6 +285,23 @@ public class AjoutArbre extends AppCompatActivity {
         editTextNomPrenom.setText(textNomPrenom);
         editTextAdresseMail.setText(textAdresseMail);
         editTextPseudo.setText(textPseudo);
+    }
+
+    private String getEspace(){
+        String txt = "";
+        switch (spinnerEspace.getSelectedItem().toString())
+        {
+            case "Un espace public":
+                txt = "Public";
+                break;
+            case "Un espace privé":
+                txt = "Privé";
+                break;
+            case "Je ne sais pas":
+                txt = "Inconnu";
+                break;
+        }
+        return txt;
     }
 
     //Fonction pour Zip les fichiers
@@ -323,7 +337,6 @@ public class AjoutArbre extends AppCompatActivity {
         }
     }
 
-
     //Fonctions de vérification des données avec Regex
     private Boolean checkPatternMail(String txt){
         Pattern MAIL = Pattern.compile("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$");
@@ -356,7 +369,7 @@ public class AjoutArbre extends AppCompatActivity {
     }
 
     private Boolean checkLongitude(String txt){
-        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$");
         return LONGITUDE.matcher(txt).matches();
     }
 
