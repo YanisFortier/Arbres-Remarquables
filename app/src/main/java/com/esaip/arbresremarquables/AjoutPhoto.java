@@ -29,8 +29,6 @@ import androidx.core.content.FileProvider;
 import com.esaip.arbresremarquables.Formulaires.AjoutAlignement;
 import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
 import com.esaip.arbresremarquables.Formulaires.AjoutEspaceBoise;
-import com.thegrizzlylabs.sardineandroid.Sardine;
-import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,7 +49,6 @@ public class AjoutPhoto extends AppCompatActivity {
     private Uri contentUri;
     private TextView tst;
     private File fileInfo, fileInfoBis;
-    private Sardine sardine;
 
     //Arbre location
     private Double latitude_arbre;
@@ -70,7 +67,6 @@ public class AjoutPhoto extends AppCompatActivity {
         rbType1 = findViewById(R.id.arbres);
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
-        tst = findViewById(R.id.tst1);
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -111,9 +107,6 @@ public class AjoutPhoto extends AppCompatActivity {
             longitude_arbre = bundle.getDouble("longitude_arbre");
         }
 
-        sardine = new OkHttpSardine();
-        sardine.setCredentials(LOGIN,PWD);
-
     }
 
     @Override
@@ -121,7 +114,7 @@ public class AjoutPhoto extends AppCompatActivity {
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
             //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
-            tst.setText(currentPath);
+            //tst.setText(currentPath);
             bitmap = RotateBitmap(bitmap,90);
             resultCompress = saveCompressImage(changeRatio(bitmap));
             ivPhoto.setImageBitmap(bitmap);
@@ -134,6 +127,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
             ivPhoto.setImageBitmap(RotateBitmap(resultCompress,90));
             infos.setVisibility(View.VISIBLE);
+            btKeepPhoto.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -199,6 +193,7 @@ public class AjoutPhoto extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
         infos.setVisibility(View.VISIBLE);
+        btKeepPhoto.setVisibility(View.VISIBLE);
     }
 
     //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
