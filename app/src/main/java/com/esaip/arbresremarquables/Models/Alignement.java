@@ -50,8 +50,6 @@ public class Alignement extends generique{
         data.add(new String[]{
                 "id_Reponse",
                 super.date,
-                "",
-                "",
                 super.nomPrenom,
                 super.pseudo,
                 super.mail,

@@ -122,7 +122,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
             //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
             tst.setText(currentPath);
-            bitmap = RotateBitmap(bitmap,0);
+            bitmap = RotateBitmap(bitmap,90);
             resultCompress = saveCompressImage(changeRatio(bitmap));
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
@@ -132,8 +132,7 @@ public class AjoutPhoto extends AppCompatActivity {
             result = saveImage(contentUri);
             resultCompress = saveCompressImage(changeRatio(result));
             Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
-
-            ivPhoto.setImageBitmap(resultCompress);
+            ivPhoto.setImageBitmap(RotateBitmap(resultCompress,90));
             infos.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
