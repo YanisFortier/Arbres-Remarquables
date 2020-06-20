@@ -3,7 +3,6 @@ package com.esaip.arbresremarquables.Dialogs;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import android.content.DialogInterface;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 
 import com.esaip.arbresremarquables.MapsActivity;
 import com.esaip.arbresremarquables.R;
-
-import org.w3c.dom.Text;
 
 public class DialogEspaceBoise extends AppCompatDialogFragment {
     private TextView textDialog_NomPrenom,textDialog_Pseudo, textDialog_Email, textDialog_AdresseEsp, textDialog_Espace,textDialog_NombreArbre, textDialog_NombreEspece, textDialog_Niveau, textDialog_Eau, textDialog_Abris, textDialog_Eclairage, textDialog_Biodiversite, textDialog_Ombre, textDialog_Entretien, textDialog_Global, textDialog_Observations ;
