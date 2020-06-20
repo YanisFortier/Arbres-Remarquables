@@ -70,7 +70,6 @@ public class AjoutPhoto extends AppCompatActivity {
         rbType1 = findViewById(R.id.arbres);
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
-        tst = findViewById(R.id.tst1);
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -134,6 +133,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
             ivPhoto.setImageBitmap(RotateBitmap(resultCompress,90));
             infos.setVisibility(View.VISIBLE);
+            btKeepPhoto.setVisibility(View.VISIBLE);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -199,6 +199,7 @@ public class AjoutPhoto extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
         infos.setVisibility(View.VISIBLE);
+        btKeepPhoto.setVisibility(View.VISIBLE);
     }
 
     //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
