@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.esaip.arbresremarquables.Formulaires.AjoutArbre;
 import com.esaip.arbresremarquables.MapsActivity;
 import com.esaip.arbresremarquables.R;
 
@@ -69,7 +70,6 @@ public class DialogArbre extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
-
                         startActivity(new Intent(getActivity(), MapsActivity.class));
                     }
                 });

@@ -3,6 +3,7 @@ package com.esaip.arbresremarquables.Formulaires;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,7 +20,13 @@ import com.esaip.arbresremarquables.Dialogs.DialogAlignement;
 import com.esaip.arbresremarquables.Models.Alignement;
 import com.esaip.arbresremarquables.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class AjoutAlignement extends AppCompatActivity {
 
@@ -36,7 +43,8 @@ public class AjoutAlignement extends AppCompatActivity {
     private Spinner spinnerEspace,spinnerNombreArbre ,spinnerNombreEspece, spinnerProtection;
     private CheckBox checkBoxEspeceAutre,checkBoxLienAutre,checkboxVerification,checkBoxChene,checkBoxFrene,checkBoxPeuplier,checkBoxPin,checkBoxCedre,checkBoxErable,checkBoxSequoia,checkBoxPlatane,checkBoxMarronnier,checkBoxChataignier,checkBoxHetre,checkBoxMagnolia,checkBoxTilleul,checkBoxEspaceBoise,checkBoxParc,checkBoxAutreAli;
     private Button buttonValid;
-    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringAutreEspece, stringNomBotanique, stringAutreLien, stringPhoto;
+    private String stringTextNomPrenom, stringTextPseudo, stringTextObservations, stringTextMail, stringTextAdresse,stringLatitude, stringLongitude, stringNomBotanique, stringPhoto;
+    private String stringAutreEspece = "*Sans réponse*", stringAutreLien = "*Sans réponse*",ZipName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +98,8 @@ public class AjoutAlignement extends AppCompatActivity {
             Double latitude_arbre = bundle.getDouble("latitude_arbre");
             Double longitude_arbre = bundle.getDouble("longitude_arbre");
             //Format à 7 décimales
-            String latitude = String.format("%.7f", latitude_arbre);
-            String longitude = String.format("%.7f", longitude_arbre);
+            String latitude = String.format("%.7f", latitude_arbre).replace(",",".");
+            String longitude = String.format("%.7f", longitude_arbre).replace(",",".");
             //Ouput
             editTextLatitude.setText(latitude);
             editTextLongitude.setText(longitude);
@@ -255,20 +263,28 @@ public class AjoutAlignement extends AppCompatActivity {
                             stringTextMail,
                             editTextLatitude.getText().toString().trim(),
                             editTextLongitude.getText().toString().trim(),
+                            getEspace(),
                             stringTextAdresse,
                             stringPhoto,
                             stringTextObservations,
-
-                            spinnerNombreArbre.getSelectedItem().toString(),
-                            spinnerNombreEspece.getSelectedItem().toString(),
+                            getArbresNb(),
+                            getEspecesNb(),
                             espece,
+                            stringAutreEspece,
                             stringNomBotanique,
                             lien,
-                            spinnerProtection.getSelectedItem().toString(),
+                            stringAutreLien,
+                            getProtection(),
                             verification);
 
                     alignement.CreateCsv(paths);
 
+                    //Zip le CSV + Photo
+                    ZipName = paths + "reponse_appli_AL_" + stringPhoto.replace("JPEG_","").replace(".jpg","")+".zip";
+                    String []s=new String[2];
+                    s[0]=paths+stringPhoto;
+                    s[1]=paths+"reponse_"+ stringPhoto.replace("JPEG_","").replace(".jpg","")+".csv";
+                    zip(s,ZipName);
 
                     Toast.makeText(AjoutAlignement.this, "Correct", Toast.LENGTH_LONG).show();
                 }
@@ -330,68 +346,176 @@ public class AjoutAlignement extends AppCompatActivity {
         editTextPseudo.setText(textPseudo);
     }
 
-    private String getCheckBoxs(){
+    private String getEspace(){
         String txt = "";
-        if(checkBoxChene.isChecked()){
-            txt+="Chêne ;";
-        }
-        if(checkBoxFrene.isChecked()){
-            txt+="Frêne ;";
-        }
-        if(checkBoxPeuplier.isChecked()){
-            txt+="Peuplier ;";
-        }
-        if(checkBoxPin.isChecked()){
-            txt+="Pin ;";
-        }
-        if(checkBoxCedre.isChecked()){
-            txt+="Cèdre ;";
-        }
-        if(checkBoxErable.isChecked()){
-            txt+="Érable ;";
-        }
-        if(checkBoxSequoia.isChecked()){
-            txt+="Séquoia ;";
-        }
-        if(checkBoxPlatane.isChecked()){
-            txt+="Platane ;";
-        }
-        if(checkBoxMarronnier.isChecked()){
-            txt+="Marronnier ;";
-        }
-        if(checkBoxChataignier.isChecked()){
-            txt+="Châtaignier ;";
-        }
-        if(checkBoxHetre.isChecked()){
-            txt+="Hètre ;";
-        }
-        if(checkBoxMagnolia.isChecked()){
-            txt+="Magnolia ;";
-        }
-        if(checkBoxTilleul.isChecked()){
-            txt+="Tilleul ;";
-        }
-        if(checkBoxEspeceAutre.isChecked()){
-            txt += editTextAutreEspece.getText().toString()+";";
+        switch (spinnerEspace.getSelectedItem().toString())
+        {
+            case "Un espace public":
+                txt = "Public";
+                break;
+            case "Un espace privé":
+                txt = "Privé";
+                break;
+            case "Je ne sais pas":
+                txt = "Inconnu";
+                break;
         }
         return txt;
     }
 
+    private String getCheckBoxs(){
+        String txt = "* ";
+        if(checkBoxChene.isChecked()){
+            txt+="Chêne *";
+        }
+        if(checkBoxFrene.isChecked()){
+            txt+="Frêne *";
+        }
+        if(checkBoxPeuplier.isChecked()){
+            txt+="Peuplier *";
+        }
+        if(checkBoxPin.isChecked()){
+            txt+="Pin *";
+        }
+        if(checkBoxCedre.isChecked()){
+            txt+="Cèdre *";
+        }
+        if(checkBoxErable.isChecked()){
+            txt+="Érable *";
+        }
+        if(checkBoxSequoia.isChecked()){
+            txt+="Séquoia *";
+        }
+        if(checkBoxPlatane.isChecked()){
+            txt+="Platane *";
+        }
+        if(checkBoxMarronnier.isChecked()){
+            txt+="Marronnier *";
+        }
+        if(checkBoxChataignier.isChecked()){
+            txt+="Châtaignier *";
+        }
+        if(checkBoxHetre.isChecked()){
+            txt+="Hêtre *";
+        }
+        if(checkBoxMagnolia.isChecked()){
+            txt+="Magnolia *";
+        }
+        if(checkBoxTilleul.isChecked()){
+            txt+="Tilleul *";
+        }
+        if(checkBoxEspeceAutre.isChecked()){
+            txt += "autre *";
+        }
+        return txt.substring(0,txt.lastIndexOf(" *"));
+    }
+
     private String getLien(){
-        String txt = "";
+        String txt = "* ";
         if(checkBoxEspaceBoise.isChecked()){
-            txt += "Espace Boise ;";
+            txt += "EB *";
         }
         if(checkBoxParc.isChecked()){
-            txt += "Parc ;";
+            txt += "Parcs *";
         }
         if(checkBoxAutreAli.isChecked()){
-            txt += "Autres Alignements ;";
+            txt += "alignement *";
         }
         if(checkBoxLienAutre.isChecked()){
-            txt += editTextAutreLien.getText().toString() + ";";
+            txt += "autre *";
+        }
+        return txt.substring(0,txt.lastIndexOf(" *"));
+    }
+
+    private String getArbresNb(){
+        String txt = "";
+        switch (spinnerNombreArbre.getSelectedItem().toString())
+        {
+            case "Moins de 10":
+                txt = "Moins10";
+                break;
+            case "Entre 10 et 30":
+                txt = "10a30";
+                break;
+            case "Plus de 30":
+                txt = "plus30";
+                break;
         }
         return txt;
+    }
+
+    private String getEspecesNb(){
+        String txt = "";
+        switch (spinnerNombreEspece.getSelectedItem().toString())
+        {
+            case "Une":
+                txt = "1";
+                break;
+            case "2":
+                txt = "10a30";
+                break;
+            case "3":
+                txt = "plus30";
+                break;
+            case "Plus de trois":
+                txt = "plus3";
+                break;
+        }
+        return txt;
+    }
+
+    private String getProtection(){
+        String txt = "";
+        switch (spinnerProtection.getSelectedItem().toString())
+        {
+            case "Il relie d’autres espaces végétalisés entre eux (continuité écologique)":
+                txt = "continuité";
+                break;
+            case "Il est impactant au niveau paysager":
+                txt = "paysager";
+                break;
+            case "Il est très utile en cas de forte chaleur (ombre sur façade…) ":
+                txt = "fraicheur";
+                break;
+            case "Il est composé d’arbres remarquables ":
+                txt = "remarquable";
+                break;
+        }
+        return txt;
+    }
+
+
+    //Fonction pour Zip les fichiers
+    public void zip(String[] files, String zipFile) {
+        String[] _files = files;
+        String _zipFile = zipFile;
+
+        try {
+            BufferedInputStream origin = null;
+            FileOutputStream dest = new FileOutputStream(_zipFile);
+
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
+
+            byte[] data = new byte[1024];
+
+            for (int i = 0; i < _files.length; i++) {
+                Log.d("add:", _files[i]);
+                Log.v("Compress", "Adding: " + _files[i]);
+                FileInputStream fi = new FileInputStream(_files[i]);
+                origin = new BufferedInputStream(fi, 1024);
+                ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+                out.putNextEntry(entry);
+                int count;
+                while ((count = origin.read(data, 0, 1024)) != -1) {
+                    out.write(data, 0, count);
+                }
+                origin.close();
+            }
+
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Fonctions de vérification des données avec Regex
@@ -426,7 +550,7 @@ public class AjoutAlignement extends AppCompatActivity {
     }
 
     private Boolean checkLongitude(String txt){
-        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$");
+        Pattern LONGITUDE = Pattern.compile("^(\\+|-)?(?:180(?:(?:\\.0{1,8})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,8})?))$");
         return LONGITUDE.matcher(txt).matches();
     }
 }
