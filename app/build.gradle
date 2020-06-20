@@ -43,5 +43,6 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
     implementation 'com.github.Nextome:GeoJsonify:v1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }
