@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,20 +38,23 @@ import java.util.Date;
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
-    private static String LOGIN = "invitesaip",PWD="webdavsecure";
-    private String currentPath, fname= "", fname2= "", timeStamp = "";
+    private String currentPath, fname = "", fname2 = "", timeStamp = "";
     private ImageView ivPhoto;
-    private Bitmap result, resultCompress;
-    private Button btTakePhoto, btKeepPhoto, btChoosePhoto;
+    private Button btKeepPhoto;
     private RadioButton rbType1, rbType2, rbType3;
     private LinearLayout infos;
-    private Uri contentUri;
-    private TextView tst;
-    private File fileInfo, fileInfoBis;
+    private File fileInfo;
 
     //Arbre location
     private Double latitude_arbre;
     private Double longitude_arbre;
+
+    //Rotation de l'image
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
 
     @SuppressLint("ShowToast")
     @Override
@@ -60,44 +62,29 @@ public class AjoutPhoto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_photo);
         ivPhoto = findViewById(R.id.ivPhotoImage);
-        btTakePhoto = findViewById(R.id.btPhotoTake);
+        Button btTakePhoto = findViewById(R.id.btPhotoTake);
         btKeepPhoto = findViewById(R.id.btPhotoKeep);
-        btChoosePhoto = findViewById(R.id.btGalleryTake);
+        Button btChoosePhoto = findViewById(R.id.btGalleryTake);
         infos = findViewById(R.id.infos);
         rbType1 = findViewById(R.id.arbres);
         rbType2 = findViewById(R.id.alignement);
         rbType3 = findViewById(R.id.espaceBoise);
 
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             } else {
                 Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG).show();
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
             }
         } else {
             Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG).show();
         }
 
-        btTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changePhoto(v);
-            }
-        });
+        btTakePhoto.setOnClickListener(this::changePhoto);
 
-        btKeepPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToAjout(v);
-            }
-        });
+        btKeepPhoto.setOnClickListener(this::goToAjout);
 
-        btChoosePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePhotoFromGallery();
-            }
-        });
+        btChoosePhoto.setOnClickListener(v -> choosePhotoFromGallery());
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -110,22 +97,21 @@ public class AjoutPhoto extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap resultCompress;
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
             //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
             //tst.setText(currentPath);
-            bitmap = RotateBitmap(bitmap,90);
-            resultCompress = saveCompressImage(changeRatio(bitmap));
+            bitmap = RotateBitmap(bitmap, 90);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
-        }
-        else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null){
-            contentUri = data.getData();
-            result = saveImage(contentUri);
+        } else if (requestCode == GALLERY && resultCode == Activity.RESULT_OK && data != null) {
+            Uri contentUri = data.getData();
+            Bitmap result = saveImage(contentUri);
             resultCompress = saveCompressImage(changeRatio(result));
-            Toast.makeText(this,fname,Toast.LENGTH_LONG).show();
-            ivPhoto.setImageBitmap(RotateBitmap(resultCompress,90));
+            Toast.makeText(this, fname, Toast.LENGTH_LONG).show();
+            ivPhoto.setImageBitmap(RotateBitmap(resultCompress, 90));
             infos.setVisibility(View.VISIBLE);
             btKeepPhoto.setVisibility(View.VISIBLE);
         }
@@ -134,11 +120,11 @@ public class AjoutPhoto extends AppCompatActivity {
 
     public void changePhoto(View view) {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent();
             } else {
                 Toast.makeText(this, R.string.no_camera_permission, Toast.LENGTH_LONG).show();
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
             }
         } else {
             Toast.makeText(this, R.string.no_camera, Toast.LENGTH_LONG).show();
@@ -177,14 +163,6 @@ public class AjoutPhoto extends AppCompatActivity {
         return fileInfo;
     }
 
-    //Rotation de l'image
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
-    {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-    }
-
     //Ajouter la photo prise depuis la caméra dans la galerie du téléphone
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -197,14 +175,14 @@ public class AjoutPhoto extends AppCompatActivity {
     }
 
     //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
-    public void goToAjout(View view){
-        if(rbType1.isChecked()) {
+    public void goToAjout(View view) {
+        if (rbType1.isChecked()) {
             Intent arbre = new Intent(getApplicationContext(), AjoutArbre.class);
             arbre.putExtra("photo1", fname);
             arbre.putExtra("photo2", fname2);
             arbre.putExtra("latitude_arbre", latitude_arbre);
             arbre.putExtra("longitude_arbre", longitude_arbre);
-            arbre.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
+            arbre.putExtra("path", fileInfo.toString().substring(0, fileInfo.toString().indexOf("JPEG_")));
             arbre.putExtra("geolocalisation", true);
             startActivity(arbre);
         }
@@ -214,17 +192,17 @@ public class AjoutPhoto extends AppCompatActivity {
             alignement.putExtra("photo2", fname2);
             alignement.putExtra("latitude_arbre", latitude_arbre);
             alignement.putExtra("longitude_arbre", longitude_arbre);
-            alignement.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
+            alignement.putExtra("path", fileInfo.toString().substring(0, fileInfo.toString().indexOf("JPEG_")));
             alignement.putExtra("geolocalisation", true);
             startActivity(alignement);
         }
-        if(rbType3.isChecked()) {
+        if (rbType3.isChecked()) {
             Intent espace = new Intent(getApplicationContext(), AjoutEspaceBoise.class);
             espace.putExtra("photo1", fname);
             espace.putExtra("photo2", fname2);
             espace.putExtra("latitude_arbre", latitude_arbre);
             espace.putExtra("longitude_arbre", longitude_arbre);
-            espace.putExtra("path",fileInfo.toString().substring(0,fileInfo.toString().indexOf("JPEG_")));
+            espace.putExtra("path", fileInfo.toString().substring(0, fileInfo.toString().indexOf("JPEG_")));
             espace.putExtra("geolocalisation", true);
             startActivity(espace);
         }
@@ -238,17 +216,19 @@ public class AjoutPhoto extends AppCompatActivity {
 
     //Sauvegarder l'image de la gallerie
     private Bitmap saveImage(Uri contentUri) {
-        String[] filePath = { MediaStore.Images.Media.DATA };
-        Cursor c = getContentResolver().query(contentUri,filePath, null, null, null);
+        String[] filePath = {MediaStore.Images.Media.DATA};
+        Cursor c = getContentResolver().query(contentUri, filePath, null, null, null);
+        assert c != null;
         c.moveToFirst();
         int columnIndex = c.getColumnIndex(filePath[0]);
         String picturePath = c.getString(columnIndex);
         c.close();
         Bitmap finalBitmap = (BitmapFactory.decodeFile(picturePath));
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        assert storageDir != null;
         storageDir.mkdirs();
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        fname = "JPEG_"+ timeStamp +".jpg";
+        fname = "JPEG_" + timeStamp + ".jpg";
 
         fileInfo = new File(storageDir, fname);
         if (fileInfo.exists()) fileInfo.delete();
@@ -263,9 +243,9 @@ public class AjoutPhoto extends AppCompatActivity {
         return finalBitmap;
     }
 
-    private Bitmap saveCompressImage(Bitmap bitmap){
+    private Bitmap saveCompressImage(Bitmap bitmap) {
         fname2 = "JPEG_" + timeStamp + "_compress.jpg";
-        fileInfoBis = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname2);
+        File fileInfoBis = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname2);
         if (fileInfoBis.exists()) fileInfoBis.delete();
         try {
             FileOutputStream out = new FileOutputStream(fileInfoBis);
@@ -278,14 +258,13 @@ public class AjoutPhoto extends AppCompatActivity {
         return bitmap;
     }
 
-    private Bitmap changeRatio(Bitmap bitmap){
+    private Bitmap changeRatio(Bitmap bitmap) {
         double height = bitmap.getHeight();
         double width = bitmap.getWidth();
         double ratio = width / height;
 
-        int newWidth = (int) (ratio * (int)Math.sqrt(IMAGE_MAX_SIZE / ratio));
-        int newHeight = (int)Math.sqrt(IMAGE_MAX_SIZE / ratio);
-        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap,newWidth,newHeight,false);
-        return newBitmap;
+        int newWidth = (int) (ratio * (int) Math.sqrt(IMAGE_MAX_SIZE / ratio));
+        int newHeight = (int) Math.sqrt(IMAGE_MAX_SIZE / ratio);
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
     }
 }

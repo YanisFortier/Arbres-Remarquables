@@ -1,6 +1,5 @@
 package com.esaip.arbresremarquables.Dialogs;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.esaip.arbresremarquables.R;
 
 public class DialogAbout extends AppCompatDialogFragment {
-    private WebView webView;
 
     public DialogAbout() {
     }
@@ -22,8 +20,8 @@ public class DialogAbout extends AppCompatDialogFragment {
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_about, null);
         WebView myWebView = view.findViewById(R.id.webview);
@@ -31,12 +29,8 @@ public class DialogAbout extends AppCompatDialogFragment {
 
 
         builder.setView(view)
-                //.setTitle("Récapitulatif")
-                .setNeutralButton("Retour", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNeutralButton("Retour", (dialog, which) -> {
 
-                    }
                 });
 
         return builder.create();
