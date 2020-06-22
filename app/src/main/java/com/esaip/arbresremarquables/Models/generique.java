@@ -2,12 +2,14 @@ package com.esaip.arbresremarquables.Models;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 // Objet abstrait qui contient les variables et fonctions qui sont commune à tout les formulaires
 
 //Objet mère de Alignement - Arbre - EspaceBoise
 public class generique {
 
+    protected String idReponse;
     protected String nomPrenom;
     protected String pseudo;
     protected String mail;
@@ -32,11 +34,32 @@ public class generique {
         this.photo = photo;
         this.observations = observations;
         this.date = DateDuJour();
+        this.idReponse = createIdReponse();
     }
 
     private String DateDuJour(){
         final Date today = new Date();
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(today);
+    }
+
+    private String createIdReponse(){
+     String value = DateDuJour();  //Je récupère la date du jour
+    //Créer un nombre aléatoire
+        //initialisation de ma variable
+        Random random = new Random();
+        int nb = random.nextInt(100)+1; //génére un nombre random entre 1 et 100
+    // /créer un nbr aléatoire
+
+        value.replaceAll(" ","_");  //Je remplace les " " par "_"
+        value += "_"+nb;            //concaténation de ma date du jour avec mon nbre aléatoire
+        return value;
+    }
+
+
+    public String getIdReponse() {return idReponse;}
+
+    public void setIdReponse(String idReponse) {
+        this.idReponse = idReponse;
     }
 
     public String getNomPrenom() {

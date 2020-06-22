@@ -72,7 +72,7 @@ public class Alignement extends generique{
         });
         //Valeur ajouté du formulaire
         data.add(new String[]{
-                "id_Reponse",
+                super.idReponse,
                 super.date,
                 super.nomPrenom,
                 super.pseudo,
