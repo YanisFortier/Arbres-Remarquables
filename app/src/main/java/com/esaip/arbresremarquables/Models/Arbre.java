@@ -36,11 +36,32 @@ public class Arbre extends generique {
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
+        data.add(new String[]{
+                "Id_Reponse",
+                "Date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Nom de l'arbre",
+                "Autre arbres",
+                "Nom botannique",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Autre raison",
+                "Biodiversité",
+                "Espace protégé",
+                "Remarquable",
+                "Observations",
+                "Verification"
+        });
+        //Valeur ajouté du formulaire
         data.add(new String[]{
                 "id_Reponse",
                 super.date,
-                "",
-                "",
                 super.nomPrenom,
                 super.pseudo,
                 super.mail,
@@ -52,7 +73,6 @@ public class Arbre extends generique {
                 super.adresseArbre,
                 super.photo,
                 espace,
-                remarquable,
                 "*Sans Réponse*",
                 "*Sans Réponse*",
                 "*Sans Réponse*",

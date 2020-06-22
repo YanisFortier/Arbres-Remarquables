@@ -46,6 +46,32 @@ public class EspaceBoise extends generique{
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
+        data.add(new String[]{
+                "id_Reponse",
+                "date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Nombre Arbres",
+                "Nombre Especes",
+                "Niveau",
+                "Point Eau",
+                "Abris",
+                "Eclairage",
+                "Biodiversite",
+                "Autre Bio",
+                "Ombre",
+                "Entretien",
+                "Globalement",
+                "Observations"
+        });
+        //Valeur ajouté du formulaire
         data.add(new String[]{
                 "id_Reponse",
                 super.date,

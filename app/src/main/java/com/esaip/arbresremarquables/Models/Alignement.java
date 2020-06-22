@@ -47,6 +47,30 @@ public class Alignement extends generique{
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
+        data.add(new String[]{
+                "id_Reponse",
+                "Date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Nombre Arbres",
+                "Nombre Especes",
+                "Especes",
+                "Autre Espece",
+                "Nom Botanique",
+                "Lien",
+                "Autre lien",
+                "Protection",
+                "Observations",
+                "verif"
+        });
+        //Valeur ajouté du formulaire
         data.add(new String[]{
                 "id_Reponse",
                 super.date,
