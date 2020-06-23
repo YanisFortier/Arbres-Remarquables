@@ -326,6 +326,7 @@ public class AjoutArbre extends AppCompatActivity {
                 ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
                 out.putNextEntry(entry);
                 int count;
+
                 while ((count = origin.read(data, 0, 1024)) != -1) {
                     out.write(data, 0, count);
                 }
