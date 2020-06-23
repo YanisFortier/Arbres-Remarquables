@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Alignement extends generique{
+    private String espace;
     private String nbArbres;
     private String nbEspeces;
     private String especes;
+    private String autreEspece;
     private String lien;
-    private String nomBotannique;
+    private String autreLien;
+    private String nomBotanique;
     private String protection;
     private Boolean verification;
 
@@ -17,16 +20,19 @@ public class Alignement extends generique{
         super();
     }
 
-    public Alignement(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,
-                      String nbArbres, String nbEspeces, String especes, String lien, String nomBotannique, String protection, Boolean verification) {
+    public Alignement(String nomPrenom, String pseudo, String mail, String latitude, String longitude,String espace, String adresseArbre, String photo, String observations,
+                      String nbArbres, String nbEspeces, String especes, String autreespece, String lien,String autrelien, String nomBotanique, String protection, Boolean verification) {
         //Récup les infos de l'héritage (générique).
         super(nomPrenom,pseudo,mail,latitude,longitude,adresseArbre,photo,observations);
 
+        this.espace = espace;
         this.nbArbres = nbArbres;
         this.nbEspeces = nbEspeces;
         this.especes = especes;
-        this.nomBotannique = nomBotannique;
+        this.autreEspece = autreespece;
+        this.nomBotanique = nomBotanique;
         this.lien = lien;
+        this.autreLien = autrelien;
         this.protection = protection;
         this.verification = verification;
     }
@@ -41,35 +47,89 @@ public class Alignement extends generique{
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
         data.add(new String[]{
                 "id_Reponse",
+                "Date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Nombre Arbres",
+                "Nombre Especes",
+                "Especes",
+                "Autre Espece",
+                "Nom Botanique",
+                "Lien",
+                "Autre lien",
+                "Protection",
+                "Observations",
+                "verif"
+        });
+        //Valeur ajouté du formulaire
+        data.add(new String[]{
+                super.idReponse,
                 super.date,
-                "utilisateur",
-                "IP",
                 super.nomPrenom,
                 super.pseudo,
                 super.mail,
-                especes,
-                nbEspeces,
-                nomBotannique,
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
                 super.photo,
+                espace,
                 nbArbres,
+                nbEspeces,
+                especes,
+                autreEspece,
+                nomBotanique,
                 lien,
-                "Autre raison",
-                "biodiversite",
-                "autre espace protege",
-                super.observations,
+                autreLien,
                 protection,
+                super.observations,
                 verif
         });
 
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data,"","reponse_"+super.photo);
+        csv.createCSV(data,path,"reponse_"+super.photo.replace("JPEG_","").replace(".jpg",""));
+    }
+
+    public String getAutreEspece() {
+        return autreEspece;
+    }
+
+    public void setAutreEspece(String autreEspece) {
+        this.autreEspece = autreEspece;
+    }
+
+    public String getAutreLien() {
+        return autreLien;
+    }
+
+    public void setAutreLien(String autreLien) {
+        this.autreLien = autreLien;
+    }
+
+    public String getEspace() {
+        return espace;
+    }
+
+    public void setEspace(String espace) {
+        this.espace = espace;
+    }
+
+    public String getNomBotanique() {
+        return nomBotanique;
+    }
+
+    public void setNomBotanique(String nomBotanique) {
+        this.nomBotanique = nomBotanique;
     }
 
     public String getNbArbres() {

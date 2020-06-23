@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Arbre extends generique {
     private String nomArbre;
+    private String autreArbre;
     private String nomBotanique;
     private String espace;
     private String remarquable;
@@ -18,12 +19,13 @@ public class Arbre extends generique {
        super();
    }
 
-    public Arbre(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,String nomArbre, String nomBotanique, String espace, String remarquable, String verification) {
+    public Arbre(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,String nomArbre, String autreArbre, String nomBotanique, String espace, String remarquable, String verification) {
 
        //Récup les infos de l'héritage (générique).
         super(nomPrenom,pseudo,mail,latitude,longitude,adresseArbre,photo,observations);
 
         this.nomArbre = nomArbre;
+        this.autreArbre = autreArbre;
         this.nomBotanique = nomBotanique;
         this.espace = espace;
         this.remarquable = remarquable;
@@ -34,25 +36,46 @@ public class Arbre extends generique {
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
         data.add(new String[]{
-                "id_Reponse",
+                "Id_Reponse",
+                "Date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Nom de l'arbre",
+                "Autre arbres",
+                "Nom botannique",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Autre raison",
+                "Biodiversité",
+                "Espace protégé",
+                "Remarquable",
+                "Observations",
+                "Verification"
+        });
+        //Valeur ajouté du formulaire
+        data.add(new String[]{
+                super.idReponse,
                 super.date,
-                "utilisateur",
-                "IP",
                 super.nomPrenom,
                 super.pseudo,
                 super.mail,
                 nomArbre,
+                autreArbre,
                 nomBotanique,
                 super.latitude,
                 super.longitude,
                 super.adresseArbre,
                 super.photo,
                 espace,
-                remarquable,
-                "Autre raison",
-                "biodiversite",
-                "autre espace protege",
+                "*Sans Réponse*",
+                "*Sans Réponse*",
+                "*Sans Réponse*",
                 remarquable,
                 super.observations,
                 verification
@@ -64,6 +87,14 @@ public class Arbre extends generique {
     }
 
     //Getter and setter (generate)
+
+    public String getAutreArbre() {
+        return autreArbre;
+    }
+
+    public void setAutreArbre(String autreArbre) {
+        this.autreArbre = autreArbre;
+    }
 
     public String getNomArbre() {
         return nomArbre;

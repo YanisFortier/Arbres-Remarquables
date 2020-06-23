@@ -7,12 +7,14 @@ import java.util.List;
 
 public class EspaceBoise extends generique{
     private String nbArbres;
+    private String espace;
     private String nbEspeces;
     private String niveau;
     private String pointEau;
     private String abris;
     private String eclairage;
     private String biodiversite;
+    private String autreBio;
     private String ombre;
     private String entretien;
     private String globalement;
@@ -21,11 +23,13 @@ public class EspaceBoise extends generique{
         super();
     }
 
-    public EspaceBoise(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo, String observations,
-                       String nbArbres, String nbEspeces, String niveau, String pointEau, String abris, String eclairage, String biodiversite, String ombre, String entretien, String globalement) {
+    public EspaceBoise(String nomPrenom, String pseudo, String mail, String latitude, String longitude, String adresseArbre, String photo,String espace, String observations,
+                       String nbArbres, String nbEspeces, String niveau, String pointEau, String abris, String eclairage, String biodiversite, String autreBio, String ombre, String entretien, String globalement) {
         //Récup les infos de l'héritage (générique).
         super(nomPrenom,pseudo,mail,latitude,longitude,adresseArbre,photo,observations);
 
+        this.autreBio = autreBio;
+        this.espace = espace;
         this.nbArbres = nbArbres;
         this.nbEspeces = nbEspeces;
         this.niveau = niveau;
@@ -42,11 +46,35 @@ public class EspaceBoise extends generique{
 
         List<String[]> data= new ArrayList<String[]>();
         //Liste de données que contiendra mon CSV (Dans l'ordre Haut-Bas équivalent Gauche-Droit)
+        //En tête
         data.add(new String[]{
                 "id_Reponse",
+                "date",
+                "Nom Prenom",
+                "Pseudo",
+                "Mail",
+                "Latitude",
+                "Longitude",
+                "Adresse Arbre",
+                "Photo",
+                "Espace",
+                "Nombre Arbres",
+                "Nombre Especes",
+                "Niveau",
+                "Point Eau",
+                "Abris",
+                "Eclairage",
+                "Biodiversite",
+                "Autre Bio",
+                "Ombre",
+                "Entretien",
+                "Globalement",
+                "Observations"
+        });
+        //Valeur ajouté du formulaire
+        data.add(new String[]{
+                super.idReponse,
                 super.date,
-                "utilisateur",
-                "IP",
                 super.nomPrenom,
                 super.pseudo,
                 super.mail,
@@ -54,13 +82,15 @@ public class EspaceBoise extends generique{
                 super.longitude,
                 super.adresseArbre,
                 super.photo,
-                nbEspeces,
+                espace,
                 nbArbres,
+                nbEspeces,
                 niveau,
                 pointEau,
                 abris,
                 eclairage,
                 biodiversite,
+                autreBio,
                 ombre,
                 entretien,
                 globalement,
@@ -70,8 +100,25 @@ public class EspaceBoise extends generique{
         //création de mon objet qui gère les CSV
         Csv csv = new Csv();
         //appelle de ma fonction qui va créer un CSV.
-        csv.createCSV(data,"","reponse_"+super.photo);
+        csv.createCSV(data,path,"reponse_"+super.photo.replace("JPEG_","").replace(".jpg",""));
 
+    }
+
+
+    public String getEspace() {
+        return espace;
+    }
+
+    public void setEspace(String espace) {
+        this.espace = espace;
+    }
+
+    public String getAutreBio() {
+        return autreBio;
+    }
+
+    public void setAutreBio(String autreBio) {
+        this.autreBio = autreBio;
     }
 
     public String getNbArbres() {

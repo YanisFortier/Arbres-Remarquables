@@ -4,7 +4,7 @@
 
     <string name="bt_take_photo">Prendre une photo</string>
     <string name="bt_choose_gallery">Galerie</string>
-    <string name="bt_keep_photo">Garder cette photo et continuer</string>
+    <string name="bt_keep_photo">Valider</string>
     <string name="no_camera">Pas de camera disponible</string>
     <string name="no_camera_permission">Permissions insuffisantes</string>
     <string name="askGeolocalisation">Êtes-vous à côté de l\'arbre ?</string>
@@ -93,6 +93,9 @@
     <string name="textGlobal">"Globalement : "</string>
     <string name="descGlobal">"Globalement, ce site est pour vous :"</string>
 
+    <!--Clés -->
+    <string name="sansrep">"*Sans réponse*"</string>
+
     <!--Types Arbres -->
     <string-array name="arbres">
         <item>@string/Cèdre</item>
@@ -147,6 +150,13 @@
         <item>Moins de 10</item>
         <item>Entre 10 et 30</item>
         <item>Plus de 30</item>
+    </string-array>
+
+    <!--Nombres d'arbres EB-->
+    <string-array name="spinnerNombresArbresEB">
+        <item>Entre 2 et 10</item>
+        <item>Entre 10 et 50</item>
+        <item>Plus de 50</item>
     </string-array>
 
     <!--Question oui/non/je ne sais pas-->

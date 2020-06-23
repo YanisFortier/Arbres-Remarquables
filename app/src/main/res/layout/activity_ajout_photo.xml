@@ -9,14 +9,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivPhotoImage"
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="239dp"
-            app:srcCompat="@drawable/pine_tree" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <!-- Card View Content -->
+            <ImageView
+                android:id="@+id/ivPhotoImage"
+                android:layout_width="match_parent"
+                android:layout_height="239dp"
+                app:srcCompat="@drawable/pine_tree" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,75 +60,83 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/infos"
-            android:layout_width="match_parent"
-            android:layout_height="202dp"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/askType"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"> <!-- to show what the parent is -->
-                <RadioGroup
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/arbres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="@string/type1" />
-
-                    <RadioButton
-                        android:id="@+id/alignement"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/type2" />
-
-                    <RadioButton
-                        android:id="@+id/espaceBoise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/type3" />
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btPhotoKeep"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bt_keep_photo" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tst1"
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="test"
-            android:textAlignment="center"
-            android:textSize="20sp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <!-- Card View Content -->
+            <LinearLayout
+                android:id="@+id/infos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/askType"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"> <!-- to show what the parent is -->
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/arbres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="@string/type1" />
+
+                        <RadioButton
+                            android:id="@+id/alignement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/type2" />
+
+                        <RadioButton
+                            android:id="@+id/espaceBoise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/type3" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btPhotoKeep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:visibility="gone"
-            android:textStyle="bold" />
+            android:text="@string/bt_keep_photo" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

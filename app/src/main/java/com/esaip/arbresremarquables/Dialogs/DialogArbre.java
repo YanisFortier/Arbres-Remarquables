@@ -1,8 +1,8 @@
 package com.esaip.arbresremarquables.Dialogs;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +15,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.esaip.arbresremarquables.MapsActivity;
 import com.esaip.arbresremarquables.R;
+import com.thegrizzlylabs.sardineandroid.Sardine;
+import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 public class DialogArbre extends AppCompatDialogFragment {
     private String textNomPrenom;
@@ -26,9 +34,10 @@ public class DialogArbre extends AppCompatDialogFragment {
     private String textRemarquable;
     private String textObservations;
     private Boolean boolVerification;
+    private String zipPath;
 
 
-    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail, String textNomArbre, String textAdresseArbre, String textEspace, String textRemarquable, String textObservations, Boolean boolVerification) {
+    public DialogArbre(String textNomPrenom, String textPseudo, String textEmail, String textNomArbre, String textAdresseArbre, String textEspace, String textRemarquable, String textObservations, Boolean boolVerification, String zipPath) {
         this.textNomPrenom = textNomPrenom;
         this.textPseudo = textPseudo;
         this.textEmail = textEmail;
@@ -38,13 +47,14 @@ public class DialogArbre extends AppCompatDialogFragment {
         this.textRemarquable = textRemarquable;
         this.textObservations = textObservations;
         this.boolVerification = boolVerification;
+        this.zipPath = zipPath;
     }
 
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_arbre, null);
         TextView textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
@@ -59,19 +69,35 @@ public class DialogArbre extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Récapitulatif")
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNegativeButton("Annuler", (dialog, which) -> {
 
-                    }
                 })
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
+                .setPositiveButton("Valider", (dialog, which) -> {
+                    Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
 
-                        startActivity(new Intent(getActivity(), MapsActivity.class));
+                    //Upload
+                    //Gestion Asynchrone
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+
+                    OkHttpClient.Builder builder1 = new OkHttpClient.Builder();
+                    builder1.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+                            .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+                            .readTimeout(5, TimeUnit.MINUTES); // read timeout
+
+                    //Client sardine
+                    File fichierZip = new File(zipPath);
+
+                    Sardine sardine = new OkHttpSardine();
+                    sardine.setCredentials("invitesaip", "Hg6ykLuvZBk");
+                    String urlSardine = "https://www.webdavserver.com/User91245fe/";
+                    //String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
+                    try {
+                        sardine.put(urlSardine + fichierZip.getName(), fichierZip, "application/zip");
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    startActivity(new Intent(getActivity(), MapsActivity.class));
                 });
 
         textDialog_NomPrenom.setText(textNomPrenom);
@@ -83,7 +109,7 @@ public class DialogArbre extends AppCompatDialogFragment {
         textDialog_Observations.setText(textObservations);
         textDialog_Espace.setText(textEspace);
         if (boolVerification)
-            textDialog_Verification.setText("Informations vérifiées sur site par un botaniste");
+            textDialog_Verification.setText(R.string.textInfoBotaniste);
 
         return builder.create();
     }

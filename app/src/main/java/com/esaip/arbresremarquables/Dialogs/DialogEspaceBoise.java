@@ -1,27 +1,30 @@
 package com.esaip.arbresremarquables.Dialogs;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialogFragment;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
+
 import com.esaip.arbresremarquables.MapsActivity;
 import com.esaip.arbresremarquables.R;
+import com.thegrizzlylabs.sardineandroid.Sardine;
+import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
 
-import org.w3c.dom.Text;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 public class DialogEspaceBoise extends AppCompatDialogFragment {
-    private TextView textDialog_NomPrenom,textDialog_Pseudo, textDialog_Email, textDialog_AdresseEsp, textDialog_Espace,textDialog_NombreArbre, textDialog_NombreEspece, textDialog_Niveau, textDialog_Eau, textDialog_Abris, textDialog_Eclairage, textDialog_Biodiversite, textDialog_Ombre, textDialog_Entretien, textDialog_Global, textDialog_Observations ;
-
     private String textNomPrenom;
     private String textPseudo;
     private String textEmail;
@@ -38,8 +41,9 @@ public class DialogEspaceBoise extends AppCompatDialogFragment {
     private String textEntretien;
     private String textGlobal;
     private String textObservations;
+    private String zipPath;
 
-    public DialogEspaceBoise(String textNomPrenom, String textPseudo, String textEmail, String textAdresseEsp, String textEspace, String textNombreArbre, String textNombreEspece, String textNiveau, String textEau, String textAbri, String textEclairage, String textBiodiversite, String textOmbre, String textEntretien, String textGlobal, String textObservations) {
+    public DialogEspaceBoise(String textNomPrenom, String textPseudo, String textEmail, String textAdresseEsp, String textEspace, String textNombreArbre, String textNombreEspece, String textNiveau, String textEau, String textAbri, String textEclairage, String textBiodiversite, String textOmbre, String textEntretien, String textGlobal, String textObservations, String zipPath) {
         this.textNomPrenom = textNomPrenom;
         this.textPseudo = textPseudo;
         this.textEmail = textEmail;
@@ -56,47 +60,63 @@ public class DialogEspaceBoise extends AppCompatDialogFragment {
         this.textEntretien = textEntretien;
         this.textGlobal = textGlobal;
         this.textObservations = textObservations;
+        this.zipPath = zipPath;
     }
 
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_espace_boise, null);
-        textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
-        textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
-        textDialog_Email = view.findViewById(R.id.textDialog_Email);
-        textDialog_AdresseEsp = view.findViewById(R.id.textDialog_AdresseEspace);
-        textDialog_Espace = view.findViewById(R.id.textDialog_EspaceEspace);
-        textDialog_NombreArbre = view.findViewById(R.id.textDialog_NombreArbre);
-        textDialog_NombreEspece = view.findViewById(R.id.textDialog_NombreEspece);
-        textDialog_Niveau = view.findViewById(R.id.textDialog_Niveau);
-        textDialog_Eau = view.findViewById(R.id.textDialog_Eau);
-        textDialog_Abris = view.findViewById(R.id.textDialog_Abris);
-        textDialog_Eclairage = view.findViewById(R.id.textDialog_Eclairage);
-        textDialog_Biodiversite = view.findViewById(R.id.textDialog_Biodiv);
-        textDialog_Ombre = view.findViewById(R.id.textDialog_Ombre);
-        textDialog_Entretien = view.findViewById(R.id.textDialog_Entretien);
-        textDialog_Global = view.findViewById(R.id.textDialog_Global);
-        textDialog_Observations = view.findViewById(R.id.textDialog_Obervations);
+        TextView textDialog_NomPrenom = view.findViewById(R.id.textDialog_NomPrenom);
+        TextView textDialog_Pseudo = view.findViewById(R.id.textDialog_Pseudo);
+        TextView textDialog_Email = view.findViewById(R.id.textDialog_Email);
+        TextView textDialog_AdresseEsp = view.findViewById(R.id.textDialog_AdresseEspace);
+        TextView textDialog_Espace = view.findViewById(R.id.textDialog_EspaceEspace);
+        TextView textDialog_NombreArbre = view.findViewById(R.id.textDialog_NombreArbre);
+        TextView textDialog_NombreEspece = view.findViewById(R.id.textDialog_NombreEspece);
+        TextView textDialog_Niveau = view.findViewById(R.id.textDialog_Niveau);
+        TextView textDialog_Eau = view.findViewById(R.id.textDialog_Eau);
+        TextView textDialog_Abris = view.findViewById(R.id.textDialog_Abris);
+        TextView textDialog_Eclairage = view.findViewById(R.id.textDialog_Eclairage);
+        TextView textDialog_Biodiversite = view.findViewById(R.id.textDialog_Biodiv);
+        TextView textDialog_Ombre = view.findViewById(R.id.textDialog_Ombre);
+        TextView textDialog_Entretien = view.findViewById(R.id.textDialog_Entretien);
+        TextView textDialog_Global = view.findViewById(R.id.textDialog_Global);
+        TextView textDialog_Observations = view.findViewById(R.id.textDialog_Obervations);
 
         builder.setView(view)
                 .setTitle("Récapitulatif")
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNegativeButton("Annuler", (dialog, which) -> {
 
-                    }
                 })
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
+                .setPositiveButton("Valider", (dialog, which) -> {
+                    Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
+                    //Upload
+                    //Gestion Asynchrone
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
 
-                        startActivity(new Intent(getActivity(), MapsActivity.class));
+                    OkHttpClient.Builder builder1 = new OkHttpClient.Builder();
+                    builder1.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+                            .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+                            .readTimeout(5, TimeUnit.MINUTES); // read timeout
+
+                    //Client sardine
+                    File fichierZip = new File(zipPath);
+
+                    Sardine sardine = new OkHttpSardine();
+                    sardine.setCredentials("invitesaip", "Hg6ykLuvZBk");
+                    String urlSardine = "https://www.webdavserver.com/User91245fe/";
+                    //String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
+                    try {
+                        sardine.put(urlSardine + fichierZip.getName(), fichierZip, "application/zip");
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    startActivity(new Intent(getActivity(), MapsActivity.class));
                 });
 
         textDialog_NomPrenom.setText(textNomPrenom);

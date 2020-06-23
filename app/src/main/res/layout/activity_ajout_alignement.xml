@@ -167,7 +167,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Latitude"
-                    android:digits="0123456789-."
                     android:inputType="text" />
 
                 <Space
@@ -181,7 +180,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Longitude"
-                    android:digits="0123456789-."
                     android:inputType="text" />
 
                 <Space
