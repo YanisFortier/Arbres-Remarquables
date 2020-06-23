@@ -108,138 +108,135 @@ public class AjoutArbre extends AppCompatActivity {
             }
         });
 
-        buttonValid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stringTextNomPrenom = editTextNomPrenom.getText().toString().trim();
-                stringTextPseudo = editTextPseudo.getText().toString().trim();
-                stringTextMail = editTextAdresseMail.getText().toString().trim();
-                stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
-                stringTextObservations = editTextObservations.getText().toString().trim();
-                stringLatitude = editTextLatitude.getText().toString();
-                stringLongitude = editTextLongitude.getText().toString();
-                int count = 0;
+        buttonValid.setOnClickListener(v -> {
+            stringTextNomPrenom = editTextNomPrenom.getText().toString().trim();
+            stringTextPseudo = editTextPseudo.getText().toString().trim();
+            stringTextMail = editTextAdresseMail.getText().toString().trim();
+            stringTextAdresse = editTextAdresseArbre.getText().toString().trim();
+            stringTextObservations = editTextObservations.getText().toString().trim();
+            stringLatitude = editTextLatitude.getText().toString();
+            stringLongitude = editTextLongitude.getText().toString();
+            int count = 0;
 
-                if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
-                    editTextAdresseMail.setError("Adresse mail non valide");
+            if (!stringTextMail.isEmpty() && !checkPatternMail(stringTextMail)) {
+                editTextAdresseMail.setError("Adresse mail non valide");
+            } else {
+                count += 1;
+            }
+
+            if (stringTextNomPrenom.isEmpty()) {
+                editTextNomPrenom.setError("Ce champ est obligatoire");
+            } else if (!checkPatternGeneral(stringTextNomPrenom)) {
+                editTextNomPrenom.setError("Nom et prénom non valide");
+            } else {
+                count += 1;
+            }
+
+            if (stringTextPseudo.isEmpty()) {
+                editTextPseudo.setError("Ce champ est obligatoire");
+            } else if (!checkPatternPseudo(stringTextPseudo)) {
+                editTextPseudo.setError("Pseudonyme non valide");
+            } else {
+                count += 1;
+            }
+
+            if (stringTextAdresse.isEmpty()) {
+                editTextAdresseArbre.setError("Ce champ est obligatoire");
+            } else if (!checkPatternAdresse(stringTextAdresse)) {
+                editTextAdresseArbre.setError("Adresse non valide");
+            } else {
+                count += 1;
+            }
+
+            if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
+                editTextObservations.setError("Commentaires non valide");
+            } else {
+                count += 1;
+            }
+
+            if (stringLongitude.isEmpty()) {
+                editTextLongitude.setError("Ce champ est obligatoire");
+            } else if (!checkLongitude(stringLongitude)) {
+                editTextLongitude.setError("Longitude non valide");
+            } else {
+                count += 1;
+            }
+
+            if (stringLatitude.isEmpty()) {
+                editTextLatitude.setError("Ce champ est obligatoire");
+            } else if (!checkLatitude(stringLatitude)) {
+                editTextLatitude.setError("Latitude non valide");
+            } else {
+                count += 1;
+            }
+
+            if (spinnerNomArbre.getSelectedItem().toString().equals("Autre")) {
+                stringAutreArbre = editTextAutreArbre.getText().toString().trim();
+                stringNomBotanique = editTextNomBotanique.getText().toString().trim();
+                if (!stringNomBotanique.isEmpty() && !checkPatternGeneral(stringNomBotanique)) {
+                    editTextNomBotanique.setError("Nom non valide");
                 } else {
                     count += 1;
                 }
 
-                if (stringTextNomPrenom.isEmpty()) {
-                    editTextNomPrenom.setError("Ce champ est obligatoire");
-                } else if (!checkPatternGeneral(stringTextNomPrenom)) {
-                    editTextNomPrenom.setError("Nom et prénom non valide");
+                if (stringAutreArbre.isEmpty()) {
+                    editTextAutreArbre.setError("Ce champ est obligatoire");
+                } else if (!checkPatternGeneral(stringAutreArbre)) {
+                    editTextAutreArbre.setError("Nom non valide");
                 } else {
                     count += 1;
+                    stringAutreArbre = editTextAutreArbre.toString();
+                    nomArbre = "autre";
+                }
+            } else {
+                nomArbre = spinnerNomArbre.getSelectedItem().toString();
+            }
+
+            if ((count == 7 && !spinnerNomArbre.getSelectedItem().toString().equals("Autre")) || (count == 9 && spinnerNomArbre.getSelectedItem().toString().equals("Autre"))) {
+
+                //finish();
+
+                if (radioGroup.getCheckedRadioButtonId() != -1) {
+                    radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                    remarquable = radioButton.getText().toString();
                 }
 
-                if (stringTextPseudo.isEmpty()) {
-                    editTextPseudo.setError("Ce champ est obligatoire");
-                } else if (!checkPatternPseudo(stringTextPseudo)) {
-                    editTextPseudo.setError("Pseudonyme non valide");
-                } else {
-                    count += 1;
-                }
+                if (checkboxVerification.isChecked()) verification = "oui";
 
-                if (stringTextAdresse.isEmpty()) {
-                    editTextAdresseArbre.setError("Ce champ est obligatoire");
-                } else if (!checkPatternAdresse(stringTextAdresse)) {
-                    editTextAdresseArbre.setError("Adresse non valide");
-                } else {
-                    count += 1;
-                }
+                Intent intent = getIntent();
+                stringPhoto = intent.getStringExtra("photo1");
+                String paths = intent.getStringExtra("path");
 
-                if (!stringTextObservations.isEmpty() && !checkPatternObervations(stringTextObservations)) {
-                    editTextObservations.setError("Commentaires non valide");
-                } else {
-                    count += 1;
-                }
+                //Stocker les données dans la classe Arbre
+                Arbre arbre = new Arbre(
+                        stringTextNomPrenom,
+                        stringTextPseudo,
+                        stringTextMail,
+                        editTextLatitude.getText().toString().trim(),
+                        editTextLongitude.getText().toString().trim(),
+                        stringTextAdresse,
+                        stringPhoto,
+                        stringTextObservations,
+                        nomArbre,
+                        stringAutreArbre,
+                        stringNomBotanique,
+                        getEspace(),
+                        remarquable,
+                        verification);
 
-                if (stringLongitude.isEmpty()) {
-                    editTextLongitude.setError("Ce champ est obligatoire");
-                } else if (!checkLongitude(stringLongitude)) {
-                    editTextLongitude.setError("Longitude non valide");
-                } else {
-                    count += 1;
-                }
+                //Créer le fichier CSV
+                arbre.CreateCsv(paths);
 
-                if (stringLatitude.isEmpty()) {
-                    editTextLatitude.setError("Ce champ est obligatoire");
-                } else if (!checkLatitude(stringLatitude)) {
-                    editTextLatitude.setError("Latitude non valide");
-                } else {
-                    count += 1;
-                }
+                //Zip le CSV + Photo
+                zipPath = paths + "reponse_appli_arbreIsol_" + stringPhoto.replace("JPEG_", "").replace(".jpg", "") + ".zip";
+                String[] s = new String[2];
+                s[0] = paths + stringPhoto;
+                s[1] = paths + "reponse_" + stringPhoto.replace("JPEG_", "").replace(".jpg", "") + ".csv";
+                zip(s, zipPath);
 
-                if (spinnerNomArbre.getSelectedItem().toString().equals("Autre")) {
-                    stringAutreArbre = editTextAutreArbre.getText().toString().trim();
-                    stringNomBotanique = editTextNomBotanique.getText().toString().trim();
-                    if (!stringNomBotanique.isEmpty() && !checkPatternGeneral(stringNomBotanique)) {
-                        editTextNomBotanique.setError("Nom non valide");
-                    } else {
-                        count += 1;
-                    }
-
-                    if (stringAutreArbre.isEmpty()) {
-                        editTextAutreArbre.setError("Ce champ est obligatoire");
-                    } else if (!checkPatternGeneral(stringAutreArbre)) {
-                        editTextAutreArbre.setError("Nom non valide");
-                    } else {
-                        count += 1;
-                        stringAutreArbre = editTextAutreArbre.toString();
-                        nomArbre = "autre";
-                    }
-                } else {
-                    nomArbre = spinnerNomArbre.getSelectedItem().toString();
-                }
-
-                if ((count == 7 && !spinnerNomArbre.getSelectedItem().toString().equals("Autre")) || (count == 9 && spinnerNomArbre.getSelectedItem().toString().equals("Autre"))) {
-
-                    //finish();
-
-                    if (radioGroup.getCheckedRadioButtonId() != -1) {
-                        radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-                        remarquable = radioButton.getText().toString();
-                    }
-
-                    if (checkboxVerification.isChecked()) verification = "oui";
-
-                    Intent intent = getIntent();
-                    stringPhoto = intent.getStringExtra("photo1");
-                    String paths = intent.getStringExtra("path");
-
-                    //Stocker les données dans la classe Arbre
-                    Arbre arbre = new Arbre(
-                            stringTextNomPrenom,
-                            stringTextPseudo,
-                            stringTextMail,
-                            editTextLatitude.getText().toString().trim(),
-                            editTextLongitude.getText().toString().trim(),
-                            stringTextAdresse,
-                            stringPhoto,
-                            stringTextObservations,
-                            nomArbre,
-                            stringAutreArbre,
-                            stringNomBotanique,
-                            getEspace(),
-                            remarquable,
-                            verification);
-
-                    //Créer le fichier CSV
-                    arbre.CreateCsv(paths);
-
-                    //Zip le CSV + Photo
-                    zipPath = paths + "reponse_appli_arbreIsol_" + stringPhoto.replace("JPEG_", "").replace(".jpg", "") + ".zip";
-                    String[] s = new String[2];
-                    s[0] = paths + stringPhoto;
-                    s[1] = paths + "reponse_" + stringPhoto.replace("JPEG_", "").replace(".jpg", "") + ".csv";
-                    zip(s, zipPath);
-
-                    saveData();
-                } else {
-                    Toast.makeText(AjoutArbre.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
-                }
+                saveData();
+            } else {
+                Toast.makeText(AjoutArbre.this, "Champs incorrects ou manquants, veuillez remplir toutes les informations nécessaires", Toast.LENGTH_LONG).show();
             }
         });
         loadData();
@@ -326,6 +323,7 @@ public class AjoutArbre extends AppCompatActivity {
                 ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
                 out.putNextEntry(entry);
                 int count;
+
                 while ((count = origin.read(data, 0, 1024)) != -1) {
                     out.write(data, 0, count);
                 }

@@ -109,8 +109,8 @@ public class DialogEspaceBoise extends AppCompatDialogFragment {
 
                     Sardine sardine = new OkHttpSardine();
                     sardine.setCredentials("invitesaip", "Hg6ykLuvZBk");
-                    String urlSardine = "https://www.webdavserver.com/User91245fe/";
-                    //String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
+                    //String urlSardine = "https://www.webdavserver.com/User91245fe/";
+                    String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
                     try {
                         sardine.put(urlSardine + fichierZip.getName(), fichierZip, "application/zip");
                     } catch (IOException e) {

@@ -3,6 +3,7 @@ package com.esaip.arbresremarquables.Dialogs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -90,9 +91,10 @@ public class DialogArbre extends AppCompatDialogFragment {
 
                     Sardine sardine = new OkHttpSardine();
                     sardine.setCredentials("invitesaip", "Hg6ykLuvZBk");
-                    String urlSardine = "https://www.webdavserver.com/User91245fe/";
-                    //String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
+                    //String urlSardine = "https://www.webdavserver.com/User91245fe/";
+                    String urlSardine = "https://nuage.sauvegarde-anjou.org/remote.php/dav/files/invitesaip/";
                     try {
+                        Log.e("Zip", String.valueOf(fichierZip.length() / 1024));
                         sardine.put(urlSardine + fichierZip.getName(), fichierZip, "application/zip");
                     } catch (IOException e) {
                         e.printStackTrace();

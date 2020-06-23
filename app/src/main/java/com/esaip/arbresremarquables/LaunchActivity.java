@@ -26,10 +26,17 @@ public class LaunchActivity extends AppCompatActivity {
         //ImageView imageView = findViewById(R.id.splash);
         //Picasso.get().load(R.drawable.splash_min).fit().into(imageView);
 
+        // Permission
+        if (ActivityCompat.checkSelfPermission(LaunchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(LaunchActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+        } else {
+            setPermissionGiven(true);
+        }
+
         Thread timer = new Thread() {
             public void run() {
                 try {
-                    sleep(1000); //Display for 3 seconds
+                    sleep(1000); //Display for 1 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
@@ -39,12 +46,7 @@ public class LaunchActivity extends AppCompatActivity {
         };
         timer.start();
 
-        // Permission
-        if (ActivityCompat.checkSelfPermission(LaunchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(LaunchActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-        } else {
-            setPermissionGiven(true);
-        }
+
     }
 
     @Override

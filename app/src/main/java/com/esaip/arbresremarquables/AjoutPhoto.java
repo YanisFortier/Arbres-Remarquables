@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import id.zelory.compressor.Compressor;
+
 public class AjoutPhoto extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1, GALLERY = 2, IMAGE_MAX_SIZE = 18000000;
@@ -144,9 +146,11 @@ public class AjoutPhoto extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
+
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.esaip.arbresremarquables",
                         photoFile);
+                //File PhotoURICompressed = compressionFichier(new File(photoURI.getPath()));
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -170,12 +174,15 @@ public class AjoutPhoto extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+
         infos.setVisibility(View.VISIBLE);
         btKeepPhoto.setVisibility(View.VISIBLE);
     }
 
     //Accès à un formulaire en fonction du choix effectué entre : arbre, alignement et espace boisé
     public void goToAjout(View view) {
+        fileInfo = compressionFichier(fileInfo);
+
         if (rbType1.isChecked()) {
             Intent arbre = new Intent(getApplicationContext(), AjoutArbre.class);
             arbre.putExtra("photo1", fname);
@@ -208,13 +215,29 @@ public class AjoutPhoto extends AppCompatActivity {
         }
     }
 
+    private File compressionFichier(File fichier) {
+        long fichierSize = fichier.length() / 1024;
+        Log.e("Size", fichierSize + " Ko");
+        //Toast.makeText(this, "Compression de l'image en cours", Toast.LENGTH_LONG).show();
+        if (fichierSize > 650) {
+            try {
+                fileInfo = new Compressor(this).compressToFile(fileInfo);
+                fichierSize = fileInfo.length() / 1024;
+                Log.e("Size", fichierSize + " Ko");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileInfo;
+    }
+
     //Récupérer un photo depuis la gallerie
     public void choosePhotoFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY);
     }
 
-    //Sauvegarder l'image de la gallerie
+    //Sauvegarder l'image de la galerie
     private Bitmap saveImage(Uri contentUri) {
         String[] filePath = {MediaStore.Images.Media.DATA};
         Cursor c = getContentResolver().query(contentUri, filePath, null, null, null);
@@ -234,12 +257,13 @@ public class AjoutPhoto extends AppCompatActivity {
         if (fileInfo.exists()) fileInfo.delete();
         try {
             FileOutputStream out = new FileOutputStream(fileInfo);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 75, out);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //fileInfo = compressionFichier(fileInfo);
         return finalBitmap;
     }
 
@@ -249,7 +273,7 @@ public class AjoutPhoto extends AppCompatActivity {
         if (fileInfoBis.exists()) fileInfoBis.delete();
         try {
             FileOutputStream out = new FileOutputStream(fileInfoBis);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, out);
             out.flush();
             out.close();
         } catch (Exception e) {
