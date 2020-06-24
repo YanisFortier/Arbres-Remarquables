@@ -74,7 +74,7 @@ public class DialogArbre extends AppCompatDialogFragment {
 
                 })
                 .setPositiveButton("Valider", (dialog, which) -> {
-                    Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Envoi sur le site en cours...", Toast.LENGTH_LONG).show();
 
                     //Upload
                     //Gestion Asynchrone
@@ -100,6 +100,7 @@ public class DialogArbre extends AppCompatDialogFragment {
                         e.printStackTrace();
                     }
                     startActivity(new Intent(getActivity(), MapsActivity.class));
+                    Toast.makeText(getActivity(), "Merci de votre contribution :)", Toast.LENGTH_LONG).show();
                 });
 
         textDialog_NomPrenom.setText(textNomPrenom);

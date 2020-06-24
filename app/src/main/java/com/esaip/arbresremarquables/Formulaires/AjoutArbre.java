@@ -185,7 +185,7 @@ public class AjoutArbre extends AppCompatActivity {
                     editTextAutreArbre.setError("Nom non valide");
                 } else {
                     count += 1;
-                    stringAutreArbre = editTextAutreArbre.toString();
+                    stringAutreArbre = editTextAutreArbre.getText().toString();
                     nomArbre = "autre";
                 }
             } else {
