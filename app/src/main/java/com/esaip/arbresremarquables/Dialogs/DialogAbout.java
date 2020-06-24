@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ public class DialogAbout extends AppCompatDialogFragment {
 
         View view = inflater.inflate(R.layout.layout_dialog_about, null);
         WebView myWebView = view.findViewById(R.id.webview);
+        myWebView.setWebViewClient(new WebViewClient());
         myWebView.loadUrl("https://www.sauvegarde-anjou.org/arbres1/spip.php?rubrique5");
 
 
