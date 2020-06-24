@@ -103,8 +103,6 @@ public class AjoutPhoto extends AppCompatActivity {
         Bitmap resultCompress;
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPath);
-            //Toast.makeText(AjoutPhoto.this,currentPath,Toast.LENGTH_LONG).show();
-            //tst.setText(currentPath);
             bitmap = RotateBitmap(bitmap, 90);
             ivPhoto.setImageBitmap(bitmap);
             galleryAddPic();
@@ -167,7 +165,7 @@ public class AjoutPhoto extends AppCompatActivity {
         return fileInfo;
     }
 
-    //Ajouter la photo prise depuis la caméra dans la galerie du téléphone
+    //Ajouter la photo prise depuis la caméra dans les dossiers de l'application
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPath);
@@ -273,7 +271,7 @@ public class AjoutPhoto extends AppCompatActivity {
         if (fileInfoBis.exists()) fileInfoBis.delete();
         try {
             FileOutputStream out = new FileOutputStream(fileInfoBis);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
             out.flush();
             out.close();
         } catch (Exception e) {
