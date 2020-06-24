@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.squareup.picasso.Picasso;
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -23,8 +26,9 @@ public class LaunchActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        //ImageView imageView = findViewById(R.id.splash);
-        //Picasso.get().load(R.drawable.splash_min).fit().into(imageView);
+        ImageView imageView = findViewById(R.id.splash);
+        imageView.setDrawingCacheEnabled(true);
+        Picasso.get().load(R.drawable.splash_min).fit().noFade().into(imageView);
 
         // Permission
         if (ActivityCompat.checkSelfPermission(LaunchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -36,7 +40,7 @@ public class LaunchActivity extends AppCompatActivity {
         Thread timer = new Thread() {
             public void run() {
                 try {
-                    sleep(1000); //Display for 1 seconds
+                    sleep(3000); //Display for 3 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
