@@ -110,7 +110,7 @@ public class AjoutPhoto extends AppCompatActivity {
             Uri contentUri = data.getData();
             Bitmap result = saveImage(contentUri);
             resultCompress = saveCompressImage(changeRatio(result));
-            Toast.makeText(this, fname, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, fname, Toast.LENGTH_LONG).show();
             ivPhoto.setImageBitmap(RotateBitmap(resultCompress, 90));
             infos.setVisibility(View.VISIBLE);
             btKeepPhoto.setVisibility(View.VISIBLE);

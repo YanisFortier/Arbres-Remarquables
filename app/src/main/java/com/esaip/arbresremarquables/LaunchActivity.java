@@ -26,6 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+        //Setup de l'image
         ImageView imageView = findViewById(R.id.splash);
         imageView.setDrawingCacheEnabled(true);
         Picasso.get().load(R.drawable.splash_min).fit().noFade().into(imageView);
